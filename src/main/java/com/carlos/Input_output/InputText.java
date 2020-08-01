@@ -40,6 +40,13 @@ public class InputText {
             //System.out.println(lineasDeTexto.get(i));
             int cantidad= contarCaracter(lineasDeTexto.get(i));
             System.out.println("Cantidad de comas: "+cantidad);
+            if (cantidad==3 || cantidad==5 || cantidad==6)
+            {
+
+            }
+            else{
+                String mensaje = "Linea "+(i+1)+" "
+            }
 
         }
     }
