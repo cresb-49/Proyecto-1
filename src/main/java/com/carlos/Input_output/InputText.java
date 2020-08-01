@@ -45,7 +45,7 @@ public class InputText {
 
             }
             else{
-                String mensaje = "Linea "+(i+1)+" "
+                String mensaje = "Linea "+(i+1)+" ";
             }
 
         }
