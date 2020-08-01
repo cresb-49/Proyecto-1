@@ -37,15 +37,21 @@ public class InputText {
             }
         }
         for (int i = 0; i < lineasDeTexto.size(); i++) {
-            //System.out.println(lineasDeTexto.get(i));
             int cantidad= contarCaracter(lineasDeTexto.get(i));
-            System.out.println("Cantidad de comas: "+cantidad);
+            //System.out.println("Cantidad de comas: "+cantidad);
             if (cantidad==3 || cantidad==5 || cantidad==6)
             {
+                if(validarTexto(extraerTexto(lineasDeTexto.get(i), 0,lineasDeTexto.get(i).indexOf(",")-1))){
 
+                }
+                else{
+                    String mensaje = "Linea "+(i+1)+" palabra pricipal no corresponde a la base de datos";    
+                    System.out.println(mensaje);
+                }
             }
             else{
-                String mensaje = "Linea "+(i+1)+" ";
+                String mensaje = "Linea "+(i+1)+" La sistaxis no corresponde a la base de datos";
+                System.out.println(mensaje);
             }
 
         }
@@ -88,5 +94,13 @@ public class InputText {
         respuesta=k;
         return respuesta;
     }
-
+    private static boolean validarTexto(String textoProcesar){
+        if(textoProcesar.equals("TIENDA")||textoProcesar.equals("TIEMPO")||textoProcesar.equals("PRODUCTO")||textoProcesar.equals("CLIENTE")||textoProcesar.equals("PEDIDO")){
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
