@@ -11,6 +11,6 @@ public class Main
     public static void main( String[] args )
     {
         InputText prueba1 = new InputText();
-        prueba1.LecturaArchivo();
+        prueba1.LecturaEIngreso();
     }
 }
