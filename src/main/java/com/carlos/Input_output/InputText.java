@@ -38,13 +38,28 @@ public class InputText {
         }
         for (int i = 0; i < lineasDeTexto.size(); i++) {
             int cantidad= contarCaracter(lineasDeTexto.get(i));
-            //System.out.println("Cantidad de comas: "+cantidad);
+            String nombreApartado=extraerTexto(lineasDeTexto.get(i), 0,lineasDeTexto.get(i).indexOf(",")-1);
             if (cantidad==3 || cantidad==5 || cantidad==6)
             {
-                if(validarTexto(extraerTexto(lineasDeTexto.get(i), 0,lineasDeTexto.get(i).indexOf(",")-1))){
+                if(validarTexto(nombreApartado)){
+                    
+                    if(nombreApartado.equals("TIENDA")&& cantidad==3){
 
-                }
-                else{
+                    }
+                    if(nombreApartado.equals("TIEMPO")&& cantidad==3){
+
+                    }
+                    if(nombreApartado.equals("CLIENTE")&& cantidad==3){
+
+                    }
+                    if(nombreApartado.equals("PRODUCTO")&& cantidad==6){
+
+                    }
+                    if(nombreApartado.equals("PEDIDO")&& cantidad==5){
+
+                    }
+
+                }else{
                     String mensaje = "Linea "+(i+1)+" palabra pricipal no corresponde a la base de datos";    
                     System.out.println(mensaje);
                 }
@@ -102,5 +117,9 @@ public class InputText {
         {
             return false;
         }
+    }
+    private static boolean validarFecha(String fecha){
+        boolean resultado=false;
+        return resultado;
     }
 }
