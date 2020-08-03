@@ -5,6 +5,7 @@
  */
 package com.carlos.Graphics;
 
+import java.awt.Image;
 import java.io.File;
 import java.io.InputStream;
 
@@ -48,6 +49,11 @@ public class PrincipalFrame extends javax.swing.JFrame {
         setResizable(false);
 
         jButtonRegistrarse.setText("Registrarse");
+        jButtonRegistrarse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRegistrarseActionPerformed(evt);
+            }
+        });
 
         jButtonIniciarSesion.setText("Iniciar Sesion");
 
@@ -97,10 +103,21 @@ public class PrincipalFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegistrarseActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+        RegistroCliente registroNuevo = new RegistroCliente(this);
+        registroNuevo.setVisible(true);
+    }//GEN-LAST:event_jButtonRegistrarseActionPerformed
     private void ProfileComponents(){
-        ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("index.png"));
-        jLabelImage.setIcon(icon);
+        ImageIcon imagen = new ImageIcon(getClass().getClassLoader().getResource("index.png"));
         
+        jLabelImage.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(225, 225, Image.SCALE_SMOOTH)));
+        
+    }
+    public void AccesoDeUsuario(boolean token){
+        this.setVisible(true);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonIniciarSesion;
