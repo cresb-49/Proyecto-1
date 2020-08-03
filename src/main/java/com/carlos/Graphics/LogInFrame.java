@@ -12,12 +12,15 @@ import javax.swing.*;
  * @author benjamin
  */
 public class LogInFrame extends javax.swing.JFrame {
-
+    private PrincipalFrame principal;
     /**
      * Creates new form LogInFrame
      */
-    public LogInFrame() {
+    public LogInFrame(PrincipalFrame principal) {
         initComponents();
+        ProfileComponents();
+        this.principal=principal;
+        this.setBounds(0, 0, 655, 170);
         this.setLocationRelativeTo(null);
     }
 
@@ -34,46 +37,57 @@ public class LogInFrame extends javax.swing.JFrame {
         jFormattedTextFieldPassword = new javax.swing.JFormattedTextField();
         jLabel3 = new javax.swing.JLabel();
         jFormattedTextFieldUsuario = new javax.swing.JFormattedTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonLog = new javax.swing.JButton();
+        jButtonRegresar = new javax.swing.JButton();
         jLabelImagen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setSize(new java.awt.Dimension(650, 150));
         getContentPane().setLayout(null);
 
         jLabel2.setText("Nombre De Usuario: ");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(150, 40, 150, 18);
+        jLabel2.setBounds(150, 30, 150, 18);
         getContentPane().add(jFormattedTextFieldPassword);
-        jFormattedTextFieldPassword.setBounds(310, 80, 173, 35);
+        jFormattedTextFieldPassword.setBounds(310, 70, 173, 35);
 
         jLabel3.setText("Contraseña: ");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(150, 90, 150, 18);
+        jLabel3.setBounds(150, 80, 150, 18);
         getContentPane().add(jFormattedTextFieldUsuario);
-        jFormattedTextFieldUsuario.setBounds(310, 30, 173, 35);
+        jFormattedTextFieldUsuario.setBounds(310, 20, 173, 35);
 
-        jButton1.setText("Iniciar");
-        getContentPane().add(jButton1);
-        jButton1.setBounds(540, 40, 100, 30);
+        jButtonLog.setText("Iniciar");
+        getContentPane().add(jButtonLog);
+        jButtonLog.setBounds(540, 30, 100, 30);
 
-        jButton2.setText("Regresar");
-        getContentPane().add(jButton2);
-        jButton2.setBounds(540, 80, 100, 30);
+        jButtonRegresar.setText("Regresar");
+        jButtonRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRegresarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonRegresar);
+        jButtonRegresar.setBounds(540, 70, 100, 30);
         getContentPane().add(jLabelImagen);
         jLabelImagen.setBounds(30, 20, 100, 100);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegresarActionPerformed
+        // TODO add your handling code here:
+        this.principal.AccesoDeUsuario(false);
+        this.dispose();
+    }//GEN-LAST:event_jButtonRegresarActionPerformed
     private void ProfileComponents(){
-        this.setBounds(0,0,628, 336);
         ImageIcon imagen = new ImageIcon(getClass().getClassLoader().getResource("index.png"));
-        //jLabelImagen.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(152, 152, Image.SCALE_SMOOTH)));
+        jLabelImagen.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
         
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButtonLog;
+    private javax.swing.JButton jButtonRegresar;
     private javax.swing.JFormattedTextField jFormattedTextFieldPassword;
     private javax.swing.JFormattedTextField jFormattedTextFieldUsuario;
     private javax.swing.JLabel jLabel2;

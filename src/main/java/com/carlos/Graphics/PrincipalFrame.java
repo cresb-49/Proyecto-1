@@ -56,6 +56,11 @@ public class PrincipalFrame extends javax.swing.JFrame {
         });
 
         jButtonIniciarSesion.setText("Iniciar Sesion");
+        jButtonIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonIniciarSesionActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Bienvenidos a Mi Negocio");
 
@@ -110,6 +115,13 @@ public class PrincipalFrame extends javax.swing.JFrame {
         RegistroCliente registroNuevo = new RegistroCliente(this);
         registroNuevo.setVisible(true);
     }//GEN-LAST:event_jButtonRegistrarseActionPerformed
+
+    private void jButtonIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIniciarSesionActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+        LogInFrame login = new LogInFrame(this);
+        login.setVisible(true);
+    }//GEN-LAST:event_jButtonIniciarSesionActionPerformed
     private void ProfileComponents(){
         ImageIcon imagen = new ImageIcon(getClass().getClassLoader().getResource("index.png"));
         
