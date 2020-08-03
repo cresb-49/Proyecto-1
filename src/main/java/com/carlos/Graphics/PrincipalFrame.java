@@ -5,6 +5,12 @@
  */
 package com.carlos.Graphics;
 
+import java.io.File;
+import java.io.InputStream;
+
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+
 /**
  *
  * @author benjamin
@@ -17,6 +23,8 @@ public class PrincipalFrame extends javax.swing.JFrame {
     public PrincipalFrame(String titulo) {
         super(titulo);
         initComponents();
+        ProfileComponents();
+        this.show(true);
     }
 
     /**
@@ -86,7 +94,11 @@ public class PrincipalFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    private void ProfileComponents(){
+        ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("index.png"));
+        jLabelImage.setIcon(icon);
+        
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
