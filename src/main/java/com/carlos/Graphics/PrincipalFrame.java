@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.InputStream;
 
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 /**
@@ -25,6 +26,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
         initComponents();
         ProfileComponents();
         this.setVisible(true);
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -36,17 +38,18 @@ public class PrincipalFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonRegistrarse = new javax.swing.JButton();
+        jButtonIniciarSesion = new javax.swing.JButton();
         jLabelImage = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
-        jButton1.setText("Registrarse");
+        jButtonRegistrarse.setText("Registrarse");
 
-        jButton2.setText("Iniciar Sesion");
+        jButtonIniciarSesion.setText("Iniciar Sesion");
 
         jLabel3.setText("Bienvenidos a Mi Negocio");
 
@@ -69,8 +72,8 @@ public class PrincipalFrame extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(52, 52, 52)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addComponent(jButtonIniciarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButtonRegistrarse, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(46, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -84,9 +87,9 @@ public class PrincipalFrame extends javax.swing.JFrame {
                         .addGap(73, 73, 73)
                         .addComponent(jLabel3)
                         .addGap(31, 31, 31)
-                        .addComponent(jButton1)
+                        .addComponent(jButtonRegistrarse)
                         .addGap(28, 28, 28)
-                        .addComponent(jButton2)))
+                        .addComponent(jButtonIniciarSesion)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addContainerGap())
@@ -100,8 +103,8 @@ public class PrincipalFrame extends javax.swing.JFrame {
         
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButtonIniciarSesion;
+    private javax.swing.JButton jButtonRegistrarse;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabelImage;
