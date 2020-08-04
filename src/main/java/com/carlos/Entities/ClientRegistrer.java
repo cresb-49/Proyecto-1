@@ -1,4 +1,4 @@
-package com.carlos.Input_output;
+package com.carlos.Entities;
 
 public class ClientRegistrer {
     private String name;
@@ -19,55 +19,70 @@ public class ClientRegistrer {
      * @param email
      * @param direction
      */
-    public ClientRegistrer(String name, int phoneNumber, String nit, String dpi, int CreditoCompra, String email,String direction){
-        this.name=name;
-        this.phoneNumber=phoneNumber;
-        this.nit=nit;
-        this.dpi=dpi;
-        this.CreditoCompra=CreditoCompra;
-        this.email=email;
-        this.direction=direction;
+    public ClientRegistrer(final String name, final int phoneNumber, final String nit, final String dpi,
+            final int CreditoCompra, final String email, final String direction) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.nit = nit;
+        this.dpi = dpi;
+        this.CreditoCompra = CreditoCompra;
+        this.email = email;
+        this.direction = direction;
     }
+
     public int getCreditoCompra() {
         return CreditoCompra;
     }
-    public void setCreditoCompra(int creditoCompra) {
+
+    public void setCreditoCompra(final int creditoCompra) {
         CreditoCompra = creditoCompra;
     }
+
     public String getDirection() {
         return direction;
     }
-    public void setDirection(String direction) {
+
+    public void setDirection(final String direction) {
         this.direction = direction;
     }
+
     public String getDpi() {
         return dpi;
     }
-    public void setDpi(String dpi) {
+
+    public void setDpi(final String dpi) {
         this.dpi = dpi;
     }
+
     public String getEmail() {
         return email;
     }
-    public void setEmail(String email) {
+
+    public void setEmail(final String email) {
         this.email = email;
     }
+
     public String getName() {
         return name;
     }
-    public void setName(String name) {
+
+    public void setName(final String name) {
         this.name = name;
     }
+
     public String getNit() {
         return nit;
     }
-    public void setNit(String nit) {
+
+    public void setNit(final String nit) {
         this.nit = nit;
     }
+
     public int getPhoneNumber() {
         return phoneNumber;
     }
-    public void setPhoneNumber(int phoneNumber) {
+
+    public void setPhoneNumber(final int phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 }

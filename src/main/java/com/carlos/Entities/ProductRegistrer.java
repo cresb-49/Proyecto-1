@@ -1,4 +1,4 @@
-package com.carlos.Input_output;
+package com.carlos.Entities;
 
 public class ProductRegistrer {
     private String name;

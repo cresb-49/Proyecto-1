@@ -1,7 +1,7 @@
 package com.carlos;
 
 import com.carlos.Graphics.PrincipalFrame;
-import com.carlos.Input_output.*;
+import com.carlos.TraslateDB.*;
 
 /**
  * Hello world!
