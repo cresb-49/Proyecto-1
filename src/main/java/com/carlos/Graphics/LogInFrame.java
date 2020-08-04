@@ -42,7 +42,8 @@ public class LogInFrame extends javax.swing.JFrame {
         jButtonRegresar = new javax.swing.JButton();
         jLabelImagen = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setResizable(false);
         setSize(new java.awt.Dimension(650, 150));
         getContentPane().setLayout(null);
 
