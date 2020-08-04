@@ -1,4 +1,4 @@
-package com.carlos.Logic;
+package com.carlos.DBSuport;
 
 public class RegistroDB {
     public RegistroDB(){
