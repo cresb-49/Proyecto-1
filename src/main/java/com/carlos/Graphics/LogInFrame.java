@@ -17,6 +17,7 @@ public class LogInFrame extends javax.swing.JFrame {
      * Creates new form LogInFrame
      */
     public LogInFrame(PrincipalFrame principal) {
+        super("Iniciar Sesion");
         initComponents();
         ProfileComponents();
         this.principal=principal;
@@ -47,19 +48,19 @@ public class LogInFrame extends javax.swing.JFrame {
 
         jLabel2.setText("Nombre De Usuario: ");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(150, 30, 150, 18);
+        jLabel2.setBounds(150, 40, 120, 14);
         getContentPane().add(jFormattedTextFieldPassword);
-        jFormattedTextFieldPassword.setBounds(310, 70, 173, 35);
+        jFormattedTextFieldPassword.setBounds(290, 70, 173, 20);
 
         jLabel3.setText("Contraseña: ");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(150, 80, 150, 18);
+        jLabel3.setBounds(150, 70, 120, 14);
         getContentPane().add(jFormattedTextFieldUsuario);
-        jFormattedTextFieldUsuario.setBounds(310, 20, 173, 35);
+        jFormattedTextFieldUsuario.setBounds(290, 40, 173, 20);
 
         jButtonLog.setText("Iniciar");
         getContentPane().add(jButtonLog);
-        jButtonLog.setBounds(540, 30, 100, 30);
+        jButtonLog.setBounds(520, 30, 100, 30);
 
         jButtonRegresar.setText("Regresar");
         jButtonRegresar.addActionListener(new java.awt.event.ActionListener() {
@@ -68,9 +69,9 @@ public class LogInFrame extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButtonRegresar);
-        jButtonRegresar.setBounds(540, 70, 100, 30);
+        jButtonRegresar.setBounds(520, 70, 100, 30);
         getContentPane().add(jLabelImagen);
-        jLabelImagen.setBounds(30, 20, 100, 100);
+        jLabelImagen.setBounds(20, 20, 100, 100);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
