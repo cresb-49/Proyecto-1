@@ -9,6 +9,11 @@ public class ClientRegistrer {
     private String email;
     private String direction;
 
+    //
+    private String nombreDeUsuario;
+    private String password;
+    //
+
     /**
      * Constructor registro de cliente en tienda
      * @param name
