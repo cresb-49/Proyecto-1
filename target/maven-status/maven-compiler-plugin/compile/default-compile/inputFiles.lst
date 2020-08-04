@@ -1,8 +1,11 @@
-/home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/src/main/java/com/carlos/Input_output/ClientRegistrer.java
+/home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/src/main/java/com/carlos/Entities/ProductRegistrer.java
+/home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/src/main/java/com/carlos/Logic/RegistroDB.java
 /home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/src/main/java/com/carlos/Logic/Logic.java
+/home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/src/main/java/com/carlos/Entities/StoreRegistrer.java
+/home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/src/main/java/com/carlos/TraslateDB/InputText.java
+/home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/src/main/java/com/carlos/Logic/ConsultasDB.java
 /home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/src/main/java/com/carlos/Main.java
-/home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/src/main/java/com/carlos/Input_output/InputText.java
+/home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/src/main/java/com/carlos/Entities/ClientRegistrer.java
 /home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/src/main/java/com/carlos/Graphics/PrincipalFrame.java
 /home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/src/main/java/com/carlos/Graphics/RegistroCliente.java
-/home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/src/main/java/com/carlos/Input_output/ProductRegistrer.java
-/home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/src/main/java/com/carlos/Input_output/StoreRegistrer.java
+/home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/src/main/java/com/carlos/Graphics/LogInFrame.java
