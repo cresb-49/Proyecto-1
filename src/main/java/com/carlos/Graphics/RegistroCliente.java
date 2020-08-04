@@ -52,6 +52,10 @@ public class RegistroCliente extends javax.swing.JFrame {
         jButtonRegresar = new javax.swing.JButton();
         jButtonRegistrar = new javax.swing.JButton();
         jLabelImagen = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jFormattedTextFieldDirecion1 = new javax.swing.JFormattedTextField();
+        jFormattedTextFieldDirecion2 = new javax.swing.JFormattedTextField();
 
         jFormattedTextField3.setText("jFormattedTextField1");
 
@@ -78,9 +82,9 @@ public class RegistroCliente extends javax.swing.JFrame {
         getContentPane().add(jLabel5);
         jLabel5.setBounds(12, 209, 136, 18);
 
-        jLabel6.setText("Dirección:");
+        jLabel6.setText("Confirmar Contraseña:");
         getContentPane().add(jLabel6);
-        jLabel6.setBounds(12, 256, 70, 18);
+        jLabel6.setBounds(10, 370, 170, 18);
         getContentPane().add(jFormattedTextFieldNombre);
         jFormattedTextFieldNombre.setBounds(160, 12, 250, 35);
         getContentPane().add(jFormattedTextFieldNIT);
@@ -90,7 +94,7 @@ public class RegistroCliente extends javax.swing.JFrame {
         getContentPane().add(jFormattedTextFieldEmail);
         jFormattedTextFieldEmail.setBounds(160, 201, 250, 35);
         getContentPane().add(jFormattedTextFieldDirecion);
-        jFormattedTextFieldDirecion.setBounds(160, 248, 250, 35);
+        jFormattedTextFieldDirecion.setBounds(160, 250, 250, 35);
         getContentPane().add(jFormattedTextFieldDPI);
         jFormattedTextFieldDPI.setBounds(160, 154, 250, 35);
 
@@ -101,13 +105,25 @@ public class RegistroCliente extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButtonRegresar);
-        jButtonRegresar.setBounds(465, 232, 104, 28);
+        jButtonRegresar.setBounds(550, 360, 120, 28);
 
-        jButtonRegistrar.setText("Registrar");
+        jButtonRegistrar.setText("Registrarse");
         getContentPane().add(jButtonRegistrar);
-        jButtonRegistrar.setBounds(465, 192, 104, 28);
+        jButtonRegistrar.setBounds(550, 320, 120, 28);
         getContentPane().add(jLabelImagen);
-        jLabelImagen.setBounds(450, 30, 130, 130);
+        jLabelImagen.setBounds(480, 40, 225, 225);
+
+        jLabel7.setText("Dirección:");
+        getContentPane().add(jLabel7);
+        jLabel7.setBounds(12, 256, 70, 18);
+
+        jLabel8.setText("Contraseña:");
+        getContentPane().add(jLabel8);
+        jLabel8.setBounds(10, 320, 100, 18);
+        getContentPane().add(jFormattedTextFieldDirecion1);
+        jFormattedTextFieldDirecion1.setBounds(200, 360, 250, 35);
+        getContentPane().add(jFormattedTextFieldDirecion2);
+        jFormattedTextFieldDirecion2.setBounds(200, 310, 250, 35);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -119,9 +135,9 @@ public class RegistroCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonRegresarActionPerformed
 
     private void ProfileComponents(){
-        this.setBounds(0,0,628, 336);
+        this.setBounds(0,0,754, 450);
         ImageIcon imagen = new ImageIcon(getClass().getClassLoader().getResource("index.png"));
-        jLabelImagen.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(152, 152, Image.SCALE_SMOOTH)));
+        jLabelImagen.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(225, 225, Image.SCALE_SMOOTH)));
         
     }
 
@@ -131,6 +147,8 @@ public class RegistroCliente extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField jFormattedTextField3;
     private javax.swing.JFormattedTextField jFormattedTextFieldDPI;
     private javax.swing.JFormattedTextField jFormattedTextFieldDirecion;
+    private javax.swing.JFormattedTextField jFormattedTextFieldDirecion1;
+    private javax.swing.JFormattedTextField jFormattedTextFieldDirecion2;
     private javax.swing.JFormattedTextField jFormattedTextFieldEmail;
     private javax.swing.JFormattedTextField jFormattedTextFieldNIT;
     private javax.swing.JFormattedTextField jFormattedTextFieldNombre;
@@ -141,6 +159,8 @@ public class RegistroCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabelImagen;
     // End of variables declaration//GEN-END:variables
 }
