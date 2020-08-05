@@ -1,6 +1,6 @@
 package com.carlos.Entities;
 
-public class StoreRegistrer {
+public class Store {
     private String nombre;
     private String Direccion;
     private String StoreCode;
@@ -9,7 +9,7 @@ public class StoreRegistrer {
     private String Email;
     private String Horario;
     
-    public StoreRegistrer(String nombre,String Direccion, String StoreCode, String Phone1, String Phone2, String Email,String Horario){
+    public Store(String nombre,String Direccion, String StoreCode, String Phone1, String Phone2, String Email,String Horario){
         this.nombre=nombre;
         this.Direccion=Direccion;
         this.StoreCode=StoreCode;

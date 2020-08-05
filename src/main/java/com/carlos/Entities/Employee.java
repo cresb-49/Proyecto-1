@@ -1,6 +1,6 @@
 package com.carlos.Entities;
 
-public class EmployeeRegistrer extends Users {
+public class Employee extends Users {
     //El nombre de usuario es el codigo de empleado para acceder al sistema
     private String employeeCode;
     /**
@@ -13,7 +13,7 @@ public class EmployeeRegistrer extends Users {
      * @param email
      * @param direction
      */
-    public EmployeeRegistrer(String employeeCode, String name, int phoneNumber, String nit,int dpi, String email,String direction){
+    public Employee(String employeeCode, String name, int phoneNumber, String nit,int dpi, String email,String direction){
         super(name, phoneNumber, nit, dpi, email, direction);
         this.employeeCode=employeeCode;
     }

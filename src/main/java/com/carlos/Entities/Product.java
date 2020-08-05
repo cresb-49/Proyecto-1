@@ -18,7 +18,7 @@ public class ProductRegistrer {
      * @param description   descripcion del producto
      * @param garantia  garantia en meses del producto
      */
-    public ProductRegistrer(String name,String manufacturer,String code, int cantidad, float price, String description,int garantia){
+    public Product(String name,String manufacturer,String code, int cantidad, float price, String description,int garantia){
         this.name=name;
         this.manufacturer=manufacturer;
         this.code=code;
