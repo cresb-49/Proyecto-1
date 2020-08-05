@@ -1,6 +1,6 @@
 package com.carlos.Entities;
 
-public class ProductRegistrer {
+public class Product{
     private String name;
     private String manufacturer;
     private String code;

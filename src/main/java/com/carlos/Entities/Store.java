@@ -1,6 +1,6 @@
 package com.carlos.Entities;
 
-public class Store {
+public class Store{
     private String nombre;
     private String Direccion;
     private String StoreCode;

@@ -9,7 +9,7 @@ public class Users {
     private int phoneNumber;
     //Registro opcionales para algunas clases de herencia
     private String nit;
-    private String dpi;
+    private int dpi;
     private String email;
     private String direction;
     //Caracteristicas a nivel de cuenta
@@ -42,10 +42,10 @@ public class Users {
     public String getDirection() {
         return direction;
     }
-    public void setDpi(String dpi) {
+    public void setDpi(int dpi) {
         this.dpi = dpi;
     }
-    public String getDpi() {
+    public int getDpi() {
         return dpi;
     }
     public void setEmail(String email) {

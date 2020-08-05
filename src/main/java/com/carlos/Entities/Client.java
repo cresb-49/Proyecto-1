@@ -15,7 +15,7 @@ public class Client extends Users{
      * @param email
      * @param direction
      */
-    public Client(String name,int phoneNumber,String nit, String dpi,int CreditoCompra,String email,String direction) {
+    public Client(String name,int phoneNumber,String  nit, int dpi,int CreditoCompra,String email,String direction) {
         super(name, phoneNumber, nit, dpi, email, direction);
         this.CreditoCompra = CreditoCompra;
     }
