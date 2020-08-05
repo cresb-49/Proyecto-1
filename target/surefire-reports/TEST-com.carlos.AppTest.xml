@@ -1,64 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.carlos.AppTest" time="0.071" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.carlos.AppTest" time="0.097" tests="1" errors="0" skipped="0" failures="0">
   <properties>
-    <property name="sun.desktop" value="windows"/>
-    <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
+    <property name="sun.desktop" value="gnome"/>
+    <property name="awt.toolkit" value="sun.awt.X11.XToolkit"/>
     <property name="java.specification.version" value="11"/>
-    <property name="sun.cpu.isalist" value="amd64"/>
-    <property name="sun.jnu.encoding" value="Cp1252"/>
-    <property name="java.class.path" value="E:\Documentos\PROYECTOS IPC2 2020\Proyecto-1\target\test-classes;E:\Documentos\PROYECTOS IPC2 2020\Proyecto-1\target\classes;C:\Users\Carlos Pac\.m2\repository\junit\junit\4.11\junit-4.11.jar;C:\Users\Carlos Pac\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;"/>
-    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="sun.cpu.isalist" value=""/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.class.path" value="/home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/target/test-classes:/home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/target/classes:/home/benjamin/.m2/repository/junit/junit/4.11/junit-4.11.jar:/home/benjamin/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:"/>
+    <property name="java.vm.vendor" value="Ubuntu"/>
     <property name="sun.arch.data.model" value="64"/>
-    <property name="user.variant" value=""/>
-    <property name="java.vendor.url" value="https://openjdk.java.net/"/>
-    <property name="user.timezone" value="America/Regina"/>
+    <property name="java.vendor.url" value="https://ubuntu.com/"/>
+    <property name="user.timezone" value=""/>
     <property name="java.vm.specification.version" value="11"/>
-    <property name="os.name" value="Windows 10"/>
+    <property name="os.name" value="Linux"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
-    <property name="user.country" value="GT"/>
-    <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-11.0.7\bin"/>
-    <property name="sun.java.command" value="C:\Users\CARLOS~1\AppData\Local\Temp\surefire6590901296861072384\surefirebooter5802565470964530758.jar C:\Users\Carlos Pac\AppData\Local\Temp\surefire6590901296861072384 2020-08-05T00-26-53_798-jvmRun1 surefire2867298884789177651tmp surefire_013557190979223221370tmp"/>
+    <property name="user.country" value="US"/>
+    <property name="sun.boot.library.path" value="/usr/lib/jvm/java-11-openjdk-amd64/lib"/>
+    <property name="sun.java.command" value="/home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/target/surefire/surefirebooter2322216120334189353.jar /home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/target/surefire 2020-08-05T08-01-45_961-jvmRun1 surefire12621740781392210104tmp surefire_01621423936224758325tmp"/>
     <property name="jdk.debug" value="release"/>
-    <property name="surefire.test.class.path" value="E:\Documentos\PROYECTOS IPC2 2020\Proyecto-1\target\test-classes;E:\Documentos\PROYECTOS IPC2 2020\Proyecto-1\target\classes;C:\Users\Carlos Pac\.m2\repository\junit\junit\4.11\junit-4.11.jar;C:\Users\Carlos Pac\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;"/>
+    <property name="surefire.test.class.path" value="/home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/target/test-classes:/home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/target/classes:/home/benjamin/.m2/repository/junit/junit/4.11/junit-4.11.jar:/home/benjamin/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
-    <property name="user.home" value="C:\Users\Carlos Pac"/>
-    <property name="user.language" value="es"/>
+    <property name="user.home" value="/home/benjamin"/>
+    <property name="user.language" value="en"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
-    <property name="java.version.date" value="2020-04-14"/>
-    <property name="java.home" value="C:\Program Files\Java\jdk-11.0.7"/>
-    <property name="file.separator" value="\"/>
-    <property name="basedir" value="E:\Documentos\PROYECTOS IPC2 2020\Proyecto-1"/>
+    <property name="java.version.date" value="2020-07-14"/>
+    <property name="java.home" value="/usr/lib/jvm/java-11-openjdk-amd64"/>
+    <property name="file.separator" value="/"/>
+    <property name="basedir" value="/home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app"/>
     <property name="java.vm.compressedOopsMode" value="32-bit"/>
     <property name="line.separator" value="&#10;"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
-    <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
-    <property name="surefire.real.class.path" value="C:\Users\CARLOS~1\AppData\Local\Temp\surefire6590901296861072384\surefirebooter5802565470964530758.jar"/>
-    <property name="user.script" value=""/>
+    <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment"/>
+    <property name="surefire.real.class.path" value="/home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/target/surefire/surefirebooter2322216120334189353.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
-    <property name="java.runtime.version" value="11.0.7+8-LTS"/>
-    <property name="user.name" value="Carlos Pac"/>
-    <property name="path.separator" value=";"/>
-    <property name="os.version" value="10.0"/>
-    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
-    <property name="file.encoding" value="Cp1252"/>
-    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
-    <property name="java.vendor.version" value="18.9"/>
-    <property name="localRepository" value="C:\Users\Carlos Pac\.m2\repository"/>
-    <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
-    <property name="java.io.tmpdir" value="C:\Users\CARLOS~1\AppData\Local\Temp\"/>
-    <property name="java.version" value="11.0.7"/>
-    <property name="user.dir" value="E:\Documentos\PROYECTOS IPC2 2020\Proyecto-1"/>
+    <property name="java.runtime.version" value="11.0.8+10-post-Ubuntu-0ubuntu120.04"/>
+    <property name="user.name" value="benjamin"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="5.4.0-42-generic"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="localRepository" value="/home/benjamin/.m2/repository"/>
+    <property name="java.vendor.url.bug" value="https://bugs.launchpad.net/ubuntu/+source/openjdk-lts"/>
+    <property name="java.io.tmpdir" value="/tmp"/>
+    <property name="java.version" value="11.0.8"/>
+    <property name="user.dir" value="/home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app"/>
     <property name="os.arch" value="amd64"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
-    <property name="sun.os.patch.level" value=""/>
-    <property name="java.library.path" value="C:\Program Files\Java\jdk-11.0.7\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\Carlos Pac\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files\Java\jdk-11.0.7\bin;C:\Program Files\Git\cmd;C:\apache-maven-3.6.3\bin;C:\Program Files\dotnet;C:\Program Files\MySQL\MySQL Shell 8.0\bin;C:\Users\Carlos Pac\AppData\Local\Microsoft\WindowsApps;C:\Users\Carlos Pac\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Carlos Pac\AppData\Local\GitHubDesktop\bin;C:\Users\Carlos Pac\.dotnet\tools;."/>
-    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="java.awt.printerjob" value="sun.print.PSPrinterJob"/>
+    <property name="sun.os.patch.level" value="unknown"/>
+    <property name="java.library.path" value="/usr/java/packages/lib:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib"/>
     <property name="java.vm.info" value="mixed mode"/>
-    <property name="java.vm.version" value="11.0.7+8-LTS"/>
+    <property name="java.vendor" value="Ubuntu"/>
+    <property name="java.vm.version" value="11.0.8+10-post-Ubuntu-0ubuntu120.04"/>
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="55.0"/>
   </properties>
-  <testcase name="shouldAnswerWithTrue" classname="com.carlos.AppTest" time="0.003"/>
+  <testcase name="shouldAnswerWithTrue" classname="com.carlos.AppTest" time="0.038"/>
 </testsuite>
