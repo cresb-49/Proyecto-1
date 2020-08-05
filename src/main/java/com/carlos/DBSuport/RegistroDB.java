@@ -10,7 +10,7 @@ public class RegistroDB {
     public void registroTienda(){
 
     }
-    public void registroPersonal(){
+    public void registroEmpleado(){
 
     }
     public void registroProducto(){

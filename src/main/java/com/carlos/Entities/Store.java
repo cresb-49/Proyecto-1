@@ -8,6 +8,7 @@ public class StoreRegistrer {
     private String Phone2;
     private String Email;
     private String Horario;
+    
     public StoreRegistrer(String nombre,String Direccion, String StoreCode, String Phone1, String Phone2, String Email,String Horario){
         this.nombre=nombre;
         this.Direccion=Direccion;
