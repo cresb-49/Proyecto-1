@@ -63,7 +63,7 @@
                     <archive>
                         <manifest>
                             //Aqui se establece el nombre de la clase principal
-                            <mainClass>com.carlos.Main</mainClass>
+                            <mainClass>com.carlos.App.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

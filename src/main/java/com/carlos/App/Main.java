@@ -1,4 +1,4 @@
-package com.carlos;
+package com.carlos.App;
 
 import com.carlos.Graphics.PrincipalFrame;
 import com.carlos.TraslateDB.*;
