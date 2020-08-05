@@ -121,6 +121,9 @@ public class PrincipalFrame extends javax.swing.JFrame {
         this.setVisible(false);
         LogInFrame login = new LogInFrame(this);
         login.setVisible(true);
+        //temporal
+        TiendaEmpleadoJFrame frame = new TiendaEmpleadoJFrame();
+        frame.setVisible(true);
     }//GEN-LAST:event_jButtonIniciarSesionActionPerformed
     private void ProfileComponents(){
         ImageIcon imagen = new ImageIcon(getClass().getClassLoader().getResource("index.png"));

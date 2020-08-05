@@ -82,6 +82,11 @@ public class RegistroCliente extends javax.swing.JFrame {
         });
 
         jButtonRegistrar.setText("Registrarse");
+        jButtonRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRegistrarActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("Dirección:");
 
@@ -187,9 +192,14 @@ public class RegistroCliente extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButtonRegresarActionPerformed
 
+    private void jButtonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegistrarActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(this, "Recuerda tu usuario es tu NIT y la contraseña que asignaste");
+    }//GEN-LAST:event_jButtonRegistrarActionPerformed
+
     private void ProfileComponents(){
         //this.setBounds(0,0,754, 450);
-        ImageIcon imagen = new ImageIcon(getClass().getClassLoader().getResource("index.png"));
+        ImageIcon imagen = new ImageIcon(getClass().getClassLoader().getResource("blank-profile-picture.png"));
         jLabelImagen.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH)));
         
     }

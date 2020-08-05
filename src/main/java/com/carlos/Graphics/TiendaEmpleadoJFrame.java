@@ -47,15 +47,30 @@ public class TiendaEmpleadoJFrame extends javax.swing.JFrame {
         jMenu1.setText("Registro");
 
         jMenuItemRegistroTienda.setText("Tienda");
+        jMenuItemRegistroTienda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemRegistroTiendaActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItemRegistroTienda);
 
         jMenuItemRegistroProductos.setText("Productos");
         jMenu1.add(jMenuItemRegistroProductos);
 
         jMenuItemRegistroCliente.setText("Cliente");
+        jMenuItemRegistroCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemRegistroClienteActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItemRegistroCliente);
 
         jMenuItemRegistroEmpleado.setText("Empleado");
+        jMenuItemRegistroEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemRegistroEmpleadoActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItemRegistroEmpleado);
 
         jMenuBar1.add(jMenu1);
@@ -100,40 +115,23 @@ public class TiendaEmpleadoJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TiendaEmpleadoJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TiendaEmpleadoJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TiendaEmpleadoJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TiendaEmpleadoJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void jMenuItemRegistroTiendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRegistroTiendaActionPerformed
+        // TODO add your handling code here:
+        RegistroTiendaJDialog tiendaNueva = new RegistroTiendaJDialog(this, true);
+        tiendaNueva.setVisible(true);
+    }//GEN-LAST:event_jMenuItemRegistroTiendaActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TiendaEmpleadoJFrame().setVisible(true);
-            }
-        });
-    }
+    private void jMenuItemRegistroClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRegistroClienteActionPerformed
+        // TODO add your handling code here:
+        RegistroClienteJDialog cliente = new RegistroClienteJDialog(this, true);
+        cliente.setVisible(true);
+    }//GEN-LAST:event_jMenuItemRegistroClienteActionPerformed
+
+    private void jMenuItemRegistroEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRegistroEmpleadoActionPerformed
+        // TODO add your handling code here:
+        RegistroEmpleadoJDialog empleado = new RegistroEmpleadoJDialog(this, true);
+        empleado.setVisible(true);
+    }//GEN-LAST:event_jMenuItemRegistroEmpleadoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
