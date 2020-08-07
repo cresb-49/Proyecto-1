@@ -4,8 +4,10 @@
 /home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/src/main/java/com/carlos/Entities/Users.java
 /home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/src/main/java/com/carlos/TraslateDB/InputText.java
 /home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/src/main/java/com/carlos/Entities/Product.java
+/home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/src/main/java/com/carlos/Graphics/RealizarPedidoJDialog.java
 /home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/src/main/java/com/carlos/Graphics/PrincipalFrame.java
 /home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/src/main/java/com/carlos/Graphics/RegistroCliente.java
+/home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/src/main/java/com/carlos/Graphics/VentaJDialog.java
 /home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/src/main/java/com/carlos/Graphics/RegistroTiendaJDialog.java
 /home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/src/main/java/com/carlos/Graphics/TiendaEmpleadoJFrame.java
 /home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/src/main/java/com/carlos/Entities/Employee.java

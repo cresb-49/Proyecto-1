@@ -21,7 +21,6 @@ public class LogInFrame extends javax.swing.JFrame {
         initComponents();
         ProfileComponents();
         this.principal=principal;
-        this.setBounds(0, 0, 655, 170);
         this.setLocationRelativeTo(null);
     }
 
@@ -35,8 +34,6 @@ public class LogInFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
-        jFormattedTextFieldPassword = new javax.swing.JFormattedTextField();
-        jLabel3 = new javax.swing.JLabel();
         jFormattedTextFieldUsuario = new javax.swing.JFormattedTextField();
         jButtonLog = new javax.swing.JButton();
         jButtonRegresar = new javax.swing.JButton();
@@ -45,23 +42,10 @@ public class LogInFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setResizable(false);
         setSize(new java.awt.Dimension(650, 150));
-        getContentPane().setLayout(null);
 
         jLabel2.setText("Nombre De Usuario: ");
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(150, 40, 120, 14);
-        getContentPane().add(jFormattedTextFieldPassword);
-        jFormattedTextFieldPassword.setBounds(290, 70, 173, 20);
-
-        jLabel3.setText("Contraseña: ");
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(150, 70, 120, 14);
-        getContentPane().add(jFormattedTextFieldUsuario);
-        jFormattedTextFieldUsuario.setBounds(290, 40, 173, 20);
 
         jButtonLog.setText("Iniciar");
-        getContentPane().add(jButtonLog);
-        jButtonLog.setBounds(520, 30, 100, 30);
 
         jButtonRegresar.setText("Regresar");
         jButtonRegresar.addActionListener(new java.awt.event.ActionListener() {
@@ -69,10 +53,44 @@ public class LogInFrame extends javax.swing.JFrame {
                 jButtonRegresarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonRegresar);
-        jButtonRegresar.setBounds(520, 70, 100, 30);
-        getContentPane().add(jLabelImagen);
-        jLabelImagen.setBounds(20, 20, 100, 100);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabelImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(jFormattedTextFieldUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(91, 91, 91)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonLog, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(34, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabelImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(jFormattedTextFieldUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jButtonLog, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(jButtonRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(28, Short.MAX_VALUE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -90,10 +108,8 @@ public class LogInFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonLog;
     private javax.swing.JButton jButtonRegresar;
-    private javax.swing.JFormattedTextField jFormattedTextFieldPassword;
     private javax.swing.JFormattedTextField jFormattedTextFieldUsuario;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabelImagen;
     // End of variables declaration//GEN-END:variables
 }

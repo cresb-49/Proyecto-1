@@ -25,7 +25,7 @@ public class RegistroTiendaJDialog extends javax.swing.JDialog {
     }
      private void PropiedadesDeEntidades(){
         this.setLocationRelativeTo(null);
-        
+        this.setTitle("REGISTRO DE TIENDA");
         
     }
     /**

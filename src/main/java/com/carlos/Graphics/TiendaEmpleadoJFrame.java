@@ -40,8 +40,10 @@ public class TiendaEmpleadoJFrame extends javax.swing.JFrame {
         jMenu4 = new javax.swing.JMenu();
         jMenuItemTransaccion = new javax.swing.JMenuItem();
         jMenuRealizarPedido = new javax.swing.JMenu();
-        jMenuItemReportePedidos = new javax.swing.JMenuItem();
+        jMenuItemRealizarPedido = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenuReportes = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,6 +58,11 @@ public class TiendaEmpleadoJFrame extends javax.swing.JFrame {
         jMenu1.add(jMenuItemRegistroTienda);
 
         jMenuItemRegistroProductos.setText("Productos");
+        jMenuItemRegistroProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemRegistroProductosActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItemRegistroProductos);
 
         jMenuItemRegistroCliente.setText("Cliente");
@@ -97,12 +104,29 @@ public class TiendaEmpleadoJFrame extends javax.swing.JFrame {
 
         jMenuRealizarPedido.setText("Pedidos");
 
-        jMenuItemReportePedidos.setText("Realizar Pedido");
-        jMenuRealizarPedido.add(jMenuItemReportePedidos);
+        jMenuItemRealizarPedido.setText("Realizar Pedido");
+        jMenuItemRealizarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemRealizarPedidoActionPerformed(evt);
+            }
+        });
+        jMenuRealizarPedido.add(jMenuItemRealizarPedido);
+
+        jMenuItem1.setText("Acciones dePedido");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenuRealizarPedido.add(jMenuItem1);
 
         jMenuBar1.add(jMenuRealizarPedido);
 
         jMenuReportes.setText("Reportes");
+
+        jMenuItem2.setText("Exportar Reportes");
+        jMenuReportes.add(jMenuItem2);
+
         jMenuBar1.add(jMenuReportes);
 
         setJMenuBar(jMenuBar1);
@@ -142,20 +166,40 @@ public class TiendaEmpleadoJFrame extends javax.swing.JFrame {
     private void jMenuItemTransaccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemTransaccionActionPerformed
         // TODO add your handling code here:
         VentaJDialog ventaProducto = new VentaJDialog(this, true);
+        ventaProducto.setLocationRelativeTo(null);
         ventaProducto.setVisible(true);
     }//GEN-LAST:event_jMenuItemTransaccionActionPerformed
+
+    private void jMenuItemRegistroProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRegistroProductosActionPerformed
+        // TODO add your handling code here:
+        RegistrarProductoJDialog productoNuevo = new RegistrarProductoJDialog(this, true);
+        productoNuevo.setVisible(true);
+    }//GEN-LAST:event_jMenuItemRegistroProductosActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItemRealizarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRealizarPedidoActionPerformed
+        // TODO add your handling code here:
+        RealizarPedidoJDialog pedidoNuevo = new RealizarPedidoJDialog(this, true);
+        pedidoNuevo.setVisible(true);
+        
+    }//GEN-LAST:event_jMenuItemRealizarPedidoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItemCatalogo;
+    private javax.swing.JMenuItem jMenuItemRealizarPedido;
     private javax.swing.JMenuItem jMenuItemRegistroCliente;
     private javax.swing.JMenuItem jMenuItemRegistroEmpleado;
     private javax.swing.JMenuItem jMenuItemRegistroProductos;
     private javax.swing.JMenuItem jMenuItemRegistroTienda;
-    private javax.swing.JMenuItem jMenuItemReportePedidos;
     private javax.swing.JMenuItem jMenuItemTransaccion;
     private javax.swing.JMenu jMenuRealizarPedido;
     private javax.swing.JMenu jMenuReportes;
