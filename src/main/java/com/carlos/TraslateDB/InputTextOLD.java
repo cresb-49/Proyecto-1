@@ -3,20 +3,20 @@ package com.carlos.TraslateDB;
 import java.io.*;
 import java.util.*;
 
-public class InputText {
+public class InputTextOLD {
 
-    //private String src = "/home/benjamin/Documents/Proyectos IPC2 2020/archivosprueba/";
+    private String src = "/home/benjamin/Documents/Proyectos IPC2 2020/archivosprueba/";
     private ArrayList<String> lineasDeTexto = new ArrayList<String>();
     private ArrayList<String> erroresDeDatos = new ArrayList<String>();
 
-    public InputText (){
+    public InputTextOLD(){
 
     }
     /**
      * Ingreso de los datos existentes en una base de datos
      */
-    public void  LecturaEIngreso(File archivoSeleccionado){
-        File textoDeExtrada = archivoSeleccionado;
+    public void  LecturaEIngreso(){
+        File textoDeExtrada = new File(src+"simple data.txt");
         BufferedReader buffer = null;
         String textoProcesado = "";
         if(textoDeExtrada.exists()){
@@ -44,7 +44,7 @@ public class InputText {
             int cantidad= contarCaracter(lineasDeTexto.get(i),",");
             String nombreApartado=extraerTexto(lineasDeTexto.get(i), 0,lineasDeTexto.get(i).indexOf(",")-1);
             //Establecemos un filtro de la cantidad de datos que esperamos en las lineas de texto
-            if (cantidad==3|| cantidad==4 ||cantidad==6 || cantidad==9)
+            if (cantidad==3 || cantidad==9||cantidad==4)
             {
                 //Establecemos si hay una coma al final de una linea el cual siguinifia un error en la linea de texto
                 if(lineasDeTexto.get(i).indexOf(",", lineasDeTexto.get(i).length()-2)!=lineasDeTexto.get(i).length()-1){
@@ -57,22 +57,15 @@ public class InputText {
                         if(nombreApartado.equals("TIENDA")){
                             //Se cuenta la cantidad de datos que posee la palabra clave de reconocimiento
                             if(cantidad==4){
-                                apartados=apartadoDeTexto(lineasDeTexto.get(i),",");
-                                //Verifiacion del numero telefonico
+                                //Verifiacion del numeror telefonico
                                 if(verificarRepresentacionNumerica(apartados.get(4))){
-                                    if(verificarNumeroTelefonico(apartados.get(4))){
-                                        System.out.println(lineasDeTexto.get(i));
-                                        /*
-                                        for (int j = 0; j < cantidad+1; j++) {
-                                            System.out.println(apartados.get(j));
-                                        }
-                                        */
+                                    System.out.println(lineasDeTexto.get(i));
+                                    apartados=apartadoDeTexto(lineasDeTexto.get(i),",");
+                                    /*
+                                    for (int j = 0; j < cantidad+1; j++) {
+                                        System.out.println(apartados.get(j));
                                     }
-                                    else{
-                                        String mensaje = "Linea "+(i+1)+"Numero telefonico no valido";            
-                                        erroresDeDatos.add(mensaje);
-                                    }
-                                    
+                                    */
                                 }   
                                 else{
                                     String mensaje = "Linea "+(i+1)+"Numero telefonico no valido";            
@@ -89,33 +82,18 @@ public class InputText {
                         if(nombreApartado.equals("EMPLEADO")){
                             //Se cuenta la cantidad de datos que posee la palabra clave de reconocimiento
                             if(cantidad==4){
-                                apartados=apartadoDeTexto(lineasDeTexto.get(i),",");
                                 if(verificarRepresentacionNumerica(apartados.get(3))){
-                                    if(verificarNumeroTelefonico(apartados.get(3)))
-                                    {
-                                        if(verificarRepresentacionNumerica(apartados.get(4))){
-                                            if(verificarDPI(apartados.get(4)))
-                                            {
-                                                System.out.println(lineasDeTexto.get(i));
-                                                /*
-                                                for (int j = 0; j < cantidad+1; j++) {
-                                                System.out.println(apartados.get(j));
-                                                }
-                                                */
-                                            }
-                                            else{
-                                                String mensaje = "Linea "+(i+1)+" Numero de DPI no valido";            
-                                                erroresDeDatos.add(mensaje);
-                                            }
-                                            
+                                    if(verificarRepresentacionNumerica(apartados.get(4))){
+                                        System.out.println(lineasDeTexto.get(i));
+                                        apartados=apartadoDeTexto(lineasDeTexto.get(i),",");
+                                        /*
+                                        for (int j = 0; j < cantidad+1; j++) {
+                                        System.out.println(apartados.get(j));
                                         }
-                                        else{
-                                            String mensaje = "Linea "+(i+1)+" Numero de DPI no valido";            
-                                            erroresDeDatos.add(mensaje);
-                                        }
+                                        */
                                     }
                                     else{
-                                        String mensaje = "Linea "+(i+1)+" Numero telefonico no valido";            
+                                        String mensaje = "Linea "+(i+1)+" Numero de DPI no valido";            
                                         erroresDeDatos.add(mensaje);
                                     }
                                 }
@@ -135,9 +113,9 @@ public class InputText {
                             //Se cuenta la cantidad de datos que posee la palabra clave de reconocimiento
                             if(cantidad==3)
                             {
-                                apartados=apartadoDeTexto(lineasDeTexto.get(i),",");
                                 if(verificarRepresentacionNumerica(apartados.get(3))){
                                     System.out.println(lineasDeTexto.get(i));
+                                    apartados=apartadoDeTexto(lineasDeTexto.get(i),",");
                                     
                                     /*
                                     for (int j = 0; j < cantidad+1; j++) {
@@ -163,24 +141,17 @@ public class InputText {
                                 apartados=apartadoDeTexto(lineasDeTexto.get(i),",");
                                 //Verficamos si el texto ingreaso representa un numero
                                 if(verificarRepresentacionNumerica(apartados.get(3))){
-                                    if(verificarNumeroTelefonico(apartados.get(3)))
-                                    {
-                                        //Verificacion de forma flotante del dinero
-                                        if(verificarRepresentacionNumericaDecimal(apartados.get(4))){
-                                            System.out.println(lineasDeTexto.get(i));
-                                            /*
-                                            for (int j = 0; j < cantidad+1; j++) {
-                                                System.out.println(apartados.get(j));
-                                            }
-                                            */
+                                    //Verificacion de forma flotante del dinero
+                                    if(verificarRepresentacionNumericaDecimal(apartados.get(4))){
+                                        System.out.println(lineasDeTexto.get(i));
+                                        /*
+                                        for (int j = 0; j < cantidad+1; j++) {
+                                            System.out.println(apartados.get(j));
                                         }
-                                        else{
-                                            String mensaje = "Linea "+(i+1)+" credito al cliente no valido";            
-                                            erroresDeDatos.add(mensaje);
-                                        }
+                                        */
                                     }
                                     else{
-                                        String mensaje = "Linea "+(i+1)+" numero telefonico no valido";
+                                        String mensaje = "Linea "+(i+1)+" credito al cliente no valido";            
                                         erroresDeDatos.add(mensaje);
                                     }
                                 }
@@ -200,17 +171,18 @@ public class InputText {
                             if(cantidad==6)
                             {
                                 apartados=apartadoDeTexto(lineasDeTexto.get(i),",");
+                                /*
+                                for (int j = 0; j < cantidad+1; j++) {
+                                    System.out.println(apartados.get(j));
+                                }
+                                */
                                 //verficamos si el texto ingreado es un numero
                                 if(verificarRepresentacionNumerica(apartados.get(4))){
                                     //verifcamos si el texto es un numero en esta caso de tipo flotante
                                     if(verificarRepresentacionNumericaDecimal(apartados.get(5)))
                                     {
                                         System.out.println(lineasDeTexto.get(i));
-                                        /*
-                                        for (int j = 0; j < cantidad+1; j++) {
-                                            System.out.println(apartados.get(j));
-                                        }
-                                        */
+                                        
                                     }
                                     else{
                                         String mensaje = "Linea "+(i+1)+" la sintaxis del precio del producto es incorrecto";            
@@ -291,16 +263,30 @@ public class InputText {
 
             }
             else{
-                String mensaje = "Linea "+(i+1)+" La sistaxis no corresponde a la base de datos hay mas separdores de texto de los admitidos";
+                String mensaje = "Linea "+(i+1)+" La sistaxis no corresponde a la base de datos";
                 erroresDeDatos.add(mensaje);
             }
 
         }
         //Apartado de los errores que se almacenan en un ArrayList
-        /*System.out.println("Imprecion de errores");
+        System.out.println("Imprecion de errores");
         for (int j = 0; j < erroresDeDatos.size(); j++) {
             System.out.println(erroresDeDatos.get(j));
-        }*/
+        }
+    }
+    /**
+     * Establecemos el directorio del archivo procesado
+     * @param src
+     */
+    public void setSrc(String src) {
+        this.src = src;
+    }
+    /**
+     * Devuelve el directorio del archivo procesado
+     * @return
+     */
+    public String getSrc() {
+        return src;
     }
     /**
      * Devuelve el array con los datos del procesado
@@ -435,9 +421,9 @@ public class InputText {
      */
     private boolean verificarRepresentacionNumerica(String numeroAEvaluar){
         boolean respuesta=false;
-        long numero=-1;
+        int numero=-1;
         try {
-            numero=Long.parseLong(numeroAEvaluar);
+            numero=Integer.parseInt(numeroAEvaluar);
         } catch (Exception e) {
         }
         if(numero>=0)
@@ -465,38 +451,5 @@ public class InputText {
         }
         return respuesta;
 
-    }
-    /**
-     * Verifica si el numero telefonico es valido
-     * @param numeroTelefonico
-     * @return
-     */
-    private boolean verificarNumeroTelefonico(String numeroTelefonico){
-        if(numeroTelefonico.length()==8){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-    /**
-     * Verifica si el numero de DPI es valido
-     * @param numeroTelefonico
-     * @return
-     */
-    private boolean verificarDPI(String numeroTelefonico){
-        if(numeroTelefonico.length()==10){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-    /**
-     * Regresa la cadena con los erroes correspondientes de la base de datos
-     * @return
-     */
-    public ArrayList<String> getErroresDeDatos() {
-        return erroresDeDatos;
     }
 }

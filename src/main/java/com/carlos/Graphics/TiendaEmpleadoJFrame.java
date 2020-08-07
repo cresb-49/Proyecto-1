@@ -5,6 +5,9 @@
  */
 package com.carlos.Graphics;
 import com.carlos.Graphics.*;
+import com.carlos.TraslateDB.InputText;
+import java.io.File;
+import javax.swing.JFileChooser;
 /**
  *
  * @author Carlos Pac
@@ -44,6 +47,8 @@ public class TiendaEmpleadoJFrame extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuReportes = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItemImportasBaseDeDatos = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -129,17 +134,29 @@ public class TiendaEmpleadoJFrame extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuReportes);
 
+        jMenu3.setText("Cargar Datos");
+
+        jMenuItemImportasBaseDeDatos.setText("Importar Base De Datos");
+        jMenuItemImportasBaseDeDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemImportasBaseDeDatosActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItemImportasBaseDeDatos);
+
+        jMenuBar1.add(jMenu3);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 613, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 278, Short.MAX_VALUE)
+            .addGap(0, 326, Short.MAX_VALUE)
         );
 
         pack();
@@ -187,14 +204,30 @@ public class TiendaEmpleadoJFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jMenuItemRealizarPedidoActionPerformed
 
+    private void jMenuItemImportasBaseDeDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemImportasBaseDeDatosActionPerformed
+        // TODO add your handling code here:
+        JFileChooser cargaDeDatos = new JFileChooser();
+        int respuesta = cargaDeDatos.showOpenDialog(this);
+        cargaDeDatos.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        if(respuesta == JFileChooser.APPROVE_OPTION)
+        {
+            File ficheroSeleccionado = cargaDeDatos.getSelectedFile();
+            InputText entradaDeInformacion = new InputText();
+            entradaDeInformacion.LecturaEIngreso(ficheroSeleccionado);
+        }
+        
+    }//GEN-LAST:event_jMenuItemImportasBaseDeDatosActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItemCatalogo;
+    private javax.swing.JMenuItem jMenuItemImportasBaseDeDatos;
     private javax.swing.JMenuItem jMenuItemRealizarPedido;
     private javax.swing.JMenuItem jMenuItemRegistroCliente;
     private javax.swing.JMenuItem jMenuItemRegistroEmpleado;
