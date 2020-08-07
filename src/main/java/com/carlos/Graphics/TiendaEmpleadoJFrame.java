@@ -17,6 +17,7 @@ public class TiendaEmpleadoJFrame extends javax.swing.JFrame {
     public TiendaEmpleadoJFrame() {
         super("Mi Empresa");
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**

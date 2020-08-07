@@ -5,6 +5,7 @@
  */
 package com.carlos.Graphics;
 
+import com.carlos.Entities.Client;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,13 +13,14 @@ import javax.swing.JOptionPane;
  * @author benjamin
  */
 public class RegistroClienteJDialog extends javax.swing.JDialog {
-
+    private float copiaDeCredito;
     /**
      * Creates new form RegistroClienteJDialog
      */
     public RegistroClienteJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.jFormattedTextFieldCreditoCompra.setEditable(false);
     }
 
     /**
@@ -30,6 +32,7 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollBar1 = new javax.swing.JScrollBar();
         jLabel1 = new javax.swing.JLabel();
         jFormattedTextFieldNombre = new javax.swing.JFormattedTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -42,7 +45,7 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
         jFormattedTextFieldEmail = new javax.swing.JFormattedTextField();
         jLabel7 = new javax.swing.JLabel();
         jFormattedTextFieldDirecion = new javax.swing.JFormattedTextField();
-        jFormattedTextFieldEmail1 = new javax.swing.JFormattedTextField();
+        jFormattedTextFieldCreditoCompra = new javax.swing.JFormattedTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -57,20 +60,37 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
         jButtonModificar = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         jButtonLimpiar = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
+        jButtonRegistrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("Nombre: ");
+        jLabel1.setText("* Nombre: ");
 
-        jLabel2.setText("Telefono: ");
+        jLabel2.setText("* Telefono: ");
 
-        jLabel3.setText("NIT:");
+        try {
+            jFormattedTextFieldTelefono.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("########")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        jLabel3.setText("* NIT:");
 
         jLabel4.setText("DPI:");
+
+        try {
+            jFormattedTextFieldDPI.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#########")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         jLabel5.setText("Correo Electronico:");
 
         jLabel7.setText("Dirección:");
+
+        jFormattedTextFieldCreditoCompra.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        jFormattedTextFieldCreditoCompra.setText("0");
 
         jLabel6.setText("Credito Compra:");
 
@@ -94,27 +114,57 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
         });
 
         jButtonBuscar.setText("Buscar");
+        jButtonBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBuscarActionPerformed(evt);
+            }
+        });
 
         jButtonModificar.setText("Modificar");
+        jButtonModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonModificarActionPerformed(evt);
+            }
+        });
 
         jLabel9.setText("* El parametro de busqueda es el NIT");
 
         jButtonLimpiar.setText("Limpiar");
+        jButtonLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLimpiarActionPerformed(evt);
+            }
+        });
+
+        jLabel12.setText("* Campos obligarios del formulario");
+
+        jButtonRegistrar.setText("Registrar");
+        jButtonRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRegistrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addComponent(jLabel12)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
                 .addGap(53, 53, 53)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButtonRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButtonModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButtonLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -124,16 +174,16 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jFormattedTextFieldDirecion, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jFormattedTextFieldEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jFormattedTextFieldCreditoCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(12, 12, 12))
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(12, 12, 12)
@@ -143,7 +193,7 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
                                     .addComponent(jFormattedTextFieldTelefono, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jFormattedTextFieldNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jLabel9))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 236, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,7 +221,9 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(47, 47, 47)
+                        .addGap(17, 17, 17)
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
                             .addComponent(jFormattedTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -194,7 +246,7 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(jFormattedTextFieldEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jFormattedTextFieldCreditoCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
@@ -220,7 +272,8 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonBuscar)
                     .addComponent(jButtonModificar)
-                    .addComponent(jButtonLimpiar))
+                    .addComponent(jButtonLimpiar)
+                    .addComponent(jButtonRegistrar))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
@@ -247,22 +300,180 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jButtonListarActionPerformed
 
+    private void jButtonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarActionPerformed
+        // TODO add your handling code here:
+        this.jFormattedTextFieldNombre.setText(null);
+        this.jFormattedTextFieldTelefono.setText(null);
+        this.jFormattedTextFieldNIT.setText(null);
+        this.jFormattedTextFieldDPI.setText(null);
+        this.jFormattedTextFieldCreditoCompra.setText(null);
+        this.jFormattedTextFieldEmail.setText(null);
+        this.jFormattedTextFieldDirecion.setText(null);
+        //
+        this.jFormattedTextFieldNIT.setEditable(true);
+        this.jFormattedTextFieldCreditoCompra.setEditable(false);
+    }//GEN-LAST:event_jButtonLimpiarActionPerformed
+
+    private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
+        // TODO add your handling code here:
+        buscarDatos();
+    }//GEN-LAST:event_jButtonBuscarActionPerformed
+
+    private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
+        // TODO add your handling code here:
+        String nombre;
+        String NIT;
+        int telefono=0;
+        int DPI=0;
+        float creditoDecompra=0;
+        String correoElectronico;
+        String direccion;
+        //
+        boolean bandera =true;
+        
+        nombre = this.jFormattedTextFieldNombre.getText();
+        NIT = this.jFormattedTextFieldNIT.getText();
+        correoElectronico = this.jFormattedTextFieldEmail.getText();
+        direccion = this.jFormattedTextFieldDirecion.getText();
+        try {
+            if(this.jFormattedTextFieldTelefono.getText().length()==8)
+            {
+                telefono = Integer.parseInt(this.jFormattedTextFieldTelefono.getText());
+            }
+            if(this.jFormattedTextFieldDPI.getText().length()!=0)
+            {
+                if(this.jFormattedTextFieldDPI.getText().length()==9)
+                {
+                    DPI = Integer.parseInt(this.jFormattedTextFieldDPI.getText());
+                }
+            }
+            
+            
+        } catch (Exception e) {
+        }
+       
+        float tempCredito = 0;
+        
+        try {
+            tempCredito = Float.parseFloat(this.jFormattedTextFieldCreditoCompra.getText());
+        } catch (Exception e) {
+        }
+        if(tempCredito>=0)
+            {
+                creditoDecompra=tempCredito;
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, "CANTIDAD DE CREDITO INCORRECTA");
+                bandera=false;
+            }
+        
+        if(bandera)
+        {
+            if(nombre.equals("")||telefono==0){
+                JOptionPane.showMessageDialog(this, "No se han completado los campos obligatorios del formulario");
+            }
+            else
+            {
+                Client clienteNuevo = new Client(nombre, telefono, NIT, DPI, creditoDecompra, correoElectronico, direccion);
+            }
+        }
+        else
+        {
+            buscarDatos();
+        }
+        
+    }//GEN-LAST:event_jButtonModificarActionPerformed
+
+    private void jButtonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegistrarActionPerformed
+        // TODO add your handling code here:
+        String nombre;
+        String NIT;
+        int telefono=0;
+        int DPI=0;
+        float creditoDecompra=0;
+        String correoElectronico;
+        String direccion;
+        //
+        boolean bandera =true;
+        
+        nombre = this.jFormattedTextFieldNombre.getText();
+        NIT = this.jFormattedTextFieldNIT.getText();
+        correoElectronico = this.jFormattedTextFieldEmail.getText();
+        direccion = this.jFormattedTextFieldDirecion.getText();
+        try {
+            if(this.jFormattedTextFieldTelefono.getText().length()==8)
+            {
+                telefono = Integer.parseInt(this.jFormattedTextFieldTelefono.getText());
+            }
+            if(this.jFormattedTextFieldDPI.getText().length()!=0)
+            {
+                if(this.jFormattedTextFieldDPI.getText().length()==9)
+                {
+                    DPI = Integer.parseInt(this.jFormattedTextFieldDPI.getText());
+                }
+            }
+            
+            
+        } catch (Exception e) {
+        }
+       
+        float tempCredito = 0;
+        
+        try {
+            tempCredito = Float.parseFloat(this.jFormattedTextFieldCreditoCompra.getText());
+        } catch (Exception e) {
+        }
+        if(tempCredito>=0)
+            {
+                creditoDecompra=tempCredito;
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, "CANTIDAD DE CREDITO INCORRECTA");
+                bandera=false;
+            }
+        
+        if(bandera)
+        {
+            if(nombre.equals("")||telefono==0){
+                JOptionPane.showMessageDialog(this, "No se han completado los campos obligatorios del formulario");
+            }
+            else
+            {
+                Client clienteNuevo = new Client(nombre, telefono, NIT, DPI, creditoDecompra, correoElectronico, direccion);
+            }
+        }
+    }//GEN-LAST:event_jButtonRegistrarActionPerformed
+    private void buscarDatos(){
+        String NIT = this.jFormattedTextFieldNIT.getText();
+        this.jFormattedTextFieldNIT.setEditable(false);
+        this.jFormattedTextFieldCreditoCompra.setEditable(true);
+        float tempCerdito=0;
+        try {
+            tempCerdito=Float.parseFloat(this.jFormattedTextFieldCreditoCompra.getText());
+        } catch (Exception e) {
+        }
+        this.copiaDeCredito=tempCerdito;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBuscar;
     private javax.swing.JButton jButtonLimpiar;
     private javax.swing.JButton jButtonListar;
     private javax.swing.JButton jButtonModificar;
+    private javax.swing.JButton jButtonRegistrar;
     private javax.swing.JComboBox<String> jComboBoxOrden;
+    private javax.swing.JFormattedTextField jFormattedTextFieldCreditoCompra;
     private javax.swing.JFormattedTextField jFormattedTextFieldDPI;
     private javax.swing.JFormattedTextField jFormattedTextFieldDirecion;
     private javax.swing.JFormattedTextField jFormattedTextFieldEmail;
-    private javax.swing.JFormattedTextField jFormattedTextFieldEmail1;
     private javax.swing.JFormattedTextField jFormattedTextFieldNIT;
     private javax.swing.JFormattedTextField jFormattedTextFieldNombre;
     private javax.swing.JFormattedTextField jFormattedTextFieldTelefono;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -273,6 +484,7 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JList<String> jList1;
     private javax.swing.JList<String> jList2;
+    private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     // End of variables declaration//GEN-END:variables
