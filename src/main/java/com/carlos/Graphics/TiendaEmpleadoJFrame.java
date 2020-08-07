@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package com.carlos.Graphics;
-
+import com.carlos.Graphics.*;
 /**
  *
  * @author Carlos Pac
@@ -86,6 +86,11 @@ public class TiendaEmpleadoJFrame extends javax.swing.JFrame {
         jMenu4.setText("Ventas");
 
         jMenuItemTransaccion.setText("Transaccion");
+        jMenuItemTransaccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemTransaccionActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItemTransaccion);
 
         jMenuBar1.add(jMenu4);
@@ -133,6 +138,12 @@ public class TiendaEmpleadoJFrame extends javax.swing.JFrame {
         RegistroEmpleadoJDialog empleado = new RegistroEmpleadoJDialog(this, true);
         empleado.setVisible(true);
     }//GEN-LAST:event_jMenuItemRegistroEmpleadoActionPerformed
+
+    private void jMenuItemTransaccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemTransaccionActionPerformed
+        // TODO add your handling code here:
+        VentaJDialog ventaProducto = new VentaJDialog(this, true);
+        ventaProducto.setVisible(true);
+    }//GEN-LAST:event_jMenuItemTransaccionActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
