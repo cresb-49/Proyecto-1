@@ -5,6 +5,7 @@
  */
 package com.carlos.Graphics;
 
+import com.carlos.Entities.Pedido;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,9 +17,22 @@ public class VentaJDialog extends javax.swing.JDialog {
     /**
      * Creates new form VentaJDialog
      */
+    private boolean tranNorm=true;
     public VentaJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setTitle("VENTAS");
+    }
+    
+    public VentaJDialog(java.awt.Frame parent, boolean modal, Pedido pedidoProcesar) {
+        super(parent, modal);
+        initComponents();
+        this.tranNorm=false;
+        this.setLocationRelativeTo(null);
+        this.setTitle("VENTAS");
+        
+        cargarEspecialDeDatos();
     }
 
     /**
@@ -219,6 +233,34 @@ public class VentaJDialog extends javax.swing.JDialog {
 
     private void jButtonTransaccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTransaccionActionPerformed
         // TODO add your handling code here:
+        
+        if(tranNorm)
+        {
+            transaccionNormal();
+        }
+        else
+        {
+            transaccionEspecial();
+        }
+        
+    }//GEN-LAST:event_jButtonTransaccionActionPerformed
+    
+    private void jButtonBuscarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarProductoActionPerformed
+        // TODO add your handling code here:
+        String nombreProducto = this.jFormattedTextFieldNombreProducto.getText();
+        String codigoProducto = this.jFormattedTextFieldCodigoProducto.getText();
+        if(existenciaProducto(codigoProducto)==0)
+        {
+            JOptionPane.showMessageDialog(this, "No hay existencia del producto en tienda haga un pedido del mismo en el apartado");
+        }
+        
+        
+    }//GEN-LAST:event_jButtonBuscarProductoActionPerformed
+    public int existenciaProducto(String codigoProducto){
+        int cantidad =0;
+        return 0;
+    }
+    private void transaccionNormal(){
         float creditoCliente=0;
         float pagoEfectivo =0;
         float usoCredito=0;
@@ -274,25 +316,20 @@ public class VentaJDialog extends javax.swing.JDialog {
         {
             JOptionPane.showMessageDialog(this, "No ha seleccionado ningun producto\nNo se puede realizar la transaccion");
         }
+    }
+    private void transaccionEspecial(){
         
-        
-        
-    }//GEN-LAST:event_jButtonTransaccionActionPerformed
-
-    private void jButtonBuscarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarProductoActionPerformed
-        // TODO add your handling code here:
-        String nombreProducto = this.jFormattedTextFieldNombreProducto.getText();
-        String codigoProducto = this.jFormattedTextFieldCodigoProducto.getText();
-        if(existenciaProducto(codigoProducto)==0)
-        {
-            JOptionPane.showMessageDialog(this, "No hay existencia del producto en tienda haga un pedido del mismo en el apartado");
-        }
-        
-        
-    }//GEN-LAST:event_jButtonBuscarProductoActionPerformed
-    public int existenciaProducto(String codigoProducto){
-        int cantidad =0;
-        return 0;
+    }
+    private  void cargarEspecialDeDatos(){
+        jLabel1.setText("Codigo del Pedido:");
+        jFormattedTextFieldCodigoProducto.setText("");
+        jButtonBuscarProducto.setVisible(false);
+        jTextFieldPrecioProducto.setText("");
+        jFormattedTextFieldNIT.setText("");
+        jFormattedTextFieldNombreCliente.setText("");
+        jButtonBuscarCliente.setVisible(false);
+        jFormattedTextFieldPagoEfectivo.setText("0");
+        jFormattedTextFieldUsoCredito.setEnabled(false);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBuscarCliente;

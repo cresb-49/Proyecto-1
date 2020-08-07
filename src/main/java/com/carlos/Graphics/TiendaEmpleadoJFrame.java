@@ -214,6 +214,11 @@ public class TiendaEmpleadoJFrame extends javax.swing.JFrame {
             File ficheroSeleccionado = cargaDeDatos.getSelectedFile();
             InputText entradaDeInformacion = new InputText();
             entradaDeInformacion.LecturaEIngreso(ficheroSeleccionado);
+            if(entradaDeInformacion.getErroresDeDatos().size()>0)
+            {
+                VisualizadorDeErroresJDialog errores = new VisualizadorDeErroresJDialog(this, true, entradaDeInformacion.getErroresDeDatos());
+                errores.setVisible(true);
+            }
         }
         
     }//GEN-LAST:event_jMenuItemImportasBaseDeDatosActionPerformed
