@@ -130,6 +130,11 @@ public class TiendaEmpleadoJFrame extends javax.swing.JFrame {
         jMenuReportes.setText("Reportes");
 
         jMenuItem2.setText("Exportar Reportes");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenuReportes.add(jMenuItem2);
 
         jMenuBar1.add(jMenuReportes);
@@ -222,6 +227,12 @@ public class TiendaEmpleadoJFrame extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jMenuItemImportasBaseDeDatosActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        CaracteristicaReportesJDialog reportes = new CaracteristicaReportesJDialog(this, true);
+        reportes.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
