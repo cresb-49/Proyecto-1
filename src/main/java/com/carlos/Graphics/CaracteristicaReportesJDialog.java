@@ -26,6 +26,8 @@ public class CaracteristicaReportesJDialog extends javax.swing.JDialog {
     public CaracteristicaReportesJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setTitle("REPORTES DE TIENDA");
         
     }
 

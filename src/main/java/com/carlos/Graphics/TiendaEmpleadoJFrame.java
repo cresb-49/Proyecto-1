@@ -91,6 +91,11 @@ public class TiendaEmpleadoJFrame extends javax.swing.JFrame {
         jMenu2.setText("Productos");
 
         jMenuItemCatalogo.setText("Catalogo");
+        jMenuItemCatalogo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCatalogoActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItemCatalogo);
 
         jMenuBar1.add(jMenu2);
@@ -233,6 +238,12 @@ public class TiendaEmpleadoJFrame extends javax.swing.JFrame {
         CaracteristicaReportesJDialog reportes = new CaracteristicaReportesJDialog(this, true);
         reportes.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItemCatalogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCatalogoActionPerformed
+        // TODO add your handling code here:
+        CatalogoJDialog catalogoProductos = new CatalogoJDialog(this, true);
+        catalogoProductos.setVisible(true);
+    }//GEN-LAST:event_jMenuItemCatalogoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
