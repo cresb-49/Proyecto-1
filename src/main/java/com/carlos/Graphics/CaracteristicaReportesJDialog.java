@@ -5,8 +5,14 @@
  */
 package com.carlos.Graphics;
 
+import com.carlos.OuputDocs.*;
 import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -68,14 +74,30 @@ public class CaracteristicaReportesJDialog extends javax.swing.JDialog {
         JFileChooser ventanaDeGuardado = new JFileChooser();
         ventanaDeGuardado.setFileSelectionMode(0);
         ventanaDeGuardado.setDialogTitle("Guardar en");
-        
+        FileNameExtensionFilter filtroExportacion=new FileNameExtensionFilter("HTML","html");
+        ventanaDeGuardado.setFileFilter(filtroExportacion);
         String src = ventanaDeGuardado.getCurrentDirectory().toString();
-        src= src +"/REPORTE.html";
+        String nameFile = "REPORTE.html";
+        src= src +"/"+nameFile;
         File archivo = new File(src);
         ventanaDeGuardado.setSelectedFile(archivo);
         if(ventanaDeGuardado.showSaveDialog(this)==JFileChooser.APPROVE_OPTION){
             File guardado = ventanaDeGuardado.getSelectedFile();
-            System.out.println(guardado.getAbsolutePath());
+            
+            if(guardado.getName().endsWith(".html")){
+                if(!(guardado.exists()))
+                {
+                    GenerateHTML html = new GenerateHTML(guardado);
+                    html.Generate();
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(this, "Existe un archivo con el mismo nombre guardelo con otro nombre");
+                }
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Tipo de archivo no soportado exporte nuevamente la infomarmacion");
+            }
         }
     }//GEN-LAST:event_jButtonRealizarreporteActionPerformed
 

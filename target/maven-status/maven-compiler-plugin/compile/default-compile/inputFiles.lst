@@ -1,4 +1,3 @@
-/home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/src/main/java/com/carlos/Logic/Logic.java
 /home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/src/main/java/com/carlos/Entities/Client.java
 /home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/src/main/java/com/carlos/Entities/Users.java
 /home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/src/main/java/com/carlos/Graphics/RealizarPedidoJDialog.java
@@ -15,6 +14,7 @@
 /home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/src/main/java/com/carlos/Graphics/RegistroClienteJDialog.java
 /home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/src/main/java/com/carlos/Graphics/RegistroEmpleadoJDialog.java
 /home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/src/main/java/com/carlos/Graphics/LogInFrame.java
+/home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/src/main/java/com/carlos/OuputDocs/GenerateHTML.java
 /home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/src/main/java/com/carlos/Graphics/TiendaClienteJFrame.java
 /home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/src/main/java/com/carlos/Graphics/EntregaProductoJDialog.java
 /home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/src/main/java/com/carlos/Graphics/RegistrarProductoJDialog.java
