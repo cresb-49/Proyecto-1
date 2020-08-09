@@ -68,6 +68,11 @@ public class CaracteristicaReportesJDialog extends javax.swing.JDialog {
         JFileChooser ventanaDeGuardado = new JFileChooser();
         ventanaDeGuardado.setFileSelectionMode(0);
         ventanaDeGuardado.setDialogTitle("Guardar en");
+        
+        String src = ventanaDeGuardado.getCurrentDirectory().toString();
+        src= src +"/REPORTE.html";
+        File archivo = new File(src);
+        ventanaDeGuardado.setSelectedFile(archivo);
         if(ventanaDeGuardado.showSaveDialog(this)==JFileChooser.APPROVE_OPTION){
             File guardado = ventanaDeGuardado.getSelectedFile();
             System.out.println(guardado.getAbsolutePath());
