@@ -111,6 +111,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
 
     private void jButtonRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegistrarseActionPerformed
         // TODO add your handling code here:
+        //Crea un frame de tipo de registro de clientes
         this.setVisible(false);
         RegistroCliente registroNuevo = new RegistroCliente(this);
         registroNuevo.setVisible(true);
@@ -118,6 +119,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
 
     private void jButtonIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIniciarSesionActionPerformed
         // TODO add your handling code here:
+        //Genera un frame de tipo login
         this.setVisible(false);
         LogInFrame login = new LogInFrame(this);
         login.setVisible(true);
@@ -125,12 +127,18 @@ public class PrincipalFrame extends javax.swing.JFrame {
         TiendaEmpleadoJFrame frame = new TiendaEmpleadoJFrame();
         frame.setVisible(true);
     }//GEN-LAST:event_jButtonIniciarSesionActionPerformed
+    /**
+     * Configuracion del componentes que pertenecen al frame de origen
+     */
     private void ProfileComponents(){
         ImageIcon imagen = new ImageIcon(getClass().getClassLoader().getResource("index.png"));
-        
         jLabelImage.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(225, 225, Image.SCALE_SMOOTH)));
         
     }
+    /**
+     * 
+     * @param token
+     */
     public void AccesoDeUsuario(boolean token){
         this.setVisible(true);
     }

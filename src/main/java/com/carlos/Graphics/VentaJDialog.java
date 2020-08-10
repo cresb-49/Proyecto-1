@@ -13,11 +13,11 @@ import javax.swing.JOptionPane;
  * @author Carlos Pac
  */
 public class VentaJDialog extends javax.swing.JDialog {
-
+    //Variable bandera del tipo de transaccion de datos
+    private boolean tranNorm=true;
     /**
      * Creates new form VentaJDialog
      */
-    private boolean tranNorm=true;
     public VentaJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -233,7 +233,7 @@ public class VentaJDialog extends javax.swing.JDialog {
 
     private void jButtonTransaccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTransaccionActionPerformed
         // TODO add your handling code here:
-        
+        //Utiliza el metodo de transaccion de datos
         if(tranNorm)
         {
             transaccionNormal();
@@ -265,7 +265,7 @@ public class VentaJDialog extends javax.swing.JDialog {
         float pagoEfectivo =0;
         float usoCredito=0;
         float precio=0;
-        //----------
+        //Extraccion de informacion del formulario
         String codigoProducto = this.jFormattedTextFieldCodigoProducto.getText();
         String NombreProducto = this.jFormattedTextFieldNombreProducto.getText();
         String NombreCliente = this.jFormattedTextFieldNombreCliente.getText();
@@ -277,10 +277,12 @@ public class VentaJDialog extends javax.swing.JDialog {
             precio = Float.parseFloat(this.jTextFieldPrecioProducto.getText());
         } catch (Exception e) {
         }
-
+        //verfica los datos del producto para saber si uno fue seleccionado
         if(!(codigoProducto.equals("")||NombreProducto.equals("")))
         {
+            //verifica la existencia de los productos en la tienda
             if(!(existenciaProducto(codigoProducto)==0)){
+                //Verifica los datos del cliente quien hace la compra
                 if(!(NIT.equals("")||NombreCliente.equals(""))){
                     if(!(usoCredito>creditoCliente)){
                         if(!((usoCredito+pagoEfectivo)>precio)){

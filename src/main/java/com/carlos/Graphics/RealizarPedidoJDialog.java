@@ -344,7 +344,7 @@ public class RealizarPedidoJDialog extends javax.swing.JDialog {
         float creditoDisponible=0;
         float pagoMinimo=0;
         int unidadesAcomprar=0;
-        
+        //Se realizan las conversiones necesarias para aceptar los datos de entrada
         try {
             precioProducto = Float.parseFloat(jFormattedTextFieldPrecioDelPedido.getText());
             pagoEfectivo = Float.parseFloat(jFormattedTextFieldPagoEfectivo.getText());
@@ -355,15 +355,20 @@ public class RealizarPedidoJDialog extends javax.swing.JDialog {
             
         } catch (Exception e) {
         }
+        //Se comprueban los datos de entrada en para verficar que se haya seleccionado un producto
         if(!(codigoProducto.equals("")||precioProducto==0)){
-
+            //verifica la disponibilidad del producto
             if(!(disponibilidadDeProducto(codigoProducto,codigoTienda)==0)){
+                //Verifica que hayan los datos disponibles del cliente 
                 if(!(nombreCliente.equals("")||NIT.equals(""))){
-                    if(!(usoCredito>creditoDisponible)){
-                        if(!(pagoEfectivo<pagoMinimo))
-                        {
+                    //verifica que el credito a utilizar sea una cantiad real
+                    if(usoCredito>=0)
+                    {
+                        //Verifica el credito a utilizar en la compra
+                        if(!(usoCredito>creditoDisponible)){
+                            //Verifica que el pago total de la compra cumpla el minimo requerido
                             if(!((pagoEfectivo+usoCredito)<pagoMinimo)){
-                                if(!((pagoEfectivo+usoCredito)>pagoMinimo)){
+                                if((pagoEfectivo+usoCredito)>pagoMinimo){
                                     int respuesta = JOptionPane.showConfirmDialog(this, "Desea pagar mas del 25% minimo");
                                     if(respuesta==JOptionPane.YES_OPTION){
                                         
@@ -373,6 +378,9 @@ public class RealizarPedidoJDialog extends javax.swing.JDialog {
                                         JOptionPane.showMessageDialog(this, "Configure los pagos nuevamente\nNo se realizara la transaccion");
                                     }
                                 }
+                                else{
+                                    //Acciones del pedido
+                                }
                             }
                             else
                             {
@@ -381,12 +389,11 @@ public class RealizarPedidoJDialog extends javax.swing.JDialog {
                         }
                         else
                         {
-                            JOptionPane.showMessageDialog(this, "El pago no cumple el minimo de 25%\nNo se realizara la transaccion");
+                            JOptionPane.showMessageDialog(this, "El credito del a usar supera el diponible\nNo se realizara la transaccion");
                         }
                     }
-                    else
-                    {
-                        JOptionPane.showMessageDialog(this, "El credito del a usar supera el diponible\nNo se realizara la transaccion");
+                    else{
+                        JOptionPane.showMessageDialog(this, "El credito a usar no es correcto\nNo se realizara la transaccion");
                     }
                 }
                 else

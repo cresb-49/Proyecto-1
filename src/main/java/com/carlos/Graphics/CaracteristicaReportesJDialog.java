@@ -74,21 +74,34 @@ public class CaracteristicaReportesJDialog extends javax.swing.JDialog {
     private void jButtonRealizarreporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRealizarreporteActionPerformed
         // TODO add your handling code here:
         JFileChooser ventanaDeGuardado = new JFileChooser();
+        //se establece el modo de trabajo de Jfilechooser
         ventanaDeGuardado.setFileSelectionMode(0);
         ventanaDeGuardado.setDialogTitle("Guardar en");
+        //filtro para el tipo de archivos de guadado del archivo
         FileNameExtensionFilter filtroExportacion=new FileNameExtensionFilter("HTML","html");
         ventanaDeGuardado.setFileFilter(filtroExportacion);
+        //extremos el directorio por defento donde aparecera el jFileChooser
         String src = ventanaDeGuardado.getCurrentDirectory().toString();
+        //Nombre por defecto del archivo a generar
         String nameFile = "REPORTE.html";
+        //Completado del path completo con nombre de archivo
         src= src +"/"+nameFile;
+        //se genera una variable de tipo file para almacenar el path y asignarlo al JFileChooser
         File archivo = new File(src);
+        //Asignacion del archivo seleccionado
         ventanaDeGuardado.setSelectedFile(archivo);
+        //condicion si se da en el boton de aceptar en la interfaz del JFileChooser
         if(ventanaDeGuardado.showSaveDialog(this)==JFileChooser.APPROVE_OPTION){
+            /*Extraemos nuevamente el path del archivo por si este 
+            cambio de parametros como de directorio como el nombre del archivo a guardar
+            */
             File guardado = ventanaDeGuardado.getSelectedFile();
-            
+            //comprueba si el archivo termina en extencion .html
             if(guardado.getName().endsWith(".html")){
+                //comprueba si hay un archivo con las misma caracteristicas
                 if(!(guardado.exists()))
                 {
+                    //usa un objeto de tipo GenerateHTML para crear el archivo de salida
                     GenerateHTML html = new GenerateHTML(guardado);
                     html.Generate();
                 }

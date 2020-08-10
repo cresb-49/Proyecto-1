@@ -338,7 +338,7 @@ public class RegistroTiendaJDialog extends javax.swing.JDialog {
         int telefono2=0;
         String email;
         String horario;
-        
+        //Extraccion de informacion del formulario
         nombre = this.jFormattedTextFieldNombre.getText();
         direcccion =  this.jFormattedTextFieldDireccion.getText();
         codigo = this.jFormattedTextFieldCodigo.getText();

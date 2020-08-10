@@ -8,6 +8,8 @@ import com.carlos.Graphics.*;
 import com.carlos.TraslateDB.InputText;
 import java.io.File;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 /**
  *
  * @author Carlos Pac
@@ -217,18 +219,32 @@ public class TiendaEmpleadoJFrame extends javax.swing.JFrame {
     private void jMenuItemImportasBaseDeDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemImportasBaseDeDatosActionPerformed
         // TODO add your handling code here:
         JFileChooser cargaDeDatos = new JFileChooser();
-        int respuesta = cargaDeDatos.showOpenDialog(this);
+        //Establece los tipos de archivos permitidos en el programa
+        FileNameExtensionFilter filtroCarga=new FileNameExtensionFilter("TXT","txt");
+        //Parametros de configuracion del filechooser par aceptar solamente archivo y de tipo txt
         cargaDeDatos.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        cargaDeDatos.setFileFilter(filtroCarga);
+        
+        int respuesta = cargaDeDatos.showOpenDialog(this);
+        //Si se da aceptar en la ventana se hacen las intrucciones
         if(respuesta == JFileChooser.APPROVE_OPTION)
         {
             File ficheroSeleccionado = cargaDeDatos.getSelectedFile();
-            InputText entradaDeInformacion = new InputText();
-            entradaDeInformacion.LecturaEIngreso(ficheroSeleccionado);
-            if(entradaDeInformacion.getErroresDeDatos().size()>0)
-            {
-                VisualizadorDeErroresJDialog errores = new VisualizadorDeErroresJDialog(this, true, entradaDeInformacion.getErroresDeDatos());
-                errores.setVisible(true);
+            //si el fichero es aceptado entonces se hacen las instruccuiones de carga
+            if (ficheroSeleccionado.getName().endsWith("txt")){
+                InputText entradaDeInformacion = new InputText();
+                entradaDeInformacion.LecturaEIngreso(ficheroSeleccionado);
+                //se muestran los errores de carga y donde sucedieron los mismos
+                if(entradaDeInformacion.getErroresDeDatos().size()>0)
+                {
+                    VisualizadorDeErroresJDialog errores = new VisualizadorDeErroresJDialog(this, true, entradaDeInformacion.getErroresDeDatos());
+                    errores.setVisible(true);
+                }
             }
+            else{
+                JOptionPane.showMessageDialog(this, "Formato de archivo no soprtado");
+            }
+            
         }
         
     }//GEN-LAST:event_jMenuItemImportasBaseDeDatosActionPerformed

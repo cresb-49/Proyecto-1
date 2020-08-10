@@ -81,6 +81,9 @@ public class VisualizadorDeErroresJDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+    /**
+     * Muestra los errores que sucedieron al momento de cargar los datos en el sistema
+     */
     private void cargaDeErrores(){
         DefaultListModel modelo = new DefaultListModel();
         for (int i = 0; i < erroresDeDatos.size(); i++) {

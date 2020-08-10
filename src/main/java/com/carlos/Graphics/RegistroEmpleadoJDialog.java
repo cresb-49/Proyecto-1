@@ -263,6 +263,7 @@ public class RegistroEmpleadoJDialog extends javax.swing.JDialog {
 
     private void jButtonListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListarActionPerformed
         // TODO add your handling code here:
+        //Tipo de orden de la seleccion de datos
         String opcionOrden = this.jComboBoxOpciones.getSelectedItem().toString();
         if(opcionOrden.equals("Nombre")||opcionOrden.equals("Codigo")){
             if(opcionOrden.equals("Nombre")){
@@ -288,7 +289,7 @@ public class RegistroEmpleadoJDialog extends javax.swing.JDialog {
         int DPI=0;
         String correoElectronico;
         String direccion;
-        
+        //Extraccion de informacion ingresada en el formulario
         codigoEmpleado = this.jFormattedTextFieldCodigo.getText();
         nombre = this.jFormattedTextFieldNombre.getText();
         NIT = this.jFormattedTextField1NIT.getText();
@@ -332,7 +333,7 @@ public class RegistroEmpleadoJDialog extends javax.swing.JDialog {
         int DPI=0;
         String correoElectronico;
         String direccion;
-        
+        //Extraccion de la informacion del formulario
         codigoEmpleado = this.jFormattedTextFieldCodigo.getText();
         nombre = this.jFormattedTextFieldNombre.getText();
         NIT = this.jFormattedTextField1NIT.getText();

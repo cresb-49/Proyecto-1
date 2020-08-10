@@ -19,11 +19,17 @@ public class Client extends Users{
         super(name, phoneNumber, nit, dpi, email, direction);
         this.CreditoCompra = CreditoCompra;
     }
-
+    /**
+     * Rertorna la cantidad de credito que tiene el cliente
+     * @return
+     */
     public float getCreditoCompra() {
         return CreditoCompra;
     }
-
+    /**
+     * Asigna un cantidad de credito a un cliente
+     * @param creditoCompra
+     */
     public void setCreditoCompra(float creditoCompra) {
         CreditoCompra = creditoCompra;
     }

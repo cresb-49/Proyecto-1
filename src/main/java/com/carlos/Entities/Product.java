@@ -27,45 +27,97 @@ public class Product{
         this.description=description;
         this.garantia=garantia;
     }
+    /**
+     * Retorna la cantidad de producto
+     */
     public int getCantidad() {
         return cantidad;
     }
+    /**
+     * Asigna la cantida de producto
+     * @param cantidad
+     */
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
+    /**
+     * Retorna el codigo del producto
+     * @return
+     */
     public String getCode() {
         return code;
     }
+    /**
+     * Asigna el codigo del producto
+     * @param code
+     */
     public void setCode(String code) {
         this.code = code;
     }
+    /**
+     * Retrona la descripcion del producto
+     * @return
+     */
     public String getDescription() {
         return description;
     }
+    /**
+     * Asigna la descripcion del producto
+     * @param description
+     */
     public void setDescription(String description) {
         this.description = description;
     }
+    /**
+     * Retrona la garantia del producto
+     * @return
+     */
     public int getGarantia() {
         return garantia;
     }
+    /**
+     * Asigna la garantia del producto
+     * @param garantia
+     */
     public void setGarantia(int garantia) {
         this.garantia = garantia;
     }
+    /**
+     * Retorna el fabricante del producto
+     * @return
+     */
     public String getManufacturer() {
         return manufacturer;
     }
+    /**
+     * Asigna el fabricamte del producto
+     * @param manufacturer
+     */
     public void setManufacturer(String manufacturer) {
         this.manufacturer = manufacturer;
     }
+    /**
+     * Retorna el nombre del producto
+     */
     public String getName() {
         return name;
     }
+    /**
+     * Asigna el nombre del producto
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }
+    /**
+     * Retorna el precio del producto
+     */
     public float getPrice() {
         return price;
     }
+    /**
+     * Asigna el precio del producto
+     */
     public void setPrice(float price) {
         this.price = price;
     }

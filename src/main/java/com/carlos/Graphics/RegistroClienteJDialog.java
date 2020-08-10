@@ -284,6 +284,7 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
 
     private void jButtonListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListarActionPerformed
         // TODO add your handling code here:
+        //Selecciona la configuracion en la cual se listan los datos
         String orden = jComboBoxOrden.getSelectedItem().toString();
         if(orden.equals("NIT")||orden.equals("Nombre"))
         {
@@ -332,7 +333,7 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
         String direccion;
         //
         boolean bandera =true;
-        
+        //Extrae y hace las converciones de los datos ingresados en el formulario
         nombre = this.jFormattedTextFieldNombre.getText();
         NIT = this.jFormattedTextFieldNIT.getText();
         correoElectronico = this.jFormattedTextFieldEmail.getText();
@@ -349,8 +350,6 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
                     DPI = Integer.parseInt(this.jFormattedTextFieldDPI.getText());
                 }
             }
-            
-            
         } catch (Exception e) {
         }
        
@@ -361,15 +360,15 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
         } catch (Exception e) {
         }
         if(tempCredito>=0)
-            {
-                creditoDecompra=tempCredito;
-            }
-            else
-            {
-                JOptionPane.showMessageDialog(this, "CANTIDAD DE CREDITO INCORRECTA");
-                bandera=false;
-            }
-        
+        {
+            creditoDecompra=tempCredito;
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "CANTIDAD DE CREDITO INCORRECTA");
+            bandera=false;
+        }
+        //Verfiicacion de los datos de credito del cliente
         if(bandera)
         {
             if(nombre.equals("")||telefono==0){

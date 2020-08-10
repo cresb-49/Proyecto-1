@@ -8,8 +8,11 @@ public class GenerateHTML {
     public GenerateHTML (File archivo){
         this.archivo=archivo;
     }
-
+    /**
+     * Genera el archivo html
+     */
     public void Generate (){
+        //genera un lugar de escritura
         PrintWriter html = null;
         try {
             html = new PrintWriter(new DataOutputStream(new FileOutputStream(archivo)));
@@ -21,6 +24,11 @@ public class GenerateHTML {
         }
         
     }
+    /**
+     * Imprime el archivo html
+     * @param html
+     * @return
+     */
     private PrintWriter htmlContenent(PrintWriter html){
         html.println("<h1>REPORTES DE TIENDA</h1>");
         html.println("<h2>Pedidos que llegaran</h2>");

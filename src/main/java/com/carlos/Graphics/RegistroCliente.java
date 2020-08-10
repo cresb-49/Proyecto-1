@@ -208,7 +208,7 @@ public class RegistroCliente extends javax.swing.JFrame {
         String email;
         String direccion;
         
-        
+        //Extracciones y converciones de datos
         nombre = this.jFormattedTextFieldNombre.getText();
         try {
             if(this.jFormattedTextFieldTelefono.getText().length()==8)
@@ -239,6 +239,7 @@ public class RegistroCliente extends javax.swing.JFrame {
         email = this.jFormattedTextFieldEmail.getText();
         direccion = this.jFormattedTextFieldDirecion.getText();
         //CREDITO DE COMPRA AL REGISTRARSE ES 0
+        //Verifica de los campos obligatorios esten bien excritos
         if(nombre.equals("")||telefono==0||NIT.equals("")){
             JOptionPane.showMessageDialog(this, "No se han completado los campos obligatorios del formulario");
         }

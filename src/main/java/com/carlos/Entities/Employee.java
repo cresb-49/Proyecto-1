@@ -17,9 +17,17 @@ public class Employee extends Users {
         super(name, phoneNumber, nit, dpi, email, direction);
         this.employeeCode=employeeCode;
     }
+    /**
+     * Retorna el codigo de empleado
+     * @return
+     */
     public String getEmployeeCode() {
         return employeeCode;
     }
+    /**
+     * Asigna el codigo de empleado
+     * @param employeeCode
+     */
     public void setEmployeeCode(String employeeCode) {
         this.employeeCode = employeeCode;
     }

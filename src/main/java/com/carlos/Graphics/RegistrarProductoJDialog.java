@@ -241,17 +241,20 @@ public class RegistrarProductoJDialog extends javax.swing.JDialog {
         fabricante = this.jFormattedTextFieldFabricante.getText();
         codigo = this.jFormattedTextFieldCodigo.getText();
         descripcion = this.jTextAreaDescripcion.getText();
+        //Realiza las conversiones para la comprobacion de informacion
         try {
             cantidad = Integer.parseInt(this.jFormattedTextFieldCantidad.getText());
             precio = Float.parseFloat(this.jFormattedTextFieldPrecio.getText());
             garantia = Integer.parseInt(this.jFormattedTextFieldGatantia.getText());
         } catch (Exception e) {
         }
+        //Verifica los campos obligatorios de registro del producto
         if(nombre.equals("")||fabricante.equals("")||codigo.equals("")||cantidad <= 0||precio<=0){
             JOptionPane.showMessageDialog(this, "Campos obligatorios no completados");
         }
         else
         {
+            //verifica que la garantia del producto sea la carrecta
             if(!(garantia<0))
             {
                 Product productoNuevo = new Product(nombre, fabricante, codigo, cantidad, precio, descripcion, garantia);
@@ -299,18 +302,21 @@ public class RegistrarProductoJDialog extends javax.swing.JDialog {
         fabricante = this.jFormattedTextFieldFabricante.getText();
         codigo = this.jFormattedTextFieldCodigo.getText();
         descripcion = this.jTextAreaDescripcion.getText();
+        //Realiza las converciones para verificar los campos
         try {
             cantidad = Integer.parseInt(this.jFormattedTextFieldCantidad.getText());
             precio = Float.parseFloat(this.jFormattedTextFieldPrecio.getText());
             garantia = Integer.parseInt(this.jFormattedTextFieldGatantia.getText());
         } catch (Exception e) {
         }
+        //Verifica los campos obligatorio del formulario
         if(nombre.equals("")||fabricante.equals("")||cantidad <= 0||precio<=0){
             JOptionPane.showMessageDialog(this, "Error en los datos obligatorios\nRestaurando datos originales");
             buscarDatos();
         }
         else
         {
+            //verfica de la garantia sea la correcta
             if(!(garantia<0))
             {
                 Product productoNuevo = new Product(nombre, fabricante, codigo, cantidad, precio, descripcion, garantia);
