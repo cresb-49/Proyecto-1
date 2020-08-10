@@ -18,6 +18,7 @@
 /home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/src/main/java/com/carlos/Graphics/TiendaClienteJFrame.java
 /home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/src/main/java/com/carlos/Graphics/EntregaProductoJDialog.java
 /home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/src/main/java/com/carlos/Graphics/RegistrarProductoJDialog.java
+/home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/src/main/java/com/carlos/DBSuport/ConexionDB.java
 /home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/src/main/java/com/carlos/DBSuport/RegistroDB.java
 /home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/src/main/java/com/carlos/TraslateDB/InputText.java
 /home/benjamin/Documents/Proyectos IPC2 2020/proyecto1IPC2-app/src/main/java/com/carlos/Entities/Product.java
