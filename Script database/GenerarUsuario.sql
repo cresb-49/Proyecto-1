@@ -1,0 +1,39 @@
+CREATE SCHEMA IF NOT EXISTS MiEmpresaProyecto1;
+
+USE MiEmpresaProyecto1;
+
+CREATE TABLE IF NOT EXISTS TIENDA(
+    codigo VARCHAR(20) NOT NULL,
+    nombre VARCHAR(20) NOT NULL,
+    telefono_1 VARCHAR(8) NOT NULL,
+    telefono_2 VARCHAR(8) NOT NULL,
+    email VARCHAR(20) NOT NULL,
+    horario VARCHAR(100) NOT NULL,
+    CONSTRAINT PK_TIENDA PRIMARY KEY (codigo),
+    CONSTRAINT UQ_TIENDA UNIQUE (codigo)
+);
+
+CREATE TABLE IF NOT EXISTS CLIENTE (
+    nit VARCHAR(20) NOT NULL,
+    nombre VARCHAR(30) NOT NULL,
+    telefono VARCHAR(8) NOT NULL,
+    credito INT NOT NULL,
+    dpi VARCHAR(9),
+    email VARCHAR(30),
+    direcccion VARCHAR(100),
+    CONSTRAINT PK_CLIENTE PRIMARY KEY (nit),
+    CONSTRAINT UC_CLIENTE UNIQUE (nit)
+);
+
+CREATE TABLE IF NOT EXISTS EMPLEADO (
+    codigo VARCHAR(20) NOT NULL,
+    nombre VARCHAR(30) NOT NULL,
+    telefono VARCHAR(8) NOT NULL,
+    dpi VARCHAR(9),
+    nit VARCHAR(20) NOT NULL,
+    email VARCHAR(30),
+    direcccion VARCHAR(100),
+    CONSTRAINT PK_CLIENTE PRIMARY KEY (codigo),
+    CONSTRAINT UC_CLIENTE UNIQUE (codigo)
+);
+
