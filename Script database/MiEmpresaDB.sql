@@ -1,6 +1,6 @@
-CREATE SCHEMA IF NOT EXISTS MiEmpresaProyecto1;
+CREATE SCHEMA IF NOT EXISTS mi_empresa_proyecto1;
 
-USE MiEmpresaProyecto1;
+USE mi_empresa_proyecto1;
 
 CREATE TABLE IF NOT EXISTS TIENDA(
     codigo VARCHAR(15) NOT NULL,
