@@ -285,8 +285,8 @@ public class RegistroEmpleadoJDialog extends javax.swing.JDialog {
         String codigoEmpleado;
         String nombre;
         String NIT;
-        int telefono=0;
-        int DPI=0;
+        long telefono=0;
+        long DPI=0;
         String correoElectronico;
         String direccion;
         //Extraccion de informacion ingresada en el formulario
@@ -296,8 +296,8 @@ public class RegistroEmpleadoJDialog extends javax.swing.JDialog {
         correoElectronico= this.jFormattedTextFieldDireccion.getText();
         direccion = this.jFormattedTextFieldDireccion.getText();
         try {
-            telefono = Integer.parseInt(this.jFormattedTextFieldTelefono.getText());
-            DPI = Integer.parseInt(this.jFormattedTextFieldDPI.getText());
+            telefono = Long.parseLong(this.jFormattedTextFieldTelefono.getText());
+            DPI = Long.parseLong(this.jFormattedTextFieldDPI.getText());
         } catch (Exception e) {
         }
         if(codigoEmpleado.equals("")||nombre.equals("")||telefono==0||DPI==0||correoElectronico.equals("")||direccion.equals("")){
@@ -305,7 +305,7 @@ public class RegistroEmpleadoJDialog extends javax.swing.JDialog {
         }
         else
         {
-            Employee nuevoEmpledo = new Employee(codigoEmpleado, nombre, telefono, NIT, DPI, correoElectronico, direccion);
+            Employee nuevoEmpledo = new Employee(codigoEmpleado, nombre, String.valueOf(telefono), NIT, String.valueOf(DPI), correoElectronico, direccion);
         }
         
     }//GEN-LAST:event_jButtonRegistrarActionPerformed
@@ -329,8 +329,8 @@ public class RegistroEmpleadoJDialog extends javax.swing.JDialog {
         String codigoEmpleado;
         String nombre;
         String NIT;
-        int telefono=0;
-        int DPI=0;
+        long telefono=0;
+        long DPI=0;
         String correoElectronico;
         String direccion;
         //Extraccion de la informacion del formulario
@@ -340,8 +340,8 @@ public class RegistroEmpleadoJDialog extends javax.swing.JDialog {
         correoElectronico= this.jFormattedTextFieldDireccion.getText();
         direccion = this.jFormattedTextFieldDireccion.getText();
         try {
-            telefono = Integer.parseInt(this.jFormattedTextFieldTelefono.getText());
-            DPI = Integer.parseInt(this.jFormattedTextFieldDPI.getText());
+            telefono = Long.parseLong(this.jFormattedTextFieldTelefono.getText());
+            DPI = Long.parseLong(this.jFormattedTextFieldDPI.getText());
         } catch (Exception e) {
         }
         if(codigoEmpleado.equals("")||nombre.equals("")||telefono==0||DPI==0||correoElectronico.equals("")||direccion.equals("")){
@@ -349,7 +349,7 @@ public class RegistroEmpleadoJDialog extends javax.swing.JDialog {
         }
         else
         {
-            Employee nuevoEmpledo = new Employee(codigoEmpleado, nombre, telefono, NIT, DPI, correoElectronico, direccion);
+            Employee nuevoEmpledo = new Employee(codigoEmpleado, nombre, String.valueOf(telefono), NIT, String.valueOf(DPI), correoElectronico, direccion);
         }
     }//GEN-LAST:event_jButtonModificarActionPerformed
 

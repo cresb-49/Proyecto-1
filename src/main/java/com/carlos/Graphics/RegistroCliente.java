@@ -202,9 +202,9 @@ public class RegistroCliente extends javax.swing.JFrame {
     private void jButtonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegistrarActionPerformed
         // TODO add your handling code here:
         String nombre;
-        int telefono=0;
+        long telefono=0;
         String NIT;
-        int DPI=0;
+        long DPI=0;
         String email;
         String direccion;
         
@@ -213,7 +213,7 @@ public class RegistroCliente extends javax.swing.JFrame {
         try {
             if(this.jFormattedTextFieldTelefono.getText().length()==8)
             {
-                telefono = Integer.parseInt(this.jFormattedTextFieldTelefono.getText());
+                telefono = Long.parseLong(this.jFormattedTextFieldTelefono.getText());
             }
             else
             {
@@ -224,7 +224,7 @@ public class RegistroCliente extends javax.swing.JFrame {
             {
                 if(this.jFormattedTextFieldDPI.getText().length()==9)
                 {
-                    DPI = Integer.parseInt(this.jFormattedTextFieldDPI.getText());
+                    DPI = Long.parseLong(this.jFormattedTextFieldDPI.getText());
                 }
                 else
                 {
@@ -245,7 +245,7 @@ public class RegistroCliente extends javax.swing.JFrame {
         }
         else
         {
-            Client clienteNuevo = new Client(NIT, telefono, NIT, DPI, 0, email, direccion);
+            Client clienteNuevo = new Client(NIT, String.valueOf(telefono), NIT, String.valueOf(DPI), 0, email, direccion);
             JOptionPane.showMessageDialog(this, "Recuerda tu usuario es tu NIT");
         }
         

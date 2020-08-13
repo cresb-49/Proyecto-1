@@ -1,14 +1,18 @@
 package com.carlos.TraslateDB;
 
+import com.carlos.DBSuport.RegistroDB;
 import java.io.*;
 import java.util.*;
+
+import com.carlos.Entities.Client;
+import com.carlos.Entities.Employee;
 
 public class InputText {
 
     //private String src = "/home/benjamin/Documents/Proyectos IPC2 2020/archivosprueba/";
     private ArrayList<String> lineasDeTexto = new ArrayList<String>();
     private ArrayList<String> erroresDeDatos = new ArrayList<String>();
-
+    private RegistroDB resistrarElemento = new RegistroDB();
     public InputText (){
 
     }
@@ -97,11 +101,20 @@ public class InputText {
                                             if(verificarDPI(apartados.get(4)))
                                             {
                                                 System.out.println(lineasDeTexto.get(i));
-                                                /*
-                                                for (int j = 0; j < cantidad+1; j++) {
-                                                System.out.println(apartados.get(j));
+                                                String codigo = apartados.get(2);
+                                                String nombre = apartados.get(1);
+                                                String nit = "";
+                                                String telefono = apartados.get(3);
+                                                String dpi=apartados.get(4);
+                                                String email="";
+                                                String direccion="";
+                                                Employee registroEmpleado = new Employee(codigo, nombre, telefono, nit, dpi, email, direccion);
+                                                String respuesta = this.resistrarElemento.registroEmpleado(registroEmpleado);
+                                                //Comprueba si hubo errores por parte de la base de datos
+                                                if(!(respuesta.equals(""))){
+                                                    String mensaje = "Linea "+(i+1)+" "+respuesta;            
+                                                    erroresDeDatos.add(mensaje);
                                                 }
-                                                */
                                             }
                                             else{
                                                 String mensaje = "Linea "+(i+1)+" Numero de DPI no valido";            
@@ -168,11 +181,20 @@ public class InputText {
                                         //Verificacion de forma flotante del dinero
                                         if(verificarRepresentacionNumericaDecimal(apartados.get(4))){
                                             System.out.println(lineasDeTexto.get(i));
-                                            /*
-                                            for (int j = 0; j < cantidad+1; j++) {
-                                                System.out.println(apartados.get(j));
+                                            String nombre = apartados.get(1);
+                                            String nit = apartados.get(2);
+                                            String telefono = apartados.get(3);
+                                            Float credito = Float.parseFloat(apartados.get(4));
+                                            String dpi="";
+                                            String email="";
+                                            String direccion="";
+                                            Client registroCliente = new Client(nombre, telefono, nit, dpi, credito, email, direccion);
+                                            String respuesta = this.resistrarElemento.registroCliente(registroCliente);
+                                            //Comprueba si hubo errores por parte de la base de datos
+                                            if(!(respuesta.equals(""))){
+                                                String mensaje = "Linea "+(i+1)+" "+respuesta;            
+                                                erroresDeDatos.add(mensaje);
                                             }
-                                            */
                                         }
                                         else{
                                             String mensaje = "Linea "+(i+1)+" credito al cliente no valido";            
@@ -301,6 +323,10 @@ public class InputText {
         for (int j = 0; j < erroresDeDatos.size(); j++) {
             System.out.println(erroresDeDatos.get(j));
         }*/
+        try {
+            this.resistrarElemento.closeConection();
+        } catch (Exception e) {
+        }
     }
     /**
      * Devuelve el array con los datos del procesado

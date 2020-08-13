@@ -5,7 +5,7 @@ USE mi_empresa_proyecto1;
 CREATE TABLE IF NOT EXISTS TIENDA(
     codigo VARCHAR(15) NOT NULL,
     nombre VARCHAR(20) NOT NULL,
-    direcccion VARCHAR(100) NOT NULL,
+    direccion VARCHAR(100) NOT NULL,
     telefono_1 VARCHAR(8) NOT NULL,
     telefono_2 VARCHAR(8),
     email VARCHAR(20),
@@ -18,10 +18,10 @@ CREATE TABLE IF NOT EXISTS CLIENTE (
     nit VARCHAR(10) NOT NULL,
     nombre VARCHAR(20) NOT NULL,
     telefono VARCHAR(8) NOT NULL,
-    credito INT,
-    dpi VARCHAR(9),
+    credito DOUBLE,
+    dpi VARCHAR(10),
     email VARCHAR(30),
-    direcccion VARCHAR(100),
+    direccion VARCHAR(100),
     PRIMARY KEY (nit),
     UNIQUE (nit)
 );
@@ -30,10 +30,10 @@ CREATE TABLE IF NOT EXISTS EMPLEADO (
     codigo VARCHAR(20) NOT NULL,
     nombre VARCHAR(20) NOT NULL,
     telefono VARCHAR(8) NOT NULL,
-    dpi VARCHAR(9) NOT NULL,
+    dpi VARCHAR(10) NOT NULL,
     nit VARCHAR(20),
     email VARCHAR(30) NOT NULL,
-    direcccion VARCHAR(100) NOT NULL,
+    direccion VARCHAR(100) NOT NULL,
     PRIMARY KEY (codigo),
     UNIQUE (codigo)
 );

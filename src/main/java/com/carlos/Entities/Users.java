@@ -6,10 +6,10 @@ package com.carlos.Entities;
 public class Users {
     //Registros Obligatorios de un usuario
     private String name;
-    private int phoneNumber;
+    private String phoneNumber;
     //Registro opcionales para algunas clases de herencia
     private String nit;
-    private int dpi;
+    private String dpi;
     private String email;
     private String direction;
 
@@ -23,7 +23,7 @@ public class Users {
      * @param email
      * @param direction
      */
-    public Users(String name, int phoneNumber,String nit,int dpi,String email,String direction){
+    public Users(String name, String phoneNumber,String nit,String dpi,String email,String direction){
         this.name=name;
         this.phoneNumber=phoneNumber;
         this.nit=nit;
@@ -63,14 +63,14 @@ public class Users {
      * Asgina el numero de DPI del usuario 
      * @param dpi
      */
-    public void setDpi(int dpi) {
+    public void setDpi(String dpi) {
         this.dpi = dpi;
     }
     /**
      * Retorna el numero de DPI del usuario
      * @return
      */
-    public int getDpi() {
+    public String getDpi() {
         return dpi;
     }
     /**
@@ -105,13 +105,13 @@ public class Users {
      * Asigna el numero de telefono del usuario
      * @param phoneNumber
      */
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
     /**
      * Retorna el numero del telefono del usuario
      */
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 }

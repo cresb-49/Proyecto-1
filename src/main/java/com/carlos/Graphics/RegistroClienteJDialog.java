@@ -326,8 +326,8 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
         String nombre;
         String NIT;
-        int telefono=0;
-        int DPI=0;
+        long telefono=0;
+        long DPI=0;
         float creditoDecompra=0;
         String correoElectronico;
         String direccion;
@@ -341,13 +341,13 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
         try {
             if(this.jFormattedTextFieldTelefono.getText().length()==8)
             {
-                telefono = Integer.parseInt(this.jFormattedTextFieldTelefono.getText());
+                telefono = Long.parseLong(this.jFormattedTextFieldTelefono.getText());
             }
             if(this.jFormattedTextFieldDPI.getText().length()!=0)
             {
                 if(this.jFormattedTextFieldDPI.getText().length()==9)
                 {
-                    DPI = Integer.parseInt(this.jFormattedTextFieldDPI.getText());
+                    DPI = Long.parseLong(this.jFormattedTextFieldDPI.getText());
                 }
             }
         } catch (Exception e) {
@@ -376,7 +376,7 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
             }
             else
             {
-                Client clienteNuevo = new Client(nombre, telefono, NIT, DPI, creditoDecompra, correoElectronico, direccion);
+                Client clienteNuevo = new Client(nombre, String.valueOf(telefono), NIT, String.valueOf(DPI), creditoDecompra, correoElectronico, direccion);
             }
         }
         else
@@ -390,8 +390,8 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
         String nombre;
         String NIT;
-        int telefono=0;
-        int DPI=0;
+        long telefono=0;
+        long DPI=0;
         float creditoDecompra=0;
         String correoElectronico;
         String direccion;
@@ -405,13 +405,13 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
         try {
             if(this.jFormattedTextFieldTelefono.getText().length()==8)
             {
-                telefono = Integer.parseInt(this.jFormattedTextFieldTelefono.getText());
+                telefono = Long.parseLong(this.jFormattedTextFieldTelefono.getText());
             }
             if(this.jFormattedTextFieldDPI.getText().length()!=0)
             {
                 if(this.jFormattedTextFieldDPI.getText().length()==9)
                 {
-                    DPI = Integer.parseInt(this.jFormattedTextFieldDPI.getText());
+                    DPI = Long.parseLong(this.jFormattedTextFieldDPI.getText());
                 }
             }
             
@@ -442,7 +442,7 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
             }
             else
             {
-                Client clienteNuevo = new Client(nombre, telefono, NIT, DPI, creditoDecompra, correoElectronico, direccion);
+                Client clienteNuevo = new Client(nombre, String.valueOf(telefono), NIT, String.valueOf(DPI), creditoDecompra, correoElectronico, direccion);
             }
         }
     }//GEN-LAST:event_jButtonRegistrarActionPerformed
