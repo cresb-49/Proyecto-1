@@ -9,7 +9,7 @@ public class ConexionDB {
     // Librería de MySQL
     private String driver = "com.mysql.jdbc.Driver";
     // Nombre de la base de datos
-    private String database = "MiEmpresaProyecto1";
+    private String database = "mi_empresa_proyecto1";
     // Host
     private String hostname = "localhost";
     // Puerto
