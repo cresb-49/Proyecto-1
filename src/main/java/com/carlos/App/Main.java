@@ -3,6 +3,7 @@ package com.carlos.App;
 import java.sql.SQLException;
 
 import com.carlos.DBSuport.ConexionDB;
+import com.carlos.Graphics.PrincipalFrame;
 
 /**
  * Hello world!
@@ -13,13 +14,6 @@ public class Main {
     {
         //InputText prueba1 = new InputText();
         //prueba1.LecturaEIngreso();
-        //PrincipalFrame frame = new PrincipalFrame("Bienvenido");
-        ConexionDB conecionBaseDatos = new ConexionDB();
-        System.out.println(conecionBaseDatos.conectarMySQL());
-        try {
-            conecionBaseDatos.cerrar();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        PrincipalFrame frame = new PrincipalFrame("Bienvenido");
     }
 }

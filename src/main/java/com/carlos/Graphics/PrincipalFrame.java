@@ -5,20 +5,29 @@
  */
 package com.carlos.Graphics;
 
+import com.carlos.DBSuport.ConexionDB;
+import com.carlos.TraslateDB.InputText;
+import java.sql.*;
 import java.awt.Image;
 import java.io.File;
 import java.io.InputStream;
 
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
  * @author benjamin
  */
 public class PrincipalFrame extends javax.swing.JFrame {
-
+    ConexionDB con = new ConexionDB();
+    Connection cn;
+    Statement st;
+    ResultSet rs;
     /**
      * Creates new form PrincipalFrame
      */
@@ -28,6 +37,11 @@ public class PrincipalFrame extends javax.swing.JFrame {
         ProfileComponents();
         this.setVisible(true);
         this.setLocationRelativeTo(null);
+        System.out.println(comprobacionDB());
+        if(comprobacionDB()==false){
+            JOptionPane.showMessageDialog(this, "No hay datos en el sistema debe cargarlos");
+            cargaDatos();
+        }
     }
 
     /**
@@ -141,6 +155,56 @@ public class PrincipalFrame extends javax.swing.JFrame {
      */
     public void AccesoDeUsuario(boolean token){
         this.setVisible(true);
+    }
+    private boolean comprobacionDB(){
+        boolean respuesta=false;
+        String consulta="SELECT * FROM TIENDA";
+        try {
+            cn = con.getConexion();
+            st = cn.createStatement();
+            rs=st.executeQuery(consulta);
+            while(rs.next()){
+                respuesta = true;
+            }
+        } catch (Exception e) {
+        }
+        finally{
+            try {
+                con.cerrar();
+            } catch (Exception e) {
+            }
+        }
+        return respuesta;
+    }
+    private void cargaDatos(){
+        JFileChooser cargaDeDatos = new JFileChooser();
+        //Establece los tipos de archivos permitidos en el programa
+        FileNameExtensionFilter filtroCarga=new FileNameExtensionFilter("TXT","txt");
+        //Parametros de configuracion del filechooser par aceptar solamente archivo y de tipo txt
+        cargaDeDatos.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        cargaDeDatos.setFileFilter(filtroCarga);
+        
+        int respuesta = cargaDeDatos.showOpenDialog(this);
+        //Si se da aceptar en la ventana se hacen las intrucciones
+        if(respuesta == JFileChooser.APPROVE_OPTION)
+        {
+            File ficheroSeleccionado = cargaDeDatos.getSelectedFile();
+            //si el fichero es aceptado entonces se hacen las instruccuiones de carga
+            if (ficheroSeleccionado.getName().endsWith("txt")){
+                InputText entradaDeInformacion = new InputText();
+                entradaDeInformacion.LecturaEIngreso(ficheroSeleccionado);
+                //se muestran los errores de carga y donde sucedieron los mismos
+                if(entradaDeInformacion.getErroresDeDatos().size()>0)
+                {
+                    VisualizadorDeErroresJDialog errores = new VisualizadorDeErroresJDialog(this, true, entradaDeInformacion.getErroresDeDatos());
+                    errores.setVisible(true);
+                }
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Formato de archivo no soprtado");
+            }
+            
+        }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonIniciarSesion;

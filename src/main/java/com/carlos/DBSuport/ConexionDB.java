@@ -17,7 +17,7 @@ public class ConexionDB {
     // Ruta de nuestra base de datos (desactivamos el uso de SSL con "?useSSL=false")
     private String url = "jdbc:mysql://" + hostname + ":" + port + "/" + database + "?useSSL=false";
     // Nombre de usuario
-    private String username = "root";
+    private String username = "carlospac";
     // Clave de usuario
     private String password = "201931012";
     // conencion de base de datos
@@ -39,11 +39,11 @@ public class ConexionDB {
      * Retorna la conexion de la base de datos
      * @return
      */
-    public static Connection getConexion() {
+    public Connection getConexion() {
         return conexion;
     }
 
-    public static void cerrar() throws SQLException {
+    public void cerrar() throws SQLException {
         if (conexion != null) {
             conexion.close();
         }

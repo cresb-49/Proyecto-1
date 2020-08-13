@@ -246,7 +246,6 @@ public class TiendaEmpleadoJFrame extends javax.swing.JFrame {
             }
             
         }
-        
     }//GEN-LAST:event_jMenuItemImportasBaseDeDatosActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed

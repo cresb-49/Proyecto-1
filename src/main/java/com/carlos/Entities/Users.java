@@ -46,20 +46,6 @@ public class Users {
         return name;
     }
     /**
-     * Asigna el numero telefonico del usuario 
-     * @param phoneNumber
-     */
-    public void setphoneNumber(int phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-    /**
-     * Retorna el numero telefonico del usuario
-     * @return
-     */
-    public int getphoneNumber() {
-        return phoneNumber;
-    }
-    /**
      * Asigna la direcccion del usuario
      * @param direction
      */
