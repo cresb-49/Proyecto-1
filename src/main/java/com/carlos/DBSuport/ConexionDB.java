@@ -25,22 +25,21 @@ public class ConexionDB {
 
     /**
      * Constructor principal de la clase conexion
+     * Genera la conexion de la base de datos al principio
      */
     public ConexionDB() {
-
-    }
-
-    /**
-     * 
-     * @return
-     */
-    public Connection conectarMySQL() {
         try {
             Class.forName(driver);
             conexion = DriverManager.getConnection(url, username, password);
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
+    }
+    /**
+     * Retorna la conexion de la base de datos
+     * @return
+     */
+    public static Connection getConexion() {
         return conexion;
     }
 
