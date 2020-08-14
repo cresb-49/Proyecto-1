@@ -8,6 +8,7 @@ public class Product{
     private float price;
     private String description;
     private int garantia;
+    private String tienda;
     /**
      * Constructor principal de registro de productos
      * @param name  nombre del producto
@@ -18,7 +19,7 @@ public class Product{
      * @param description   descripcion del producto
      * @param garantia  garantia en meses del producto
      */
-    public Product(String name,String manufacturer,String code, int cantidad, float price, String description,int garantia){
+    public Product(String name,String manufacturer,String code, int cantidad, float price, String description,int garantia,String tienda){
         this.name=name;
         this.manufacturer=manufacturer;
         this.code=code;
@@ -26,6 +27,7 @@ public class Product{
         this.price=price;
         this.description=description;
         this.garantia=garantia;
+        this.tienda=tienda;
     }
     /**
      * Retorna la cantidad de producto
@@ -120,5 +122,19 @@ public class Product{
      */
     public void setPrice(float price) {
         this.price = price;
+    }
+    /**
+     * Retorna el codigo de tienda donde se encuentra el producto
+     * @return
+     */
+    public String getTienda() {
+        return tienda;
+    }
+    /**
+     * Asigna el codigo de tienda donde esta el producto
+     * @param tienda
+     */
+    public void setTienda(String tienda) {
+        this.tienda = tienda;
     }
 }

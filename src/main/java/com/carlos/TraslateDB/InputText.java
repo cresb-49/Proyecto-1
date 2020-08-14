@@ -222,7 +222,7 @@ public class InputText {
                             if(cantidad==6)
                             {
                                 apartados=apartadoDeTexto(lineasDeTexto.get(i),",");
-                                //verficamos si el texto ingreado es un numero
+                                //verficamos si el texto ingresado es un numero
                                 if(verificarRepresentacionNumerica(apartados.get(4))){
                                     //verifcamos si el texto es un numero en esta caso de tipo flotante
                                     if(verificarRepresentacionNumericaDecimal(apartados.get(5)))

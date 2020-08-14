@@ -107,8 +107,41 @@ public class RegistroDB {
         
         return errores;
     }
-    public void registroProducto(){
+    public String registroProducto(Product producto){
+        //Respuesta de errores de sql
+        String errores ="";
+        //Declaracion de variables para insertar valores de la consulta 
+        String name;
+        String manufacturer;
+        String code;
+        int cantidad;
+        float price;
+        String description;
+        int garantia;
+        String tienda;
+        //Asignacion de los datos de la variables
+        name = producto.getName();
+        manufacturer = producto.getManufacturer();
+        code = producto.getCode();
+        cantidad = producto.getCantidad();
+        price=producto.getPrice();
+        description = producto.getDescription();
+        garantia = producto.getCantidad();
+        tienda = producto.getTienda();
+        //declaracion de la consulta
+        String consulta="INSERT INTO PRODUCTO (codigo,nombre,fabricante,precio,descripcion,garantia) VALUES ('"+code+"','"+name+"','"+manufacturer+"','"+price+"','"+description+"','"+garantia+"') ";
+        String consulta2="INSERT INTO EXISTENCIA (TIENDA_codigo,PRODUCTO_codigo,cantidad) VALUES ('"+tienda+"','"+code+"','"+cantidad+"') ";
+        try {
+            cn = con.getConexion();
+            st = cn.createStatement();
+            //INGRESO DE LOS VALORES A LA BASE DE DATOS
+            st.executeUpdate(consulta);
+            st.executeUpdate(consulta2);
+        } catch (Exception e) {
+            errores=e.getMessage();
+        }
         
+        return errores;
     }
     public String registroTiempo(TimeStoreToStore tiempoDeTransporte){
         //Respuesta de errores de sql
@@ -135,5 +168,41 @@ public class RegistroDB {
     }
     public void closeConection() throws SQLException{
         con.cerrar();
+    }
+    public String registroPedido(Pedido pedido){
+        //Respuesta de errores de sql
+        String errores ="";
+        //Declaracion de variables para insertar valores de la consulta 
+        String codigo;
+        String tienda1;
+        String tienda2;
+        String fecha;
+        String cliente;
+        String producto;
+        int cantidad;
+        float total;
+        float anticipo;
+        //Asignacion de los datos de la variables
+        codigo = pedido.getCodigo();
+        tienda1 = pedido.getTienda1();
+        tienda2 = pedido.getTienda2();
+        fecha = pedido.getFecha();
+        cliente = pedido.getCliente();
+        producto = pedido.getProducto();
+        cantidad = pedido.getCantidad();
+        total = pedido.getTotal();
+        anticipo = pedido.getAnticipo();
+        //declaracion de la consulta
+        String consulta="INSERT INTO PEDIDO (codigo,cantidad,total,anticipo,fecha_orden,CLIENTE_nit,PRODUCTO_codigo,TIENDA_codigo_salida,TIENDA_codigo_llegada) VALUES ('"+codigo+"','"+cantidad+"','"+total+"','"+anticipo+"','"+fecha+"','"+cliente+"','"+producto+"','"+tienda1+"','"+tienda2+"') ";
+        try {
+            cn = con.getConexion();
+            st = cn.createStatement();
+            //INGRESO DE LOS VALORES A LA BASE DE DATOS
+            st.executeUpdate(consulta);
+        } catch (Exception e) {
+            errores=e.getMessage();
+        }
+        
+        return errores;
     }
 }
