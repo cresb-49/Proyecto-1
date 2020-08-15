@@ -1,17 +1,20 @@
 package com.carlos.DBSuport;
 import java.sql.*;
-
 import com.carlos.Entities.*;
 
-
-public class RegistroDB {
+/**
+ * ModificacionesDB
+ */
+public class ModificacionesDB {
     //VARIABLES DE CONEXION A BASE DE DATOS
     ConexionDB con = new ConexionDB();
     Connection cn;
     Statement st;
     ResultSet rs;
-
-    public RegistroDB(){
+    /**
+     * Constructor vacio de la clase modificaciones de los datos de la base de datos
+     */
+    public ModificacionesDB(){
 
     }
     public String registroCliente(Client cliente){
@@ -65,6 +68,7 @@ public class RegistroDB {
         horario = tienda.getHorario();
         
         //declaracion de la consulta
+        //String consulta="UPDATE TIENDA SET  nombre = '"+nombre+"',direccion = '"+direccion+"',telefono_1 = '"+telefono1+"',telefono_2 = '"+telefono2+",email = '"+email+"',horario = '"+horario+"' WHERE codigo= '"+codigo+"'";
         String consulta="INSERT INTO TIENDA (codigo,nombre,direccion,telefono_1,telefono_2,email,horario) VALUES ('"+codigo+"','"+nombre+"','"+direccion+"','"+telefono1+"','"+telefono2+"','"+email+"','"+horario+"') ";
         try {
             cn = con.getConexion();
