@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.carlos.AppTest" time="0.118" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.carlos.AppTest" time="0.101" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="sun.desktop" value="windows"/>
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
@@ -17,7 +17,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="GT"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-11.0.7\bin"/>
-    <property name="sun.java.command" value="C:\Users\CARLOS~1\AppData\Local\Temp\surefire15002212479118856026\surefirebooter17956825554940435561.jar C:\Users\Carlos Pac\AppData\Local\Temp\surefire15002212479118856026 2020-08-13T09-18-55_838-jvmRun1 surefire14251005237946561359tmp surefire_03509721473673444820tmp"/>
+    <property name="sun.java.command" value="C:\Users\CARLOS~1\AppData\Local\Temp\surefire6155371647763195875\surefirebooter11787316618551377676.jar C:\Users\Carlos Pac\AppData\Local\Temp\surefire6155371647763195875 2020-08-15T21-06-10_507-jvmRun1 surefire4516544488059433744tmp surefire_015636792252739520681tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="E:\Documentos\PROYECTOS IPC2 2020\Proyecto-1\target\test-classes;E:\Documentos\PROYECTOS IPC2 2020\Proyecto-1\target\classes;C:\Users\Carlos Pac\.m2\repository\junit\junit\4.11\junit-4.11.jar;C:\Users\Carlos Pac\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\Carlos Pac\.m2\repository\mysql\mysql-connector-java\5.1.49\mysql-connector-java-5.1.49.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -33,7 +33,7 @@
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
-    <property name="surefire.real.class.path" value="C:\Users\CARLOS~1\AppData\Local\Temp\surefire15002212479118856026\surefirebooter17956825554940435561.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\CARLOS~1\AppData\Local\Temp\surefire6155371647763195875\surefirebooter11787316618551377676.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="11.0.7+8-LTS"/>
@@ -60,5 +60,5 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="55.0"/>
   </properties>
-  <testcase name="shouldAnswerWithTrue" classname="com.carlos.AppTest" time="0.003"/>
+  <testcase name="shouldAnswerWithTrue" classname="com.carlos.AppTest" time="0.001"/>
 </testsuite>

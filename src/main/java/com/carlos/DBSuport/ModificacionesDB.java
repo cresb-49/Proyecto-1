@@ -17,7 +17,7 @@ public class ModificacionesDB {
     public ModificacionesDB(){
 
     }
-    public String registroCliente(Client cliente){
+    public String modificarCliente(Client cliente){
         //Respuesta de errores de sql
         String errores ="";
         //Declaracion de variables para insertar valores de la consulta
@@ -37,7 +37,7 @@ public class ModificacionesDB {
         email = cliente.getEmail();
         direccion = cliente.getDirection();
         //declaracion de la consulta
-        String consulta="INSERT INTO CLIENTE (nit,nombre,telefono,credito,dpi,email,direccion) VALUES ('"+nit+"','"+nombre+"','"+telefono+"','"+credito+"','"+dpi+"','"+email+"','"+direccion+"') ";
+        String consulta="UPDATE CLIENTE SET nombre = '"+nombre+"', telefono = '"+telefono+"',credito = '"+credito+"', dpi = '"+dpi+"', email = '"+email+"', direccion = '"+direccion+"' WHERE nit = '"+nit+"'";
         try {
             cn = con.getConexion();
             st = cn.createStatement();
@@ -47,7 +47,7 @@ public class ModificacionesDB {
         }
         return errores;
     }
-    public String registroTienda(Store tienda){
+    public String modificarTienda(Store tienda){
          //Respuesta de errores de sql
         String errores ="";
         //Declaracion de variables para insertar valores de la consulta 
@@ -68,8 +68,7 @@ public class ModificacionesDB {
         horario = tienda.getHorario();
         
         //declaracion de la consulta
-        //String consulta="UPDATE TIENDA SET  nombre = '"+nombre+"',direccion = '"+direccion+"',telefono_1 = '"+telefono1+"',telefono_2 = '"+telefono2+",email = '"+email+"',horario = '"+horario+"' WHERE codigo= '"+codigo+"'";
-        String consulta="INSERT INTO TIENDA (codigo,nombre,direccion,telefono_1,telefono_2,email,horario) VALUES ('"+codigo+"','"+nombre+"','"+direccion+"','"+telefono1+"','"+telefono2+"','"+email+"','"+horario+"') ";
+        String consulta="UPDATE TIENDA SET  nombre = '"+nombre+"',direccion = '"+direccion+"',telefono_1 = '"+telefono1+"',telefono_2 = '"+telefono2+",email = '"+email+"',horario = '"+horario+"' WHERE codigo= '"+codigo+"'";
         try {
             cn = con.getConexion();
             st = cn.createStatement();
@@ -80,7 +79,7 @@ public class ModificacionesDB {
         
         return errores;
     }
-    public String registroEmpleado(Employee empleado){
+    public String modificarEmpleado(Employee empleado){
         //Respuesta de errores de sql
         String errores ="";
         //Declaracion de variables para insertar valores de la consulta 
@@ -100,7 +99,7 @@ public class ModificacionesDB {
         email = empleado.getEmail();
         direccion = empleado.getDirection();
         //declaracion de la consulta
-        String consulta="INSERT INTO EMPLEADO (codigo,nombre,telefono,dpi,nit,email,direccion) VALUES ('"+codigo+"','"+nombre+"','"+telefono+"','"+dpi+"','"+nit+"','"+email+"','"+direccion+"') ";
+        String consulta="UPDATE EMPLEADO SET nombre = '"+nombre+"',telefono = '"+telefono+"',dpi = '"+dpi+"',nit = '"+nit+"',email = '"+email+"',direccion = '"+direccion+"' WHERE codigo = '"+codigo+"'";
         try {
             cn = con.getConexion();
             st = cn.createStatement();
@@ -111,7 +110,7 @@ public class ModificacionesDB {
         
         return errores;
     }
-    public String registroProducto(Product producto){
+    public String modificarProducto(Product producto){
         //Respuesta de errores de sql
         String errores ="";
         //Declaracion de variables para insertar valores de la consulta 
@@ -133,8 +132,8 @@ public class ModificacionesDB {
         garantia = producto.getCantidad();
         tienda = producto.getTienda();
         //declaracion de la consulta
-        String consulta="INSERT INTO PRODUCTO (codigo,nombre,fabricante,precio,descripcion,garantia) VALUES ('"+code+"','"+name+"','"+manufacturer+"','"+price+"','"+description+"','"+garantia+"') ";
-        String consulta2="INSERT INTO EXISTENCIA (TIENDA_codigo,PRODUCTO_codigo,cantidad) VALUES ('"+tienda+"','"+code+"','"+cantidad+"') ";
+        String consulta="UPDATE PRODUCTO SET nombre = '"+name+"',fabricante = '"+manufacturer+"',precio = '"+price+"',descripcion = '"+description+"',garantia = '"+garantia+"' WHERE codigo = '"+code+"'";
+        String consulta2="UPDATE EXISTENCIA SET cantidad = '"+cantidad+"' WHERE TIENDA_codigo = '"+tienda+"',PRODUCTO_codigo = '"+code+"'";
         try {
             cn = con.getConexion();
             st = cn.createStatement();
@@ -147,7 +146,7 @@ public class ModificacionesDB {
         
         return errores;
     }
-    public String registroTiempo(TimeStoreToStore tiempoDeTransporte){
+    public String modificarTiempo(TimeStoreToStore tiempoDeTransporte){
         //Respuesta de errores de sql
         String errores ="";
         //Declaracion de variables para insertar valores de la consulta 
@@ -159,7 +158,7 @@ public class ModificacionesDB {
         codigoTienda2 = tiempoDeTransporte.getStoreCode2();
         tiempo = tiempoDeTransporte.getTime();
         //declaracion de la consulta
-        String consulta="INSERT INTO TIEMPO_TRASLADO (TIENDA_codigo1,TIENDA_codigo2,tiempo) VALUES ('"+codigoTienda1+"','"+codigoTienda2+"','"+tiempo+"') ";
+        String consulta="UPDATE TIEMPO_TRASLADO SET tiempo = '"+tiempo+"' WHERE TIENDA_codigo1 = '"+codigoTienda1+"',TIENDA_codigo2 = '"+codigoTienda2+"'";
         try {
             cn = con.getConexion();
             st = cn.createStatement();
@@ -170,10 +169,8 @@ public class ModificacionesDB {
         
         return errores;
     }
-    public void closeConection() throws SQLException{
-        con.cerrar();
-    }
-    public String registroPedido(Pedido pedido){
+
+    public String modificarPedido(Pedido pedido){
         //Respuesta de errores de sql
         String errores ="";
         //Declaracion de variables para insertar valores de la consulta 
@@ -197,7 +194,7 @@ public class ModificacionesDB {
         total = pedido.getTotal();
         anticipo = pedido.getAnticipo();
         //declaracion de la consulta
-        String consulta="INSERT INTO PEDIDO (codigo,cantidad,total,anticipo,fecha_orden,CLIENTE_nit,PRODUCTO_codigo,TIENDA_codigo_salida,TIENDA_codigo_llegada) VALUES ('"+codigo+"','"+cantidad+"','"+total+"','"+anticipo+"','"+fecha+"','"+cliente+"','"+producto+"','"+tienda1+"','"+tienda2+"') ";
+        String consulta="UPDATE PEDIDO SET cantidad = '"+cantidad+"',total = '"+total+"',anticipo = '"+anticipo+"',fecha_orden = '"+fecha+"',CLIENTE_nit = '"+cliente+"',PRODUCTO_codigo = '"+producto+"',TIENDA_codigo_salida = '"+tienda1+"',TIENDA_codigo_llegada = '"+tienda2+"' WHERE codigo = '"+codigo+"'";
         try {
             cn = con.getConexion();
             st = cn.createStatement();
@@ -208,5 +205,8 @@ public class ModificacionesDB {
         }
         
         return errores;
+    }
+    public void closeConection() throws SQLException{
+        con.cerrar();
     }
 }

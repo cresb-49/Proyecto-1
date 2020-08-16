@@ -17,6 +17,7 @@ public class RegistrarProductoJDialog extends javax.swing.JDialog {
     /**
      * Creates new form RegistrarProductoJDialog
      */
+    private String tienda;
     public RegistrarProductoJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -310,7 +311,7 @@ public class RegistrarProductoJDialog extends javax.swing.JDialog {
             //verifica que la garantia del producto sea la carrecta
             if(!(garantia<0))
             {
-                Product productoNuevo = new Product(nombre, fabricante, codigo, cantidad, precio, descripcion, garantia);
+                Product productoNuevo = new Product(nombre, fabricante, codigo, cantidad, precio, descripcion, garantia,tienda);
             }
             else{
                 JOptionPane.showMessageDialog(this, "Campo de garantia incorrecto");
@@ -372,7 +373,7 @@ public class RegistrarProductoJDialog extends javax.swing.JDialog {
             //verfica de la garantia sea la correcta
             if(!(garantia<0))
             {
-                Product productoNuevo = new Product(nombre, fabricante, codigo, cantidad, precio, descripcion, garantia);
+                Product productoNuevo = new Product(nombre, fabricante, codigo, cantidad, precio, descripcion, garantia, tienda);
             }
             else{
                 JOptionPane.showMessageDialog(this, "Campo de garantia incorrecto\nRestaurando datos originales");

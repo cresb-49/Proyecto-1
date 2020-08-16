@@ -24,7 +24,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author benjamin
  */
 public class PrincipalFrame extends javax.swing.JFrame {
-    ConexionDB con = new ConexionDB();
+    ConexionDB con;
     Connection cn;
     Statement st;
     ResultSet rs;
@@ -37,6 +37,11 @@ public class PrincipalFrame extends javax.swing.JFrame {
         ProfileComponents();
         this.setVisible(true);
         this.setLocationRelativeTo(null);
+        try {
+            con = new ConexionDB();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
         System.out.println(comprobacionDB());
         if(comprobacionDB()==false){
             JOptionPane.showMessageDialog(this, "No hay datos en el sistema debe cargarlos");

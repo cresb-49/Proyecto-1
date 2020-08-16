@@ -41,8 +41,10 @@ com\carlos\Graphics\TiendaEmpleadoJFrame$5.class
 com\carlos\Graphics\RealizarPedidoJDialog$5.class
 com\carlos\Graphics\TiendaEmpleadoJFrame$1.class
 com\carlos\App\Main.class
+com\carlos\Entities\TimeStoreToStore.class
 com\carlos\Graphics\RegistroEmpleadoJDialog$6.class
 com\carlos\Graphics\VisualizadorDeErroresJDialog.class
+com\carlos\DBSuport\ModificacionesDB.class
 com\carlos\Graphics\TiendaEmpleadoJFrame$8.class
 com\carlos\Graphics\RegistroCliente$3.class
 com\carlos\Graphics\RealizarPedidoJDialog$1.class
