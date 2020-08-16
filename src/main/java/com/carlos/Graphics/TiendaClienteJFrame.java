@@ -34,17 +34,32 @@ public class TiendaClienteJFrame extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItemProductos = new javax.swing.JMenuItem();
         jMenuRastreo = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jMenu1.setText("Catalogo");
 
         jMenuItemProductos.setText("Productos");
+        jMenuItemProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemProductosActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItemProductos);
 
         jMenuBar1.add(jMenu1);
 
         jMenuRastreo.setText("Pedidos");
+
+        jMenuItem1.setText("Rastreo de pedidos");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenuRastreo.add(jMenuItem1);
+
         jMenuBar1.add(jMenuRastreo);
 
         setJMenuBar(jMenuBar1);
@@ -63,9 +78,22 @@ public class TiendaClienteJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        RastreoPedidoJDialog rastreoPedido = new RastreoPedidoJDialog(this, true);
+        rastreoPedido.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItemProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemProductosActionPerformed
+        // TODO add your handling code here:
+        CatalogoJDialog catalogoProductos = new CatalogoJDialog(this, true);
+        catalogoProductos.setVisible(true);
+    }//GEN-LAST:event_jMenuItemProductosActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItemProductos;
     private javax.swing.JMenu jMenuRastreo;
     // End of variables declaration//GEN-END:variables

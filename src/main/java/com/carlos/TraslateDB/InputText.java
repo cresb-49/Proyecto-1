@@ -261,17 +261,17 @@ public class InputText {
                                         String tienda = apartados.get(6);
                                         Product registroProducto = new Product(name, manufacturer, code, existencia, price, description, garantia, tienda);
                                         String respuesta = this.resistrarElemento.registroProducto(registroProducto);
-                                        //String respuesta2 = this.resistrarElemento.registroExistencia(registroProducto);
-                                        
                                         //Comprueba si hubo errores por parte de la base de datos
                                         if(!(respuesta.equals(""))){
                                             String mensaje = "Linea "+(i+1)+" "+respuesta;            
                                             erroresDeDatos.add(mensaje);
                                         }
-                                        /*if(!(respuesta2.equals(""))){
-                                            String mensaje = "Linea "+(i+1)+" "+respuesta;            
+
+                                        String respuesta2 = this.resistrarElemento.registroExistencia(registroProducto);
+                                        if(!(respuesta2.equals(""))){
+                                            String mensaje = "--Linea "+(i+1)+" "+respuesta;            
                                             erroresDeDatos.add(mensaje);
-                                        }*/
+                                        }
                                     }
                                     else{
                                         String mensaje = "Linea "+(i+1)+" la sintaxis del precio del producto es incorrecto";            

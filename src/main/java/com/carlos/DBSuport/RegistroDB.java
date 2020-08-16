@@ -114,29 +114,23 @@ public class RegistroDB {
         String name;
         String manufacturer;
         String code;
-        int cantidad;
         float price;
         String description;
         int garantia;
-        String tienda;
         //Asignacion de los datos de la variables
         name = producto.getName();
         manufacturer = producto.getManufacturer();
         code = producto.getCode();
-        cantidad = producto.getCantidad();
         price=producto.getPrice();
         description = producto.getDescription();
-        garantia = producto.getCantidad();
-        tienda = producto.getTienda();
+        garantia = producto.getGarantia();
         //declaracion de la consulta
         String consulta="INSERT INTO PRODUCTO (codigo,nombre,fabricante,precio,descripcion,garantia) VALUES ('"+code+"','"+name+"','"+manufacturer+"','"+price+"','"+description+"','"+garantia+"') ";
-        String consulta2="INSERT INTO EXISTENCIA (TIENDA_codigo,PRODUCTO_codigo,cantidad) VALUES ('"+tienda+"','"+code+"','"+cantidad+"') ";
         try {
             cn = con.getConexion();
             st = cn.createStatement();
             //INGRESO DE LOS VALORES A LA BASE DE DATOS
             st.executeUpdate(consulta);
-            st.executeUpdate(consulta2);
         } catch (Exception e) {
             errores=e.getMessage();
         }

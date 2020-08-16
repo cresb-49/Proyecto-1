@@ -129,17 +129,39 @@ public class ModificacionesDB {
         cantidad = producto.getCantidad();
         price=producto.getPrice();
         description = producto.getDescription();
-        garantia = producto.getCantidad();
+        garantia = producto.getGarantia();
         tienda = producto.getTienda();
         //declaracion de la consulta
         String consulta="UPDATE PRODUCTO SET nombre = '"+name+"',fabricante = '"+manufacturer+"',precio = '"+price+"',descripcion = '"+description+"',garantia = '"+garantia+"' WHERE codigo = '"+code+"'";
-        String consulta2="UPDATE EXISTENCIA SET cantidad = '"+cantidad+"' WHERE TIENDA_codigo = '"+tienda+"',PRODUCTO_codigo = '"+code+"'";
         try {
             cn = con.getConexion();
             st = cn.createStatement();
             //INGRESO DE LOS VALORES A LA BASE DE DATOS
             st.executeUpdate(consulta);
-            st.executeUpdate(consulta2);
+        } catch (Exception e) {
+            errores=e.getMessage();
+        }
+        
+        return errores;
+    }
+    public String modificarExistencia(Product producto){
+        //Respuesta de errores de sql
+        String errores ="";
+        //Declaracion de variables para insertar valores de la consulta 
+        String code;
+        int cantidad;
+        String tienda;
+        //Asignacion de los datos de la variables
+        code = producto.getCode();
+        cantidad = producto.getCantidad();
+        tienda = producto.getTienda();
+        //declaracion de la consulta        
+        String consulta="UPDATE EXISTENCIA SET cantidad = '"+cantidad+"' WHERE TIENDA_codigo = '"+tienda+"' AND PRODUCTO_codigo = '"+code+"'";
+        try {
+            cn = con.getConexion();
+            st = cn.createStatement();
+            //INGRESO DE LOS VALORES A LA BASE DE DATOS
+            st.executeUpdate(consulta);
         } catch (Exception e) {
             errores=e.getMessage();
         }
@@ -208,5 +230,22 @@ public class ModificacionesDB {
     }
     public void closeConection() throws SQLException{
         con.cerrar();
+    }
+    public String modificarCreditoCliente(String nit, String creditoNuevo){
+        //Respuesta de errores de sql
+        String errores ="";
+        
+        //declaracion de la consulta
+        String consulta="UPDATE CLIENTE SET credito WHERE nit = '"+nit+"'";
+        try {
+            cn = con.getConexion();
+            st = cn.createStatement();
+            //INGRESO DE LOS VALORES A LA BASE DE DATOS
+            st.executeUpdate(consulta);
+        } catch (Exception e) {
+            errores=e.getMessage();
+        }
+        
+        return errores;
     }
 }

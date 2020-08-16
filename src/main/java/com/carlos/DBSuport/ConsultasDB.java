@@ -57,6 +57,20 @@ public class ConsultasDB {
         }
         return tiendasDisponibles;
     }
+    public ArrayList<String> codigosDeTiendas(){
+        ArrayList<String> tiendasDisponibles = new ArrayList<String>();
+        String consulta="SELECT codigo FROM TIENDA";
+        try {
+            cn = con.getConexion();
+            st = cn.createStatement();
+            rs=st.executeQuery(consulta);
+            while(rs.next()){
+                tiendasDisponibles.add(rs.getString("codigo"));
+            }
+        } catch (Exception e) {
+        }
+        return tiendasDisponibles;
+    }
     
     public ArrayList<String> datosCliente(String nit){
         ArrayList<String> cliente = new ArrayList<String>();
@@ -145,4 +159,103 @@ public class ConsultasDB {
         }
         return tiempo;
     }
+    public ArrayList<String> datosProducto(String codigo){
+        ArrayList<String> datosProducto = new ArrayList<String>();
+        
+        String consulta="SELECT nombre,fabricante,precio,descripcion,garantia FROM PRODUCTO WHERE codigo = '"+codigo+"'";
+        try {
+            cn = con.getConexion();
+            st = cn.createStatement();
+            rs=st.executeQuery(consulta);
+            while(rs.next()){
+                datosProducto.add(rs.getString(1));
+                datosProducto.add(rs.getString(2));
+                datosProducto.add(rs.getString(3));
+                datosProducto.add(rs.getString(4));
+                datosProducto.add(rs.getString(5));
+            }
+        } catch (Exception e) {
+        }
+        return datosProducto;
+    }
+    public String datosExistenciaProducto(String codigo,String codigoTienda){
+        String datosProducto = "";
+        
+        String consulta="SELECT cantidad FROM EXISTENCIA WHERE PRODUCTO_codigo = '"+codigo+"' AND TIENDA_codigo = '"+codigoTienda+"'";
+        try {
+            cn = con.getConexion();
+            st = cn.createStatement();
+            rs=st.executeQuery(consulta);
+            while(rs.next()){
+                datosProducto = rs.getString(1);
+            }
+        }
+        catch (Exception e) {
+            
+        }
+        return datosProducto;
+    }
+    public ArrayList<String> productoDeUnPedido(String codigo){
+        ArrayList<String> datosProducto = new ArrayList<String>();
+        
+        String consulta="SELECT PRODUCTO_codigo FROM PEDIDO WHERE codigo = '"+codigo+"'";
+        try {
+            cn = con.getConexion();
+            st = cn.createStatement();
+            rs=st.executeQuery(consulta);
+            while(rs.next()){
+                datosProducto.add(rs.getString(1));
+            }
+        } catch (Exception e) {
+        }
+        return datosProducto;
+    }
+    public ArrayList<String> datosPedido(String codigo){
+        ArrayList<String> datosProducto = new ArrayList<String>();
+        
+        String consulta="SELECT anticipo,TIENDA_codigo_salida,TIENDA_codigo_llegada FROM PEDIDO  WHERE codigo = '"+codigo+"' LIMIT 1;";
+        try {
+            cn = con.getConexion();
+            st = cn.createStatement();
+            rs=st.executeQuery(consulta);
+            while(rs.next()){
+                datosProducto.add(rs.getString(1));
+                datosProducto.add(rs.getString(2));
+                datosProducto.add(rs.getString(3));
+            }
+        } catch (Exception e) {
+        }
+        return datosProducto;
+    }
+    public int  sumaTotalPedido(String codigo){
+        int total=0;
+        
+        String consulta="SELECT SUM(total) FROM PEDIDO WHERE codigo = '"+codigo+"';";
+        try {
+            cn = con.getConexion();
+            st = cn.createStatement();
+            rs=st.executeQuery(consulta);
+            while(rs.next()){
+                total = rs.getInt(1);
+            }
+        } catch (Exception e) {
+        }
+        return total;
+    }
+    public String  consultarCodigoTienda(String nombre){
+        String codigo = "";
+        
+        String consulta="SELECT codigo FROM TIENDA WHERE nombre = '"+nombre+"';";
+        try {
+            cn = con.getConexion();
+            st = cn.createStatement();
+            rs=st.executeQuery(consulta);
+            while(rs.next()){
+                codigo = rs.getString(1);
+            }
+        } catch (Exception e) {
+        }
+        return codigo;
+    }
+    
 }

@@ -212,7 +212,7 @@ public class TiendaEmpleadoJFrame extends javax.swing.JFrame {
 
     private void jMenuItemRealizarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRealizarPedidoActionPerformed
         // TODO add your handling code here:
-        RealizarPedidoJDialog pedidoNuevo = new RealizarPedidoJDialog(this, true);
+        RealizarPedidoJDialog pedidoNuevo = new RealizarPedidoJDialog(this, true,tienda);
         pedidoNuevo.setVisible(true);
         
     }//GEN-LAST:event_jMenuItemRealizarPedidoActionPerformed

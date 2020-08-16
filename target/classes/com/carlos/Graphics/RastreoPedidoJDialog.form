@@ -43,20 +43,25 @@
                       </Group>
                       <EmptySpace min="34" pref="34" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jFormattedTextField1" min="-2" pref="206" max="-2" attributes="0"/>
-                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                              <Component id="jTextField2" min="-2" pref="206" max="-2" attributes="0"/>
-                              <Component id="jTextField1" min="-2" pref="206" max="-2" attributes="0"/>
-                              <Component id="jTextField3" alignment="1" min="-2" pref="206" max="-2" attributes="0"/>
-                              <Component id="jTextField4" alignment="1" min="-2" pref="206" max="-2" attributes="0"/>
-                              <Component id="jTextField5" alignment="1" min="-2" pref="206" max="-2" attributes="0"/>
-                              <Component id="jTextField7" alignment="1" min="-2" pref="206" max="-2" attributes="0"/>
-                              <Component id="jTextField6" alignment="1" min="-2" pref="206" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jFormattedTextFieldCodigoPedido" min="-2" pref="206" max="-2" attributes="0"/>
+                              <EmptySpace pref="32" max="32767" attributes="0"/>
+                              <Component id="jButtonBuscar" min="-2" pref="89" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="jTextFieldDias" min="-2" pref="206" max="-2" attributes="0"/>
+                                  <Component id="jTextFieldTotal" alignment="1" min="-2" pref="206" max="-2" attributes="0"/>
+                                  <Component id="jTextFieldAnticipo" alignment="1" min="-2" pref="206" max="-2" attributes="0"/>
+                                  <Component id="jTextFieldPagoParaRecoger" alignment="1" min="-2" pref="206" max="-2" attributes="0"/>
+                                  <Component id="jTextFieldOrigen" alignment="1" min="-2" pref="206" max="-2" attributes="0"/>
+                                  <Component id="jTextFieldLLegada" alignment="1" min="-2" pref="206" max="-2" attributes="0"/>
+                                  <Component id="jComboBoxProductos" alignment="1" min="-2" pref="206" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="65" max="32767" attributes="0"/>
-                      <Component id="jButtonBuscar" min="-2" pref="89" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -68,45 +73,45 @@
               <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jFormattedTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jFormattedTextFieldCodigoPedido" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButtonBuscar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="13" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jTextFieldDias" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jComboBoxProductos" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextField3" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jTextFieldTotal" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextField4" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jTextFieldAnticipo" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextField5" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jTextFieldPagoParaRecoger" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jTextField7" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jTextFieldOrigen" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextField6" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jTextFieldLLegada" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
           </Group>
@@ -119,7 +124,10 @@
         <Property name="text" type="java.lang.String" value="Codigo del Pedido"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JFormattedTextField" name="jFormattedTextField1">
+    <Component class="javax.swing.JFormattedTextField" name="jFormattedTextFieldCodigoPedido">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jFormattedTextFieldCodigoPedidoActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButtonBuscar">
       <Properties>
@@ -134,7 +142,7 @@
         <Property name="text" type="java.lang.String" value="Dias Restantes:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField1">
+    <Component class="javax.swing.JTextField" name="jTextFieldDias">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
       </Properties>
@@ -144,17 +152,12 @@
         <Property name="text" type="java.lang.String" value="Producto dentro del pedido"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField2">
-      <Properties>
-        <Property name="editable" type="boolean" value="false"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
         <Property name="text" type="java.lang.String" value="Total del pedido:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField3">
+    <Component class="javax.swing.JTextField" name="jTextFieldTotal">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
       </Properties>
@@ -164,7 +167,7 @@
         <Property name="text" type="java.lang.String" value="Anticipo realizado:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField4">
+    <Component class="javax.swing.JTextField" name="jTextFieldAnticipo">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
       </Properties>
@@ -174,7 +177,7 @@
         <Property name="text" type="java.lang.String" value="Pago para recoger:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField5">
+    <Component class="javax.swing.JTextField" name="jTextFieldPagoParaRecoger">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
       </Properties>
@@ -184,7 +187,7 @@
         <Property name="text" type="java.lang.String" value="Tienda de recepcion:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField6">
+    <Component class="javax.swing.JTextField" name="jTextFieldLLegada">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
       </Properties>
@@ -194,7 +197,7 @@
         <Property name="text" type="java.lang.String" value="Tienda de origen:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField7">
+    <Component class="javax.swing.JTextField" name="jTextFieldOrigen">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
       </Properties>
@@ -203,6 +206,16 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="DATOS DEL PEDIDO:"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="jComboBoxProductos">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="0"/>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>
