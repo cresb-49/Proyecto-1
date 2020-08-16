@@ -143,6 +143,29 @@ public class RegistroDB {
         
         return errores;
     }
+    public String registroExistencia(Product producto){
+        //Respuesta de errores de sql
+        String errores ="";
+        //Declaracion de variables para insertar valores de la consulta 
+        String code;
+        int cantidad;
+        String tienda;
+        //Asignacion de los datos de la variables
+        code = producto.getCode();
+        cantidad = producto.getCantidad();
+        tienda = producto.getTienda();
+        //declaracion de la consulta
+        String consulta="INSERT INTO EXISTENCIA (TIENDA_codigo,PRODUCTO_codigo,cantidad) VALUES ('"+tienda+"','"+code+"','"+cantidad+"') ";
+        try {
+            cn = con.getConexion();
+            st = cn.createStatement();
+            //INGRESO DE LOS VALORES A LA BASE DE DATOS
+            st.executeUpdate(consulta);
+        } catch (Exception e) {
+            errores=e.getMessage();
+        }
+        return errores;
+    }
     public String registroTiempo(TimeStoreToStore tiempoDeTransporte){
         //Respuesta de errores de sql
         String errores ="";

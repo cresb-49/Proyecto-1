@@ -15,13 +15,14 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author Carlos Pac
  */
 public class TiendaEmpleadoJFrame extends javax.swing.JFrame {
-
+    private String tienda;
     /**
      * Creates new form TiendaEmpleadoJFrame
      */
-    public TiendaEmpleadoJFrame() {
-        super("Mi Empresa");
+    public TiendaEmpleadoJFrame(String tienda) {
+        super("Mi Empresa "+tienda);
         initComponents();
+        this.tienda=tienda;
         this.setLocationRelativeTo(null);
     }
 
@@ -176,7 +177,7 @@ public class TiendaEmpleadoJFrame extends javax.swing.JFrame {
 
     private void jMenuItemRegistroTiendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRegistroTiendaActionPerformed
         // TODO add your handling code here:
-        RegistroTiendaJDialog tiendaNueva = new RegistroTiendaJDialog(this, true);
+        RegistroTiendaJDialog tiendaNueva = new RegistroTiendaJDialog(this, true,tienda);
         tiendaNueva.setVisible(true);
     }//GEN-LAST:event_jMenuItemRegistroTiendaActionPerformed
 

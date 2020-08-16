@@ -8,6 +8,7 @@ import com.carlos.Entities.Client;
 import com.carlos.Entities.Employee;
 import com.carlos.Entities.Pedido;
 import com.carlos.Entities.Product;
+import com.carlos.Entities.Store;
 import com.carlos.Entities.TimeStoreToStore;
 
 public class InputText {
@@ -69,11 +70,23 @@ public class InputText {
                                 if(verificarRepresentacionNumerica(apartados.get(4))){
                                     if(verificarNumeroTelefonico(apartados.get(4))){
                                         System.out.println(lineasDeTexto.get(i));
-                                        /*
-                                        for (int j = 0; j < cantidad+1; j++) {
-                                            System.out.println(apartados.get(j));
+
+                                        String nombre = apartados.get(1);
+                                        String Direccion = apartados.get(2);
+                                        String StoreCode = apartados.get(3);
+                                        String Phone1 = apartados.get(4);
+                                        String Phone2 = "";
+                                        String Email="";
+                                        String Horario="";
+
+                                        Store registroTienda = new Store(nombre, Direccion, StoreCode, Phone1, Phone2, Email, Horario);
+                                        String respuesta = this.resistrarElemento.registroTienda(registroTienda);
+                                        //Comprueba si hubo errores por parte de la base de datos
+                                        if(!(respuesta.equals(""))){
+                                            String mensaje = "Linea "+(i+1)+" "+respuesta;            
+                                            erroresDeDatos.add(mensaje);
                                         }
-                                        */
+
                                     }
                                     else{
                                         String mensaje = "Linea "+(i+1)+"Numero telefonico no valido";            
@@ -248,11 +261,17 @@ public class InputText {
                                         String tienda = apartados.get(6);
                                         Product registroProducto = new Product(name, manufacturer, code, existencia, price, description, garantia, tienda);
                                         String respuesta = this.resistrarElemento.registroProducto(registroProducto);
+                                        //String respuesta2 = this.resistrarElemento.registroExistencia(registroProducto);
+                                        
                                         //Comprueba si hubo errores por parte de la base de datos
                                         if(!(respuesta.equals(""))){
                                             String mensaje = "Linea "+(i+1)+" "+respuesta;            
                                             erroresDeDatos.add(mensaje);
                                         }
+                                        /*if(!(respuesta2.equals(""))){
+                                            String mensaje = "Linea "+(i+1)+" "+respuesta;            
+                                            erroresDeDatos.add(mensaje);
+                                        }*/
                                     }
                                     else{
                                         String mensaje = "Linea "+(i+1)+" la sintaxis del precio del producto es incorrecto";            
@@ -286,15 +305,15 @@ public class InputText {
                                             if(verificarRepresentacionNumericaDecimal(apartados.get(9))){
                                                 System.out.println(lineasDeTexto.get(i));
                                                 
-                                                String codigo;
-                                                String tienda1;
-                                                String tienda2;
-                                                String fecha;
-                                                String cliente;
-                                                String producto;
-                                                int cantidadTraslado;
-                                                float total;
-                                                float anticipo;
+                                                String codigo = apartados.get(1);
+                                                String tienda1 = apartados.get(2);
+                                                String tienda2 = apartados.get(3);
+                                                String fecha = apartados.get(4);
+                                                String cliente = apartados.get(5);
+                                                String producto = apartados.get(6);
+                                                int cantidadTraslado = Integer.valueOf(apartados.get(7));
+                                                float total = Float.valueOf(apartados.get(8));
+                                                float anticipo = Float.valueOf(apartados.get(9));
 
                                                 Pedido registroPedido = new Pedido(codigo, tienda1, tienda2, fecha, cliente, producto, cantidadTraslado, total, anticipo);
                                                 String respuesta = this.resistrarElemento.registroPedido(registroPedido);
@@ -351,11 +370,6 @@ public class InputText {
             }
 
         }
-        //Apartado de los errores que se almacenan en un ArrayList
-        /*System.out.println("Imprecion de errores");
-        for (int j = 0; j < erroresDeDatos.size(); j++) {
-            System.out.println(erroresDeDatos.get(j));
-        }*/
         try {
             this.resistrarElemento.closeConection();
         } catch (Exception e) {

@@ -5,6 +5,7 @@ public class TimeStoreToStore {
     String StoreCode1;
     String StoreCode2;
     int time;
+    int id;
     /**
      * Cosntructo Principal de la entidad tiempo
      * @param tienda1Codigo
@@ -58,4 +59,13 @@ public class TimeStoreToStore {
     public void setTime(int time) {
         this.time = time;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
 }

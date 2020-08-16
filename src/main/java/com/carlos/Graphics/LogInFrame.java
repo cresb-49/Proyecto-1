@@ -5,7 +5,9 @@
  */
 package com.carlos.Graphics;
 
+import com.carlos.DBSuport.ConsultasDB;
 import java.awt.*;
+import java.util.ArrayList;
 import javax.swing.*;
 /**
  *
@@ -34,18 +36,27 @@ public class LogInFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
-        jFormattedTextFieldUsuario = new javax.swing.JFormattedTextField();
+        jFormattedTextFieldNITCode = new javax.swing.JFormattedTextField();
         jButtonLog = new javax.swing.JButton();
         jButtonRegresar = new javax.swing.JButton();
         jLabelImagen = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jComboBoxTiendas = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        jFormattedTextFieldUsuario = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setResizable(false);
         setSize(new java.awt.Dimension(650, 150));
 
-        jLabel2.setText("Nombre De Usuario: ");
+        jLabel2.setText("NIT o Codigo");
 
         jButtonLog.setText("Iniciar");
+        jButtonLog.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLogActionPerformed(evt);
+            }
+        });
 
         jButtonRegresar.setText("Regresar");
         jButtonRegresar.addActionListener(new java.awt.event.ActionListener() {
@@ -54,42 +65,63 @@ public class LogInFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setText("Seleccione la Tienda:");
+
+        jLabel4.setText("Nombre");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(32, 32, 32)
                 .addComponent(jLabelImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(jFormattedTextFieldUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(91, 91, 91)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                        .addComponent(jComboBoxTiendas, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jFormattedTextFieldUsuario)
+                            .addComponent(jFormattedTextFieldNITCode, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE))))
+                .addGap(51, 51, 51)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonLog, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addGap(44, 44, 44))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabelImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(27, 27, 27)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jFormattedTextFieldUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jFormattedTextFieldNITCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(11, 11, 11)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jComboBoxTiendas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3)))
+                            .addComponent(jLabelImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(jLabel2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addComponent(jFormattedTextFieldUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
+                        .addGap(46, 46, 46)
                         .addComponent(jButtonLog, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10)
                         .addComponent(jButtonRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
@@ -100,16 +132,54 @@ public class LogInFrame extends javax.swing.JFrame {
         this.principal.AccesoDeUsuario(false);
         this.dispose();
     }//GEN-LAST:event_jButtonRegresarActionPerformed
+
+    private void jButtonLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLogActionPerformed
+        // TODO add your handling code here:
+        String nombre=this.jFormattedTextFieldUsuario.getText();
+        String codeNit = this.jFormattedTextFieldNITCode.getText();
+        String nombreTienda = this.jComboBoxTiendas.getSelectedItem().toString();
+        ConsultasDB ingresoAlSistema = new ConsultasDB();
+        int respuesta = ingresoAlSistema.consultaUsuarios(nombre, codeNit);
+        if(respuesta == 0)
+        {
+            JOptionPane.showMessageDialog(this, "Nombre o codigo/Nit son incorrectos intentelo nuevamente");
+        }
+        else{
+            if(respuesta == 1){
+                TiendaClienteJFrame tiendaCliente = new TiendaClienteJFrame(nombreTienda);
+                tiendaCliente.setVisible(true);
+                this.setVisible(false);
+            }   
+            if(respuesta == 2){
+                TiendaEmpleadoJFrame tiendaEmpleado = new TiendaEmpleadoJFrame(nombreTienda);
+                tiendaEmpleado.setVisible(true);
+                this.setVisible(false);
+                
+            }
+        }
+    }//GEN-LAST:event_jButtonLogActionPerformed
     private void ProfileComponents(){
         ImageIcon imagen = new ImageIcon(getClass().getClassLoader().getResource("index.png"));
         jLabelImagen.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
+        ConsultasDB tiendas = new ConsultasDB();
+        ArrayList<String> tiendasRegistradas = new ArrayList<String>();
+        tiendasRegistradas = tiendas.consultaDeTiendas();
+        //Se agregan las tiendas que se encuntran en la base de datos
+        for (int i = 0; i < tiendasRegistradas.size(); i++) {
+            //System.out.println(tiendasRegistradas.get(i));
+            jComboBoxTiendas.addItem(tiendasRegistradas.get(i).toString());
+        }
         
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonLog;
     private javax.swing.JButton jButtonRegresar;
+    private javax.swing.JComboBox<String> jComboBoxTiendas;
+    private javax.swing.JFormattedTextField jFormattedTextFieldNITCode;
     private javax.swing.JFormattedTextField jFormattedTextFieldUsuario;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabelImagen;
     // End of variables declaration//GEN-END:variables
 }

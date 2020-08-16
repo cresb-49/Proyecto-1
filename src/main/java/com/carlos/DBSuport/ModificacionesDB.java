@@ -37,7 +37,7 @@ public class ModificacionesDB {
         email = cliente.getEmail();
         direccion = cliente.getDirection();
         //declaracion de la consulta
-        String consulta="UPDATE CLIENTE SET nombre = '"+nombre+"', telefono = '"+telefono+"',credito = '"+credito+"', dpi = '"+dpi+"', email = '"+email+"', direccion = '"+direccion+"' WHERE nit = '"+nit+"'";
+        String consulta="UPDATE CLIENTE SET nombre = '"+nombre+"',telefono = '"+telefono+"',credito = '"+credito+"',dpi = '"+dpi+"',email = '"+email+"',direccion = '"+direccion+"' WHERE nit = '"+nit+"'";
         try {
             cn = con.getConexion();
             st = cn.createStatement();
@@ -68,7 +68,7 @@ public class ModificacionesDB {
         horario = tienda.getHorario();
         
         //declaracion de la consulta
-        String consulta="UPDATE TIENDA SET  nombre = '"+nombre+"',direccion = '"+direccion+"',telefono_1 = '"+telefono1+"',telefono_2 = '"+telefono2+",email = '"+email+"',horario = '"+horario+"' WHERE codigo= '"+codigo+"'";
+        String consulta="UPDATE TIENDA SET  nombre = '"+nombre+"',direccion = '"+direccion+"',telefono_1 = '"+telefono1+"',telefono_2 = '"+telefono2+"',email = '"+email+"',horario = '"+horario+"' WHERE codigo = '"+codigo+"'";
         try {
             cn = con.getConexion();
             st = cn.createStatement();

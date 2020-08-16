@@ -8,15 +8,9 @@ package com.carlos.Graphics;
 import com.carlos.DBSuport.ConexionDB;
 import com.carlos.TraslateDB.InputText;
 import java.sql.*;
-import java.awt.Image;
-import java.io.File;
-import java.io.InputStream;
-
-import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+import java.awt.*;
+import java.io.*;
+import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -24,29 +18,30 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author benjamin
  */
 public class PrincipalFrame extends javax.swing.JFrame {
-    ConexionDB con;
-    Connection cn;
-    Statement st;
-    ResultSet rs;
+    private ConexionDB con;
+    private Connection cn;
+    private Statement st;
+    private ResultSet rs;
+    //Esta variable representa el estado de la base de datos
+    private boolean estadoDB=true;
+    //True significa que la base de datos no tiene datos y false es que ya contiene datos en su interior
+
     /**
      * Creates new form PrincipalFrame
      */
     public PrincipalFrame(String titulo) {
         super(titulo);
         initComponents();
-        ProfileComponents();
         this.setVisible(true);
         this.setLocationRelativeTo(null);
         try {
             con = new ConexionDB();
+            this.comprobacionDB();
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
-        System.out.println(comprobacionDB());
-        if(comprobacionDB()==false){
-            JOptionPane.showMessageDialog(this, "No hay datos en el sistema debe cargarlos");
-            cargaDatos();
-        }
+        ProfileComponents();
     }
 
     /**
@@ -142,9 +137,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
         this.setVisible(false);
         LogInFrame login = new LogInFrame(this);
         login.setVisible(true);
-        //temporal
-        TiendaEmpleadoJFrame frame = new TiendaEmpleadoJFrame();
-        frame.setVisible(true);
+        
     }//GEN-LAST:event_jButtonIniciarSesionActionPerformed
     /**
      * Configuracion del componentes que pertenecen al frame de origen
@@ -152,8 +145,12 @@ public class PrincipalFrame extends javax.swing.JFrame {
     private void ProfileComponents(){
         ImageIcon imagen = new ImageIcon(getClass().getClassLoader().getResource("index.png"));
         jLabelImage.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(225, 225, Image.SCALE_SMOOTH)));
-        
+        if(this.estadoDB){
+            JOptionPane.showMessageDialog(this, "No hay datos en el sistema debe cargarlos");
+            cargaDatos();
+        }
     }
+
     /**
      * 
      * @param token
@@ -161,15 +158,14 @@ public class PrincipalFrame extends javax.swing.JFrame {
     public void AccesoDeUsuario(boolean token){
         this.setVisible(true);
     }
-    private boolean comprobacionDB(){
-        boolean respuesta=false;
+    private void comprobacionDB(){
         String consulta="SELECT * FROM TIENDA";
         try {
             cn = con.getConexion();
             st = cn.createStatement();
             rs=st.executeQuery(consulta);
             while(rs.next()){
-                respuesta = true;
+                this.estadoDB = false;
             }
         } catch (Exception e) {
         }
@@ -179,7 +175,6 @@ public class PrincipalFrame extends javax.swing.JFrame {
             } catch (Exception e) {
             }
         }
-        return respuesta;
     }
     private void cargaDatos(){
         JFileChooser cargaDeDatos = new JFileChooser();

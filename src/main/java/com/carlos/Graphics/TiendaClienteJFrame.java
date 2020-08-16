@@ -10,12 +10,15 @@ package com.carlos.Graphics;
  * @author Carlos Pac
  */
 public class TiendaClienteJFrame extends javax.swing.JFrame {
-
+    private String tienda;
     /**
      * Creates new form TiendaClienteJFrame
      */
-    public TiendaClienteJFrame() {
+    public TiendaClienteJFrame(String tienda) {
+        super("Mi Empresa "+tienda);
         initComponents();
+        this.tienda=tienda;
+        this.setLocationRelativeTo(null);
     }
 
     /**
