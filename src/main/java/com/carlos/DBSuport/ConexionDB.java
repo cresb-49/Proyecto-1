@@ -19,7 +19,7 @@ public class ConexionDB {
     // Nombre de usuario
     private String username = "carlospac";
     // Clave de usuario
-    private String password = "201931012";
+    private String password = "Carlos_Pac_201931012";
     // conencion de base de datos
     private static Connection conexion = null;
 

@@ -6,6 +6,9 @@ import java.util.*;
 
 import com.carlos.Entities.Client;
 import com.carlos.Entities.Employee;
+import com.carlos.Entities.Pedido;
+import com.carlos.Entities.Product;
+import com.carlos.Entities.TimeStoreToStore;
 
 public class InputText {
 
@@ -150,13 +153,20 @@ public class InputText {
                             {
                                 apartados=apartadoDeTexto(lineasDeTexto.get(i),",");
                                 if(verificarRepresentacionNumerica(apartados.get(3))){
+
                                     System.out.println(lineasDeTexto.get(i));
-                                    
-                                    /*
-                                    for (int j = 0; j < cantidad+1; j++) {
-                                        System.out.println(apartados.get(j));
+
+                                    String tienda1Codigo = apartados.get(1);
+                                    String tienda2Codigo = apartados.get(2);
+                                    int tiempo = Integer.valueOf(apartados.get(3));
+
+                                    TimeStoreToStore registroTiempo = new TimeStoreToStore(tienda1Codigo, tienda2Codigo, tiempo);
+                                    String respuesta = this.resistrarElemento.registroTiempo(registroTiempo);
+                                    //Comprueba si hubo errores por parte de la base de datos
+                                    if(!(respuesta.equals(""))){
+                                        String mensaje = "Linea "+(i+1)+" "+respuesta;            
+                                        erroresDeDatos.add(mensaje);
                                     }
-                                    */
                                 }
                                 else
                                 {
@@ -228,11 +238,21 @@ public class InputText {
                                     if(verificarRepresentacionNumericaDecimal(apartados.get(5)))
                                     {
                                         System.out.println(lineasDeTexto.get(i));
-                                        /*
-                                        for (int j = 0; j < cantidad+1; j++) {
-                                            System.out.println(apartados.get(j));
+                                        String name = apartados.get(1);
+                                        String manufacturer = apartados.get(2);
+                                        String code = apartados.get(3);
+                                        int existencia = Integer.valueOf(apartados.get(4));
+                                        float price = Float.valueOf(apartados.get(5));
+                                        String description="";
+                                        int garantia=0;
+                                        String tienda = apartados.get(6);
+                                        Product registroProducto = new Product(name, manufacturer, code, existencia, price, description, garantia, tienda);
+                                        String respuesta = this.resistrarElemento.registroProducto(registroProducto);
+                                        //Comprueba si hubo errores por parte de la base de datos
+                                        if(!(respuesta.equals(""))){
+                                            String mensaje = "Linea "+(i+1)+" "+respuesta;            
+                                            erroresDeDatos.add(mensaje);
                                         }
-                                        */
                                     }
                                     else{
                                         String mensaje = "Linea "+(i+1)+" la sintaxis del precio del producto es incorrecto";            
@@ -265,11 +285,24 @@ public class InputText {
                                             //verificar el anticipo de la compra
                                             if(verificarRepresentacionNumericaDecimal(apartados.get(9))){
                                                 System.out.println(lineasDeTexto.get(i));
-                                                /*
-                                                for (int j = 0; j < cantidad+1; j++) {
-                                                    System.out.println(apartados.get(j));
+                                                
+                                                String codigo;
+                                                String tienda1;
+                                                String tienda2;
+                                                String fecha;
+                                                String cliente;
+                                                String producto;
+                                                int cantidadTraslado;
+                                                float total;
+                                                float anticipo;
+
+                                                Pedido registroPedido = new Pedido(codigo, tienda1, tienda2, fecha, cliente, producto, cantidadTraslado, total, anticipo);
+                                                String respuesta = this.resistrarElemento.registroPedido(registroPedido);
+                                                //Comprueba si hubo errores por parte de la base de datos
+                                                if(!(respuesta.equals(""))){
+                                                    String mensaje = "Linea "+(i+1)+" "+respuesta;            
+                                                    erroresDeDatos.add(mensaje);
                                                 }
-                                                */
                                             }
                                             else{
                                                 String mensaje = "Linea "+(i+1)+" el anticipo de compra tiene error de sintaxis";            
