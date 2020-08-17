@@ -231,12 +231,12 @@ public class ModificacionesDB {
     public void closeConection() throws SQLException{
         con.cerrar();
     }
+    
     public String modificarCreditoCliente(String nit, String creditoNuevo){
         //Respuesta de errores de sql
         String errores ="";
-        
         //declaracion de la consulta
-        String consulta="UPDATE CLIENTE SET credito WHERE nit = '"+nit+"'";
+        String consulta="update CLIENTE set credito='"+creditoNuevo+"' where nit='"+nit+"';";
         try {
             cn = con.getConexion();
             st = cn.createStatement();

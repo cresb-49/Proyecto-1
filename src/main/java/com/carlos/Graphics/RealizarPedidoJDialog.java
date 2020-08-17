@@ -495,10 +495,17 @@ public class RealizarPedidoJDialog extends javax.swing.JDialog {
             //Generacion del codigo de pedido del cliente
             codigoPedido=year+mes+dia+cliente;
             Pedido pedidoNuevo = new Pedido(codigoPedido, tiendaOrigen, tiendaLlegada, fecha, cliente, producto, cantidad, total, anticipo);
-            this.registrar.registroPedido(pedidoNuevo);
-            JOptionPane.showMessageDialog(this, "Se ha registrado correctamente el pedido");
-            descontarTienda();
-            descontarCliente();
+            //respuesta por si ocurre un error en el momento d ejcucion en la base de datos
+            String respuesta = this.registrar.registroPedido(pedidoNuevo);
+            if(!(respuesta.equals(""))){
+                JOptionPane.showMessageDialog(this, respuesta);
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Se ha registrado correctamente el pedido");
+                descontarTienda();
+                descontarCliente();
+            }
+            
         }
     }
     private void descontarTienda(){

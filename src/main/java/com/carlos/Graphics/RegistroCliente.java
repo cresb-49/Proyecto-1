@@ -15,7 +15,6 @@ import com.carlos.DBSuport.*;
  * @author benjamin
  */
 public class RegistroCliente extends javax.swing.JFrame {
-
     /**
      * Creates new form RegistroCliente
      */

@@ -195,7 +195,7 @@ public class TiendaEmpleadoJFrame extends javax.swing.JFrame {
 
     private void jMenuItemTransaccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemTransaccionActionPerformed
         // TODO add your handling code here:
-        VentaJDialog ventaProducto = new VentaJDialog(this, true);
+        VentaJDialog ventaProducto = new VentaJDialog(this, true,tienda);
         ventaProducto.setLocationRelativeTo(null);
         ventaProducto.setVisible(true);
     }//GEN-LAST:event_jMenuItemTransaccionActionPerformed
