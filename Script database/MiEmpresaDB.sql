@@ -66,6 +66,7 @@ CREATE TABLE IF NOT EXISTS PEDIDO(
     total DOUBLE NOT NULL,
     anticipo DOUBLE NOT NULL,
     fecha_orden DATE NOT NULL,
+    estado_pedido VARCHAR(10) NOT NULL,
     CLIENTE_nit VARCHAR(10) NOT NULL,
     PRODUCTO_codigo VARCHAR(15) NOT NULL,
     TIENDA_codigo_salida VARCHAR(15) NOT NULL,

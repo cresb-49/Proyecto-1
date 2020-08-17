@@ -210,7 +210,7 @@ public class RegistroDB {
         total = pedido.getTotal();
         anticipo = pedido.getAnticipo();
         //declaracion de la consulta
-        String consulta="INSERT INTO PEDIDO (codigo,cantidad,total,anticipo,fecha_orden,CLIENTE_nit,PRODUCTO_codigo,TIENDA_codigo_salida,TIENDA_codigo_llegada) VALUES ('"+codigo+"','"+cantidad+"','"+total+"','"+anticipo+"','"+fecha+"','"+cliente+"','"+producto+"','"+tienda1+"','"+tienda2+"') ";
+        String consulta="INSERT INTO PEDIDO (codigo,cantidad,total,anticipo,fecha_orden,estado_pedido,CLIENTE_nit,PRODUCTO_codigo,TIENDA_codigo_salida,TIENDA_codigo_llegada) VALUES ('"+codigo+"','"+cantidad+"','"+total+"','"+anticipo+"','"+fecha+"','ET','"+cliente+"','"+producto+"','"+tienda1+"','"+tienda2+"') ";
         try {
             cn = con.getConexion();
             st = cn.createStatement();

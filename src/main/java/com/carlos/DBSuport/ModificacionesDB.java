@@ -248,4 +248,27 @@ public class ModificacionesDB {
         
         return errores;
     }
+    /**
+     * Cambia el estado del pedido es entrega
+     *  "ET" en trafico, "T" en tienda, "R" retraso, "E" entegado
+     * @param codigoPedido
+     * @param estadoPedido
+     * @return
+     */
+    private String moficiacionEstadoPedido(String codigoPedido,String estadoPedido){
+        //Respuesta de errores de sql
+        String errores ="";
+        //declaracion de la consulta
+        String consulta="UPDATE PEDIDO SET estado_pedido='"+estadoPedido+"' WHERE codigo ='"+codigoPedido+"';";
+        try {
+            cn = con.getConexion();
+            st = cn.createStatement();
+            //INGRESO DE LOS VALORES A LA BASE DE DATOS
+            st.executeUpdate(consulta);
+        } catch (Exception e) {
+            errores=e.getMessage();
+        }
+        
+        return errores;
+    }
 }
