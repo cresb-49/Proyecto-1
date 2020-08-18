@@ -59,11 +59,17 @@ public class TimeStoreToStore {
     public void setTime(int time) {
         this.time = time;
     }
-
+    /**
+     * Retorna el Id de tiempo
+     * @return
+     */
     public int getId() {
         return id;
     }
-
+    /**
+     * ASigna el Id de tiempo
+     * @param id
+     */
     public void setId(int id) {
         this.id = id;
     }
