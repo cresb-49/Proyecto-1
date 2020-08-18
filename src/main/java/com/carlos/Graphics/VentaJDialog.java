@@ -7,6 +7,7 @@ package com.carlos.Graphics;
 
 import com.carlos.DBSuport.*;
 import com.carlos.Entities.*;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -135,18 +136,18 @@ public class VentaJDialog extends javax.swing.JDialog {
 
         jLabel10.setText("Uso de Credito:");
 
-        jFormattedTextFieldPagoEfectivo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        jFormattedTextFieldPagoEfectivo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.##"))));
         jFormattedTextFieldPagoEfectivo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jFormattedTextFieldPagoEfectivo.setText("0");
         jFormattedTextFieldPagoEfectivo.setToolTipText("");
 
         jFormattedTextFieldUsoCredito.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         jFormattedTextFieldUsoCredito.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jFormattedTextFieldUsoCredito.setText("0");
 
+        jFormattedTextFieldPrecio.setEditable(false);
         jFormattedTextFieldPrecio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         jFormattedTextFieldPrecio.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jFormattedTextFieldPrecio.setText("0");
+        jFormattedTextFieldPrecio.setText("0.00");
 
         jLabel11.setText("Cantidad:");
 
@@ -196,9 +197,10 @@ public class VentaJDialog extends javax.swing.JDialog {
 
         jLabel12.setText("Total:");
 
+        jFormattedTextFieldTotal.setEditable(false);
         jFormattedTextFieldTotal.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         jFormattedTextFieldTotal.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jFormattedTextFieldTotal.setText("0");
+        jFormattedTextFieldTotal.setText("0.00");
         jFormattedTextFieldTotal.setToolTipText("");
 
         jButtonIngresar.setText("Ingresarlo");
@@ -316,15 +318,13 @@ public class VentaJDialog extends javax.swing.JDialog {
                                 .addComponent(jFormattedTextFieldTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(79, 79, 79)))
-                        .addGap(0, 12, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 764, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel15)
@@ -371,7 +371,6 @@ public class VentaJDialog extends javax.swing.JDialog {
                             .addComponent(jButtonBuscarCliente))
                         .addGap(18, 18, 18)
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -417,9 +416,10 @@ public class VentaJDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
         String codigoProducto = this.jFormattedTextFieldCodigoProducto.getText();
         String existencia =this.consulta.datosExistenciaProducto(codigoProducto, tiendaSleccionada);
-        if(existencia.equals("0")){
+        if(existencia.equals("0")||existencia.equals("")){
             
             JOptionPane.showMessageDialog(this, "No hay existencia del producto en tienda haga un pedido del mismo en el apartado");
+            jComboBoxCantidad.removeAllItems();
         }
         else
         {
@@ -482,11 +482,12 @@ public class VentaJDialog extends javax.swing.JDialog {
                 productos[3]=String.valueOf(precioParcial);
                 String fecha = year+"-"+Mes+"-"+Dia;
                 
-                ventasAcumuladas.add(new Ventas(jFormattedTextFieldCodigoProducto.getText(), tiendaSleccionada, cantidad, fecha));
+                ventasAcumuladas.add(new Ventas(jFormattedTextFieldCodigoProducto.getText(), tiendaSleccionada,jFormattedTextFieldNIT.getText(),cantidad, fecha));
 
                 modeloDeTabla.addRow(productos);
                 jButtonIngresar.setEnabled(false);
-                jFormattedTextFieldTotal.setText(String.valueOf(precioParcial));
+                DecimalFormat formato1 = new DecimalFormat("#.00");
+                jFormattedTextFieldTotal.setText(String.valueOf(formato1.format(precioParcial)));
                 
                 jComboBoxYear.setEditable(false);
                 jComboBoxMes.setEditable(false);
@@ -531,7 +532,7 @@ public class VentaJDialog extends javax.swing.JDialog {
                 if(!(NIT.equals("")||NombreCliente.equals(""))){
                     if(!(usoCredito>creditoCliente)){
                         if(!((usoCredito+pagoEfectivo)>precio)){
-                            if(!((usoCredito+pagoEfectivo)<precio))
+                            if(((usoCredito+pagoEfectivo)==precio))
                             {
                                 actualizacionDeCliente();
                                 transaccionesDeInventario();
@@ -599,7 +600,6 @@ public class VentaJDialog extends javax.swing.JDialog {
         float creditoUsado = Float.valueOf(this.jFormattedTextFieldUsoCredito.getText());
         float creditoOriginal = Float.valueOf(this.consulta.datosCliente(this.jFormattedTextFieldNIT.getText()).get(2));
         float nuevoCredito = creditoOriginal-creditoUsado;
-        System.out.println(nuevoCredito);
         this.modificacion.modificarCreditoCliente(this.jFormattedTextFieldNIT.getText(), String.valueOf(nuevoCredito));
     }
     private void limpiezaFormulario(){

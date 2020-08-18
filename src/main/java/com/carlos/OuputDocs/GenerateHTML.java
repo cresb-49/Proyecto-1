@@ -38,10 +38,10 @@ public class GenerateHTML {
                 html = this.htmlContentPedidosExpendidosPorTienda(html);
             }
             if(tipoReporte.equals("Listado_Compras_Cliente_")){
-                
+                html = this.htmlComprasPorCliente(html);
             }
             if(tipoReporte.equals("Listado_Pedidos_Cliente_")){
-
+                html=this.htmlPedidosPorCliente(html);
             }
             if(tipoReporte.equals("10_Productos_Mas_Vendidos")){
 
@@ -91,7 +91,7 @@ public class GenerateHTML {
         ArrayList<String[]> pedidosDelReporte = new ArrayList<String[]>();
         pedidosDelReporte = this.consultaDB.pedidosReporte(this.codigoTienda,"ET");
         //////////////////////////////////////////////////////////////////////////////////////
-        html.println("<h1>REPORTES DE PEDIDOS QUE LLEGARAN A LA TIENDA "+codigoTienda+"</h1>");
+        html.println("<h1>REPORTE DE PEDIDOS QUE LLEGARAN A LA TIENDA "+codigoTienda+"</h1>");
         html.println("<h2>Descripcion de los pedidos que llegaran</h2>");
         html.println("<table border=\"1\">");
             html.println("<thead>");
@@ -132,7 +132,7 @@ public class GenerateHTML {
         ArrayList<String[]> pedidosDelReporte = new ArrayList<String[]>();
         pedidosDelReporte = this.consultaDB.pedidosReporte(this.codigoTienda,"TR");
         //////////////////////////////////////////////////////////////////////////////////////
-        html.println("<h1>REPORTES DE PEDIDOS ATRAZADOS QUE ESTAN EN LA TIENDA "+codigoTienda+"</h1>");
+        html.println("<h1>REPORTE DE PEDIDOS ATRAZADOS QUE ESTAN EN LA TIENDA "+codigoTienda+"</h1>");
         html.println("<h2>Descripcion de los pedidos de ingreso atrazado</h2>");
         html.println("<table border=\"1\">");
             html.println("<thead>");
@@ -168,7 +168,7 @@ public class GenerateHTML {
         ArrayList<String[]> pedidosDelReporte = new ArrayList<String[]>();
         pedidosDelReporte = this.consultaDB.pedidosSalidaReporte(this.codigoTienda);
         //////////////////////////////////////////////////////////////////////////////////////
-        html.println("<h1>REPORTES DE PEDIDOS EXPENDIDOS POR LA TIENDA "+codigoTienda+"</h1>");
+        html.println("<h1>REPORTE DE PEDIDOS EXPENDIDOS POR LA TIENDA "+codigoTienda+"</h1>");
         html.println("<h2>Descripcion de los pedidos que salieron de la tienda</h2>");
         html.println("<table border=\"1\">");
             html.println("<thead>");
@@ -188,6 +188,90 @@ public class GenerateHTML {
                         html.println("<td>"+pedidosDelReporte.get(i)[1]+"</td>");
                         html.println("<td>"+pedidosDelReporte.get(i)[2]+"</td>");
                         html.println("<td>"+pedidosDelReporte.get(i)[3]+"</td>");
+                    html.println("<tbody>");
+                }
+                ///////////////////////////////////////////////
+            html.println("</tbody>");
+        html.println("</table>");
+        try {
+            html.close();    
+        } catch (Exception e) {
+            
+        }
+        return html;
+    }
+    /**
+     * Genera el contenido del reporte en el cual se adjunta las compras de un cliente especifico
+     * @param html
+     * @return 
+     */
+    private PrintWriter htmlComprasPorCliente(PrintWriter html){
+        ArrayList<String[]> comprasCliente = new ArrayList<String[]>();
+        comprasCliente = this.consultaDB.comprasClienteReporte(NITcliente);
+        //////////////////////////////////////////////////////////////////////////////////////
+        html.println("<h1>REPORTE DE COMPRAS HECHOS POR EL CLIENTE "+NITcliente+"</h1>");
+        html.println("<h2>Descripcion de las compras hechas</h2>");
+        html.println("<table border=\"1\">");
+            html.println("<thead>");
+                html.println("<tr>");
+                    html.println("<th>Tienda donde se compro</th>");
+                    html.println("<th>Producto</th>");
+                    html.println("<th>Fecha de compra</th>");
+                    html.println("<th>Cantidad Comprada</th>");
+                html.println("</tr>");
+            html.println("</thead>");
+            html.println("<tbody>");
+                //Ciclo de imprecion de los datos a generar
+                ///////////////////////////////////////////////
+                for (int i = 0; i < comprasCliente.size(); i++) {
+                    html.println("<tbody>");
+                        html.println("<td>"+comprasCliente.get(i)[0]+"</td>");
+                        html.println("<td>"+comprasCliente.get(i)[1]+"</td>");
+                        html.println("<td>"+comprasCliente.get(i)[2]+"</td>");
+                        html.println("<td>"+comprasCliente.get(i)[3]+"</td>");
+                    html.println("<tbody>");
+                }
+                ///////////////////////////////////////////////
+            html.println("</tbody>");
+        html.println("</table>");
+        try {
+            html.close();    
+        } catch (Exception e) {
+            
+        }
+        return html;
+    }
+    /**
+     * Genera el contenido del reporte que contiene los pedidos hechos por un cliente
+     * @param html
+     * @return 
+     */
+    private PrintWriter htmlPedidosPorCliente(PrintWriter html){
+        ArrayList<String[]> pedidosCliente = new ArrayList<String[]>();
+        pedidosCliente = this.consultaDB.pedidosClienteReporte(NITcliente);
+        //////////////////////////////////////////////////////////////////////////////////////
+        html.println("<h1>REPORTE DE PEDIDOS HECHOS POR EL CLIENTE "+NITcliente+"</h1>");
+        html.println("<h2>Descripcion de las compras hechas</h2>");
+        html.println("<table border=\"1\">");
+            html.println("<thead>");
+                html.println("<tr>");
+                    html.println("<th>Codigo Pedido</th>");
+                    html.println("<th>Producto</th>");
+                    html.println("<th>Cantidad</th>");
+                    html.println("<th>Tienda de Salida</th>");
+                    html.println("<th>Tienda de Recepcion</th>");
+                html.println("</tr>");
+            html.println("</thead>");
+            html.println("<tbody>");
+                //Ciclo de imprecion de los datos a generar
+                ///////////////////////////////////////////////
+                for (int i = 0; i < pedidosCliente.size(); i++) {
+                    html.println("<tbody>");
+                        html.println("<td>"+pedidosCliente.get(i)[0]+"</td>");
+                        html.println("<td>"+pedidosCliente.get(i)[1]+"</td>");
+                        html.println("<td>"+pedidosCliente.get(i)[2]+"</td>");
+                        html.println("<td>"+pedidosCliente.get(i)[3]+"</td>");
+                        html.println("<td>"+pedidosCliente.get(i)[4]+"</td>");
                     html.println("<tbody>");
                 }
                 ///////////////////////////////////////////////

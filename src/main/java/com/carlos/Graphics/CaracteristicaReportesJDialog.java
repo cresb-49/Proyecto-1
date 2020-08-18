@@ -220,7 +220,7 @@ public class CaracteristicaReportesJDialog extends javax.swing.JDialog {
                     //Segun el tipo de reporte se puede crear un archivo con un contenido u otro
                     GenerateHTML html = new GenerateHTML(guardado);
                     html.setCodigoTienda(this.codigoDeTiendaSeleccionada);
-                    html.setNITcliente("");
+                    html.setNITcliente(this.nitClienteSelecionado);
                     html.setTiempoSuperior("");
                     html.setTimepoInferior("");
                     
@@ -249,11 +249,12 @@ public class CaracteristicaReportesJDialog extends javax.swing.JDialog {
         }
         if(jRadioButton4.isSelected()){
             tipoReporte = "Listado_Compras_Cliente_";
-            this.nitClienteSelecionado = JOptionPane.showInputDialog(this, "Ingrese el nit del cliente en el cual se basara el reporte");
+            this.nitClienteSelecionado = JOptionPane.showInputDialog(this, "Ingrese el nit del cliente en el cual se basara el reporte");System.out.println(nitClienteSelecionado);
         }
         if(jRadioButton5.isSelected()){
             tipoReporte = "Listado_Pedidos_Cliente_";
             this.nitClienteSelecionado = JOptionPane.showInputDialog(this, "Ingrese el nit del cliente en el cual se basara el reporte");
+            
         }
         if(jRadioButton6.isSelected()){
             tipoReporte = "10_Productos_Mas_Vendidos";

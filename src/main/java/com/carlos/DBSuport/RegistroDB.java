@@ -228,15 +228,17 @@ public class RegistroDB {
         //Declaracion de variables para insertar valores de la consulta
         String tiendaCodigo;
         String productoCodigo;
+        String nit;
         String fecha;
         int cantidadProducto;
         //Asignacion de los datos de la variables
         tiendaCodigo= venta.getCodigoTienda();
         productoCodigo= venta.getCodigoProducto();
+        nit = venta.getNitCliente();
         fecha = venta.getFecha();
         cantidadProducto = venta.getCantidad();
         //declaracion de la consulta
-        String consulta="INSERT INTO VENTAS (TIENDA_codigo,PRODUCTO_codigo,fecha_venta,cantidad_producto) VALUES('"+tiendaCodigo+"','"+productoCodigo+"','"+fecha+"','"+cantidadProducto+"')";
+        String consulta="INSERT INTO VENTAS (TIENDA_codigo,PRODUCTO_codigo,CLIENTE_nit,fecha_venta,cantidad_producto) VALUES('"+tiendaCodigo+"','"+productoCodigo+"','"+nit+"','"+fecha+"','"+cantidadProducto+"')";
         try {
             cn = con.getConexion();
             st = cn.createStatement();

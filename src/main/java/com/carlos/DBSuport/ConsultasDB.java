@@ -377,4 +377,46 @@ public class ConsultasDB {
         }
         return datosProducto;
     }
+    /**
+     * Da informacion de las compras de un cliente en especifico
+     * @param nitCliente
+     * @return 
+     */
+    public ArrayList<String[]> comprasClienteReporte(String nitCliente){
+        ArrayList<String[]> comprasCliente = new ArrayList<String[]>();
+        
+        String consulta="SELECT TIENDA_codigo,PRODUCTO_codigo,fecha_venta,cantidad_producto FROM VENTAS WHERE CLIENTE_nit = '"+nitCliente+"';";
+        try {
+            cn = con.getConexion();
+            st = cn.createStatement();
+            rs=st.executeQuery(consulta);
+            while(rs.next()){
+                
+                comprasCliente.add(new String[]{rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4)});
+            }
+        } catch (Exception e) {
+        }
+        return comprasCliente;
+    }
+    /**
+     * Da informacion de los pedidos de un cliente en especifico
+     * @param nitCliente
+     * @return 
+     */
+    public ArrayList<String[]> pedidosClienteReporte(String nitCliente){
+        ArrayList<String[]> pedidosCliente = new ArrayList<String[]>();
+        
+        String consulta="SELECT codigo,PRODUCTO_codigo,cantidad,TIENDA_codigo_salida,TIENDA_codigo_llegada FROM PEDIDO WHERE CLIENTE_nit = '"+nitCliente+"' AND estado_pedido != 'entregado';";
+        try {
+            cn = con.getConexion();
+            st = cn.createStatement();
+            rs=st.executeQuery(consulta);
+            while(rs.next()){
+                
+                pedidosCliente.add(new String[]{rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5)});
+            }
+        } catch (Exception e) {
+        }
+        return pedidosCliente;
+    }
 }

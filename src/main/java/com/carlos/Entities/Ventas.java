@@ -4,18 +4,21 @@ package com.carlos.Entities;
 public class Ventas {
     private String codigoProducto;
     private String codigoTienda;
+    private String nitCliente;
     private int cantidad;
     private String fecha;
     /**
-     * COSTRUCTOR DE LA CLASE VENTAS
+     * CONSTRUCTOR PRINCIPAL PARA VENTAS
      * @param codigoProducto
      * @param codigoTienda
+     * @param nitCliente
      * @param cantidad
      * @param fecha 
      */
-    public Ventas(String codigoProducto, String codigoTienda,int cantidad,String fecha){
+    public Ventas(String codigoProducto, String codigoTienda,String nitCliente,int cantidad,String fecha){
         this.codigoProducto=codigoProducto;
         this.codigoTienda=codigoTienda;
+        this.nitCliente=nitCliente;
         this.cantidad = cantidad;
         this.fecha = fecha;
     }
@@ -51,4 +54,13 @@ public class Ventas {
     public void setFecha(String fecha) {
         this.fecha = fecha;
     }
+
+    public String getNitCliente() {
+        return nitCliente;
+    }
+
+    public void setNitCliente(String nitCliente) {
+        this.nitCliente = nitCliente;
+    }
+    
 }
