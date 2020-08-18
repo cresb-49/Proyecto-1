@@ -5,22 +5,26 @@
  */
 package com.carlos.Graphics;
 
-import com.carlos.Entities.Pedido;
+import com.carlos.DBSuport.*;
+import com.carlos.Entities.*;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author benjamin
  */
 public class EntregaProductoJDialog extends javax.swing.JDialog {
-
-    /**
-     * Creates new form EntregaProductoJDialog
-     */
-    public EntregaProductoJDialog(java.awt.Frame parent, boolean modal) {
+    private String tiendaSeleccionada;
+    private ConsultasDB consultaDB = new ConsultasDB();
+    private ModificacionesDB modificarDB = new ModificacionesDB();
+    private RegistroDB registrarEnDB = new RegistroDB();
+    public EntregaProductoJDialog(java.awt.Frame parent, boolean modal,String tienda) {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("ENTREGA DE PRODUCTO");
+        tiendaSeleccionada=this.consultaDB.codigoTienda(tienda);
     }
 
     /**
@@ -33,132 +37,594 @@ public class EntregaProductoJDialog extends javax.swing.JDialog {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        jLabel1 = new javax.swing.JLabel();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
-        jButton1 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jFormattedTextFieldCodigoPedido = new javax.swing.JFormattedTextField();
+        jButtonBuscarPedido = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jButtonLimpiarBusqueda = new javax.swing.JButton();
+        jButtonET = new javax.swing.JButton();
+        jButtonT = new javax.swing.JButton();
+        jButtonTR = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jButton4 = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jTextFieldNitCliente = new javax.swing.JTextField();
+        jTextFieldTiendaOrigen = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jTextFieldEstadoPedido = new javax.swing.JTextField();
+        jComboBoxContenido = new javax.swing.JComboBox<>();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jFormattedTextFieldCodigoPedidoRetiro = new javax.swing.JFormattedTextField();
+        jButtonBuscarPedidoRetiro = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        jTextFieldFaltante = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jButtonFinalizarVenta = new javax.swing.JButton();
+        jLabelDescripcionCodigo = new javax.swing.JLabel();
+        jTextFieldEstadoAntesDeSalir = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jComboBoxYear = new javax.swing.JComboBox<>();
+        jComboBoxMes = new javax.swing.JComboBox<>();
+        jComboBoxDias = new javax.swing.JComboBox<>();
+        jLabel11 = new javax.swing.JLabel();
+        jComboBoxContenido1 = new javax.swing.JComboBox<>();
+        jButtonLimpiarBusqueda1 = new javax.swing.JButton();
+        jLabel13 = new javax.swing.JLabel();
+        jTextFieldBonificacionCliente = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        jTextFieldNit = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        jTextFieldMontoDePago = new javax.swing.JTextField();
+
+        jButton2.setText("jButton2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jLabel1.setText("Codigo de pedido:");
 
-        jButton1.setText("Buscar");
+        jButtonBuscarPedido.setText("Buscar");
+        jButtonBuscarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBuscarPedidoActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("RECEPCION DE PRODUCTO");
 
-        jLabel3.setText("ENTREGA DE PRODUCTO");
-
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField1.setText("NO LOCALIZADO");
-
-        jButton2.setText("Marcar Recepcion");
-
-        jButton3.setText("Limpiar Busqueda");
-
-        jLabel4.setText("Tiempo de entrega:");
-
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setText("A tiempo");
-
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setText("Tardia");
-
-        jButton4.setText("Terminar Transaccion");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        jButtonLimpiarBusqueda.setText("Limpiar Busqueda");
+        jButtonLimpiarBusqueda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                jButtonLimpiarBusquedaActionPerformed(evt);
             }
         });
+
+        jButtonET.setText("ET");
+        jButtonET.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonETActionPerformed(evt);
+            }
+        });
+
+        jButtonT.setText("T");
+        jButtonT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTActionPerformed(evt);
+            }
+        });
+
+        jButtonTR.setText("TR");
+        jButtonTR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTRActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Nit cliente:");
+
+        jLabel5.setText("Tienda Origen:");
+
+        jTextFieldNitCliente.setEditable(false);
+
+        jTextFieldTiendaOrigen.setEditable(false);
+
+        jLabel6.setText("Estado Pedido:");
+
+        jTextFieldEstadoPedido.setEditable(false);
+
+        jLabel7.setText("Contenido:");
+
+        jLabel3.setText("RETIRO DE PRODUCTO");
+
+        jLabel8.setText("Codigo de pedido:");
+
+        jButtonBuscarPedidoRetiro.setText("Buscar");
+        jButtonBuscarPedidoRetiro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBuscarPedidoRetiroActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setText("Faltante a pagar:");
+
+        jTextFieldFaltante.setEditable(false);
+
+        jButtonFinalizarVenta.setText("Finalizar venta");
+        jButtonFinalizarVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonFinalizarVentaActionPerformed(evt);
+            }
+        });
+
+        jLabelDescripcionCodigo.setText("No seleccionado ningun pedido");
+
+        jTextFieldEstadoAntesDeSalir.setEditable(false);
+
+        jLabel12.setText("Estado Pedido:");
+
+        jLabel15.setText("FECHA");
+
+        jComboBoxYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Año", "2020" }));
+
+        jComboBoxMes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mes", "6", "7", "8", "9", "10", "11", "12" }));
+
+        jComboBoxDias.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dia", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jComboBoxYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jComboBoxMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jComboBoxDias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBoxYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxDias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jLabel11.setText("Contenido:");
+
+        jButtonLimpiarBusqueda1.setText("Limpiar Busqueda");
+        jButtonLimpiarBusqueda1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLimpiarBusqueda1ActionPerformed(evt);
+            }
+        });
+
+        jLabel13.setText("Bonificacion al Cliente");
+
+        jTextFieldBonificacionCliente.setEditable(false);
+        jTextFieldBonificacionCliente.setText("0.00");
+
+        jLabel14.setText("NIT:");
+
+        jTextFieldNit.setEditable(false);
+
+        jLabel16.setText("Monto de  Pago:");
+
+        jTextFieldMontoDePago.setEditable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(46, 46, 46)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
-                        .addGap(32, 32, 32)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(29, 29, 29)
-                                .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(13, 13, 13)))))
-                .addContainerGap(36, Short.MAX_VALUE))
+                                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(27, 27, 27)
+                                .addComponent(jTextFieldEstadoAntesDeSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addGap(25, 25, 25)
+                                .addComponent(jFormattedTextFieldCodigoPedidoRetiro, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(24, 24, 24)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButtonFinalizarVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextFieldFaltante, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel14)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextFieldNit, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel16)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextFieldMontoDePago, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addGap(73, 73, 73)
+                                .addComponent(jComboBoxContenido1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel3)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(27, 27, 27)
+                                .addComponent(jLabel2))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(105, 105, 105)
+                                .addComponent(jButtonET, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButtonT, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButtonTR, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(27, 27, 27)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel5)
+                                        .addGap(93, 93, 93)
+                                        .addComponent(jTextFieldTiendaOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addGap(120, 120, 120)
+                                        .addComponent(jTextFieldNitCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(42, 42, 42)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel7)
+                                        .addGap(73, 73, 73)
+                                        .addComponent(jComboBoxContenido, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addGap(40, 40, 40)
+                                        .addComponent(jTextFieldEstadoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(420, 420, 420)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButtonBuscarPedidoRetiro, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabelDescripcionCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel13)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jTextFieldBonificacionCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel15)
+                                    .addGap(76, 76, 76)
+                                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButtonLimpiarBusqueda1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(27, 27, 27)
+                                    .addComponent(jLabel1)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jFormattedTextFieldCodigoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(140, 140, 140)
+                                    .addComponent(jButtonBuscarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(63, 63, 63)
+                                    .addComponent(jButtonLimpiarBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 59, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
-                .addGap(21, 21, 21)
-                .addComponent(jLabel3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(8, 8, 8)
+                                .addComponent(jLabel1))
+                            .addComponent(jFormattedTextFieldCodigoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addComponent(jButtonBuscarPedido))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(jButtonLimpiarBusqueda)))
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonET)
+                    .addComponent(jButtonT)
+                    .addComponent(jButtonTR))
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jComboBoxContenido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(8, 8, 8)
+                                        .addComponent(jLabel4))
+                                    .addComponent(jTextFieldNitCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jTextFieldTiendaOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(8, 8, 8)
+                                        .addComponent(jLabel6))
+                                    .addComponent(jTextFieldEstadoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(40, 40, 40)
+                                .addComponent(jLabel3)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(32, 32, 32)
+                                        .addComponent(jLabel15)
+                                        .addGap(2, 2, 2)
+                                        .addComponent(jLabel10)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButtonLimpiarBusqueda1))
+                                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jFormattedTextFieldCodigoPedidoRetiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(10, 10, 10)
+                                                .addComponent(jLabel8)))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(18, 18, 18)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jTextFieldEstadoAntesDeSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addGap(10, 10, 10)
+                                                        .addComponent(jLabel12))))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(25, 25, 25)
+                                                .addComponent(jLabelDescripcionCodigo))))
+                                    .addComponent(jButtonBuscarPedidoRetiro)))
+                            .addComponent(jLabel7))
+                        .addGap(7, 7, 7)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9)
+                            .addComponent(jTextFieldFaltante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel13)
+                                .addComponent(jTextFieldBonificacionCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel11)
+                    .addComponent(jComboBoxContenido1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2)
-                    .addComponent(jButton4))
-                .addContainerGap(31, Short.MAX_VALUE))
+                    .addComponent(jLabel14)
+                    .addComponent(jTextFieldNit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16)
+                    .addComponent(jTextFieldMontoDePago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addComponent(jButtonFinalizarVenta)
+                .addGap(29, 29, 29))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void jButtonTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTActionPerformed
         // TODO add your handling code here:
-        
-        //Pedido pedidoPreocesado = new Pedido(codigo, tienda1, tienda2, fecha, cliente, cantidad, total, anticipo);
-    }//GEN-LAST:event_jButton4ActionPerformed
+        cambiarEstadoPaquete("T");
+    }//GEN-LAST:event_jButtonTActionPerformed
 
+    private void jButtonBuscarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarPedidoActionPerformed
+        // TODO add your handling code here:
+        String codigoPedido = jFormattedTextFieldCodigoPedido.getText();
+        
+        
+        ArrayList<String> datosPedido = new ArrayList<String>();
+        datosPedido= this.consultaDB.estadoPedido(codigoPedido);
+        
+        String codigoTienda = datosPedido.get(8);
+        
+        if(tiendaSeleccionada.equals(codigoTienda)){
+            ArrayList<String> contenido = new ArrayList<String>();
+            contenido = consultaDB.productoDeUnPedido(codigoPedido);
+            jComboBoxContenido.removeAllItems();
+            for (int i = 0; i < contenido.size(); i++) {
+                jComboBoxContenido.addItem(contenido.get(i));
+            }
+            this.jTextFieldNitCliente.setText(datosPedido.get(5));
+            this.jTextFieldTiendaOrigen.setText(datosPedido.get(7));
+            this.jTextFieldEstadoPedido.setText(datosPedido.get(4));
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "El pedido que seleciono no llegara a esta tienda");
+        }
+    }//GEN-LAST:event_jButtonBuscarPedidoActionPerformed
+
+    private void jButtonETActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonETActionPerformed
+        // TODO add your handling code here:
+        cambiarEstadoPaquete("ET");
+    }//GEN-LAST:event_jButtonETActionPerformed
+
+    private void jButtonTRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTRActionPerformed
+        // TODO add your handling code here:
+        cambiarEstadoPaquete("TR");
+    }//GEN-LAST:event_jButtonTRActionPerformed
+
+    private void jButtonBuscarPedidoRetiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarPedidoRetiroActionPerformed
+        // TODO add your handling code here:
+        String codigoPedidoRetiro = jFormattedTextFieldCodigoPedidoRetiro.getText();
+        ArrayList<String> contenido = new ArrayList<String>();
+        contenido = consultaDB.estadoPedido(codigoPedidoRetiro);
+        float anticipoIndividual = Integer.parseInt(contenido.get(2));
+        
+        int cantidad =this.consultaDB.contarPedidos(codigoPedidoRetiro);
+        
+        float total = this.consultaDB.sumaTotalPedido(codigoPedidoRetiro);
+        float anticipo = this.consultaDB.sumaAnticipoPedido(codigoPedidoRetiro);
+        
+        float anticipoParaTransaccion=0;
+        
+        String codigoTienda = contenido.get(8);
+        
+        if(tiendaSeleccionada.equals(codigoTienda)){
+            
+            ArrayList<String> pedidos = new ArrayList<String>();
+            pedidos = consultaDB.productoDeUnPedido(codigoPedidoRetiro);
+            jComboBoxContenido1.removeAllItems();
+            for (int i = 0; i < pedidos.size(); i++) {
+                jComboBoxContenido1.addItem(pedidos.get(i));
+            }
+
+            try {
+                if(anticipoIndividual==(anticipo/cantidad)){
+                    jTextFieldFaltante.setText(String.valueOf(total-(anticipo/cantidad)));
+                    anticipoParaTransaccion=anticipo/cantidad;
+                }
+                else
+                {
+                    jTextFieldFaltante.setText(String.valueOf(total-(anticipo)));
+                    anticipoParaTransaccion=anticipo;
+                }
+            } catch (Exception e) {
+            }
+
+            String estadoPedido = contenido.get(4);
+            jTextFieldEstadoAntesDeSalir.setText(estadoPedido);
+            if(estadoPedido.equals("ET")){
+                jButtonFinalizarVenta.setEnabled(false);
+                jLabelDescripcionCodigo.setText("Pedido en transito");
+            }
+            if(estadoPedido.equals("T")){
+                jButtonFinalizarVenta.setEnabled(true);
+                jLabelDescripcionCodigo.setText("Ya puede retirar el pedido");
+            }
+            if(estadoPedido.equals("TR")){
+                jButtonFinalizarVenta.setEnabled(true);
+                jLabelDescripcionCodigo.setText("El pedido llego con retraso");
+                if(anticipoParaTransaccion==total){
+                    jTextFieldBonificacionCliente.setText(String.valueOf(total*0.05));
+                }
+                else{
+                    jTextFieldBonificacionCliente.setText(String.valueOf(total*0.02));
+                }
+            }
+            jTextFieldNit.setText(contenido.get(5));
+            jTextFieldMontoDePago.setText(jTextFieldFaltante.getText());
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "El pedido no esta en esta tienda");
+        }
+        
+    }//GEN-LAST:event_jButtonBuscarPedidoRetiroActionPerformed
+
+    private void jButtonFinalizarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFinalizarVentaActionPerformed
+        // TODO add your handling code here:
+        String año = jComboBoxYear.getSelectedItem().toString();
+        String mes = jComboBoxMes.getSelectedItem().toString();
+        String dia = jComboBoxDias.getSelectedItem().toString();
+        String codidoPedido = jFormattedTextFieldCodigoPedidoRetiro.getText();
+        
+        if(año.equals("Año")&&mes.equals("Mes")&&dia.equals("Dia")){
+            JOptionPane.showMessageDialog(this, "No ah seleccionado fecha para realizar la transaccion");
+        }else{
+            if(jTextFieldEstadoAntesDeSalir.getText().equals("")){
+                JOptionPane.showMessageDialog(this, "No ah seleccionado ningun pedido para salida");
+            }
+            else
+            {
+                ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
+                pedidos = this.consultaDB.retornoDePedidos(codidoPedido);
+                String fechaVenta = año+"-"+mes+"-"+dia;
+                for(int i=0; i<pedidos.size();i++){
+                    this.registrarEnDB.registroVenta(new Ventas(pedidos.get(i).getCodigo(),pedidos.get(i).getTienda2(),pedidos.get(i).getCantidad(),fechaVenta));
+                }
+                JOptionPane.showMessageDialog(this, "La transaccion se ha completado");
+            }
+            
+        }
+    }//GEN-LAST:event_jButtonFinalizarVentaActionPerformed
+
+    private void jButtonLimpiarBusqueda1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarBusqueda1ActionPerformed
+        // TODO add your handling code here:
+        jFormattedTextFieldCodigoPedidoRetiro.setText("");
+        jTextFieldEstadoAntesDeSalir.setText("");
+        jTextFieldFaltante.setText("0");
+        jComboBoxContenido1.removeAllItems();
+        jTextFieldNit.setText("");
+        jTextFieldMontoDePago.setText("0");
+    }//GEN-LAST:event_jButtonLimpiarBusqueda1ActionPerformed
+
+    private void jButtonLimpiarBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarBusquedaActionPerformed
+        // TODO add your handling code here:
+        jFormattedTextFieldCodigoPedido.setText("");
+        jTextFieldNitCliente.setText("");
+        jTextFieldTiendaOrigen.setText("");
+        jComboBoxContenido.removeAllItems();
+        jTextFieldEstadoPedido.setText("");
+    }//GEN-LAST:event_jButtonLimpiarBusquedaActionPerformed
+    
+    private void cambiarEstadoPaquete(String estadoNuevo){
+        int respuesta = JOptionPane.showConfirmDialog(this, "Desea cambiar el estado del paquete");
+        if(respuesta == JOptionPane.OK_OPTION){
+            this.modificarDB.modificacionEstadoPedido(this.jFormattedTextFieldCodigoPedido.getText(), estadoNuevo);
+            JOptionPane.showMessageDialog(this, "Ha cambiado el estado del pedido");
+        }
+        
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
+    private javax.swing.JButton jButtonBuscarPedido;
+    private javax.swing.JButton jButtonBuscarPedidoRetiro;
+    private javax.swing.JButton jButtonET;
+    private javax.swing.JButton jButtonFinalizarVenta;
+    private javax.swing.JButton jButtonLimpiarBusqueda;
+    private javax.swing.JButton jButtonLimpiarBusqueda1;
+    private javax.swing.JButton jButtonT;
+    private javax.swing.JButton jButtonTR;
+    private javax.swing.JComboBox<String> jComboBoxContenido;
+    private javax.swing.JComboBox<String> jComboBoxContenido1;
+    private javax.swing.JComboBox<String> jComboBoxDias;
+    private javax.swing.JComboBox<String> jComboBoxMes;
+    private javax.swing.JComboBox<String> jComboBoxYear;
+    private javax.swing.JFormattedTextField jFormattedTextFieldCodigoPedido;
+    private javax.swing.JFormattedTextField jFormattedTextFieldCodigoPedidoRetiro;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabelDescripcionCodigo;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JTextField jTextFieldBonificacionCliente;
+    private javax.swing.JTextField jTextFieldEstadoAntesDeSalir;
+    private javax.swing.JTextField jTextFieldEstadoPedido;
+    private javax.swing.JTextField jTextFieldFaltante;
+    private javax.swing.JTextField jTextFieldMontoDePago;
+    private javax.swing.JTextField jTextFieldNit;
+    private javax.swing.JTextField jTextFieldNitCliente;
+    private javax.swing.JTextField jTextFieldTiendaOrigen;
     // End of variables declaration//GEN-END:variables
 }

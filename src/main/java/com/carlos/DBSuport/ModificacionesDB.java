@@ -255,7 +255,7 @@ public class ModificacionesDB {
      * @param estadoPedido
      * @return
      */
-    private String moficiacionEstadoPedido(String codigoPedido,String estadoPedido){
+    public String modificacionEstadoPedido(String codigoPedido,String estadoPedido){
         //Respuesta de errores de sql
         String errores ="";
         //declaracion de la consulta

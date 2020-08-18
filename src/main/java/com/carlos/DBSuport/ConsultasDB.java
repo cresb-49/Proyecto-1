@@ -1,5 +1,6 @@
 package com.carlos.DBSuport;
 
+import com.carlos.Entities.Pedido;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -210,6 +211,64 @@ public class ConsultasDB {
         }
         return datosProducto;
     }
+    public ArrayList<String> estadoPedido(String codigoPedido){
+        ArrayList<String> datosProducto = new ArrayList<String>();
+        
+        String consulta="SELECT cantidad,total,anticipo,fecha_orden,estado_pedido,CLIENTE_nit,PRODUCTO_codigo,TIENDA_codigo_salida,TIENDA_codigo_llegada FROM PEDIDO WHERE codigo = '"+codigoPedido+"' LIMIT 1";
+        try {
+            cn = con.getConexion();
+            st = cn.createStatement();
+            rs=st.executeQuery(consulta);
+            while(rs.next()){
+                datosProducto.add(rs.getString(1));
+                datosProducto.add(rs.getString(2));
+                datosProducto.add(rs.getString(3));
+                datosProducto.add(rs.getString(4));
+                datosProducto.add(rs.getString(5));
+                datosProducto.add(rs.getString(6));
+                datosProducto.add(rs.getString(7));
+                datosProducto.add(rs.getString(8));
+                datosProducto.add(rs.getString(9));
+            }
+        } catch (Exception e) {
+        }
+        return datosProducto;
+    }
+    public ArrayList<Pedido> retornoDePedidos(String codigoPedido){
+        ArrayList<Pedido> Pedidos = new ArrayList<Pedido>();
+        
+        String consulta="SELECT cantidad,total,anticipo,fecha_orden,estado_pedido,CLIENTE_nit,PRODUCTO_codigo,TIENDA_codigo_salida,TIENDA_codigo_llegada FROM PEDIDO WHERE codigo = '"+codigoPedido+"' LIMIT 1";
+        try {
+            cn = con.getConexion();
+            st = cn.createStatement();
+            rs=st.executeQuery(consulta);
+            while(rs.next()){
+                Pedidos.add(new Pedido(codigoPedido, rs.getString(8), rs.getString(9), rs.getString(4), rs.getString(6), rs.getString(7), rs.getInt(1),rs.getFloat(2),rs.getFloat(3)));
+            }
+        } catch (Exception e) {
+        }
+        return Pedidos;
+    }
+    public int contarPedidos(String codigoPedido){
+        int contar=0;
+        
+        String consulta="SELECT COUNT(*) FROM PEDIDO WHERE codigo ='"+codigoPedido+"';";
+        try {
+            cn = con.getConexion();
+            st = cn.createStatement();
+            rs=st.executeQuery(consulta);
+            while(rs.next()){
+                contar = rs.getInt(1);
+            }
+        } catch (Exception e) {
+        }
+        return contar;
+    }
+    /**
+     * Esta clase funciona solemnete para el apartado de aceso al usuario
+     * @param codigo
+     * @return 
+     */
     public ArrayList<String> datosPedido(String codigo){
         ArrayList<String> datosProducto = new ArrayList<String>();
         
@@ -227,8 +286,8 @@ public class ConsultasDB {
         }
         return datosProducto;
     }
-    public int  sumaTotalPedido(String codigo){
-        int total=0;
+    public float  sumaTotalPedido(String codigo){
+        float total=0;
         
         String consulta="SELECT SUM(total) FROM PEDIDO WHERE codigo = '"+codigo+"';";
         try {
@@ -236,11 +295,26 @@ public class ConsultasDB {
             st = cn.createStatement();
             rs=st.executeQuery(consulta);
             while(rs.next()){
-                total = rs.getInt(1);
+                total = rs.getFloat(1);
             }
         } catch (Exception e) {
         }
         return total;
+    }
+    public float  sumaAnticipoPedido(String codigo){
+        float anticipo=0;
+        
+        String consulta="SELECT SUM(anticipo) FROM PEDIDO WHERE codigo = '"+codigo+"';";
+        try {
+            cn = con.getConexion();
+            st = cn.createStatement();
+            rs=st.executeQuery(consulta);
+            while(rs.next()){
+                anticipo = rs.getFloat(1);
+            }
+        } catch (Exception e) {
+        }
+        return anticipo;
     }
     public String  consultarCodigoTienda(String nombre){
         String codigo = "";
@@ -257,5 +331,4 @@ public class ConsultasDB {
         }
         return codigo;
     }
-    
 }
