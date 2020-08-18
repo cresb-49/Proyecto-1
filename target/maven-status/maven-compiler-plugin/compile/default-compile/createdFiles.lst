@@ -3,6 +3,7 @@ com/carlos/Graphics/RegistroTiendaJDialog$3.class
 com/carlos/Graphics/TiendaEmpleadoJFrame.class
 com/carlos/Graphics/RegistroClienteJDialog$6.class
 com/carlos/Graphics/RealizarPedidoJDialog$5.class
+com/carlos/Graphics/EntregaProductoJDialog$7.class
 com/carlos/Graphics/LogInFrame.class
 com/carlos/Graphics/TiendaClienteJFrame.class
 com/carlos/Graphics/CatalogoJDialog$7.class
@@ -10,6 +11,7 @@ com/carlos/Graphics/VentaJDialog$1.class
 com/carlos/Graphics/LogInFrame$1.class
 com/carlos/Graphics/RealizarPedidoJDialog$2.class
 com/carlos/Graphics/RegistroClienteJDialog$3.class
+com/carlos/Graphics/VentaJDialog$4.class
 com/carlos/DBSuport/ConsultasDB.class
 com/carlos/Graphics/RegistroCliente.class
 com/carlos/Graphics/TiendaEmpleadoJFrame$9.class
@@ -25,13 +27,16 @@ com/carlos/Graphics/RegistrarProductoJDialog$3.class
 com/carlos/Graphics/TiendaEmpleadoJFrame$3.class
 com/carlos/DBSuport/ModificacionesDB.class
 com/carlos/Graphics/RegistroTiendaJDialog$8.class
+com/carlos/Graphics/EntregaProductoJDialog$4.class
 com/carlos/Graphics/RegistroTiendaJDialog.class
 com/carlos/Graphics/VisualizadorDeErroresJDialog.class
+com/carlos/Graphics/VentaJDialog$3.class
 com/carlos/Graphics/RastreoPedidoJDialog$2.class
 com/carlos/Entities/Product.class
 com/carlos/Entities/Employee.class
 com/carlos/Graphics/TiendaEmpleadoJFrame$1.class
 com/carlos/Entities/Store.class
+com/carlos/Graphics/EntregaProductoJDialog$8.class
 com/carlos/Graphics/CatalogoJDialog$5.class
 com/carlos/Entities/Users.class
 com/carlos/Graphics/TiendaEmpleadoJFrame$2.class
@@ -43,6 +48,7 @@ com/carlos/Graphics/RealizarPedidoJDialog$6.class
 com/carlos/Graphics/VentaJDialog.class
 com/carlos/Graphics/VentaJDialog$2.class
 com/carlos/Graphics/TiendaEmpleadoJFrame$10.class
+com/carlos/Graphics/EntregaProductoJDialog$2.class
 com/carlos/Graphics/RegistroTiendaJDialog$10.class
 com/carlos/Graphics/CatalogoJDialog$4.class
 com/carlos/Graphics/PrincipalFrame.class
@@ -54,11 +60,13 @@ com/carlos/App/Main.class
 com/carlos/Graphics/RegistroClienteJDialog$4.class
 com/carlos/Graphics/RegistroEmpleadoJDialog$5.class
 com/carlos/Graphics/RegistrarProductoJDialog$1.class
+com/carlos/Graphics/VentaJDialog$5.class
 com/carlos/Graphics/CaracteristicaReportesJDialog.class
 com/carlos/Graphics/RegistrarProductoJDialog$4.class
 com/carlos/Graphics/RegistroEmpleadoJDialog$2.class
 com/carlos/Graphics/PrincipalFrame$2.class
 com/carlos/Graphics/TiendaEmpleadoJFrame$7.class
+com/carlos/Graphics/EntregaProductoJDialog$3.class
 com/carlos/Graphics/RegistroTiendaJDialog$7.class
 com/carlos/OuputDocs/GenerateHTML.class
 com/carlos/Graphics/TiendaClienteJFrame$1.class
@@ -77,10 +85,12 @@ com/carlos/DBSuport/ConexionDB.class
 com/carlos/Graphics/RegistrarProductoJDialog$6.class
 com/carlos/Graphics/RastreoPedidoJDialog.class
 com/carlos/Graphics/TiendaClienteJFrame$2.class
+com/carlos/Graphics/EntregaProductoJDialog$5.class
 com/carlos/Graphics/RealizarPedidoJDialog.class
 com/carlos/Graphics/RegistroClienteJDialog$1.class
 com/carlos/Graphics/TiendaEmpleadoJFrame$5.class
 com/carlos/Graphics/RegistroTiendaJDialog$5.class
+com/carlos/Entities/Ventas.class
 com/carlos/Graphics/CatalogoJDialog$2.class
 com/carlos/Graphics/RegistroEmpleadoJDialog$3.class
 com/carlos/Graphics/RegistroTiendaJDialog$1.class
@@ -94,6 +104,7 @@ com/carlos/Graphics/CatalogoJDialog$1.class
 com/carlos/Graphics/CatalogoJDialog$8.class
 com/carlos/Graphics/RegistrarProductoJDialog$5.class
 com/carlos/Graphics/CatalogoJDialog.class
+com/carlos/Graphics/EntregaProductoJDialog$6.class
 com/carlos/Graphics/RegistroTiendaJDialog$6.class
 com/carlos/Graphics/LogInFrame$2.class
 com/carlos/Graphics/RealizarPedidoJDialog$3.class

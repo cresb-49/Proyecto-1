@@ -465,7 +465,7 @@ public class EntregaProductoJDialog extends javax.swing.JDialog {
         String codigoPedidoRetiro = jFormattedTextFieldCodigoPedidoRetiro.getText();
         ArrayList<String> contenido = new ArrayList<String>();
         contenido = consultaDB.estadoPedido(codigoPedidoRetiro);
-        float anticipoIndividual = Integer.parseInt(contenido.get(2));
+        float anticipoIndividual = Float.parseFloat(contenido.get(2));
         
         int cantidad =this.consultaDB.contarPedidos(codigoPedidoRetiro);
         
@@ -480,46 +480,54 @@ public class EntregaProductoJDialog extends javax.swing.JDialog {
             
             ArrayList<String> pedidos = new ArrayList<String>();
             pedidos = consultaDB.productoDeUnPedido(codigoPedidoRetiro);
-            jComboBoxContenido1.removeAllItems();
-            for (int i = 0; i < pedidos.size(); i++) {
-                jComboBoxContenido1.addItem(pedidos.get(i));
+            
+            String estadoPaquete = contenido.get(4);
+            if(estadoPaquete.equals("entregado")){
+                JOptionPane.showMessageDialog(this, "Este paquete ya fue entregado");
             }
+            else
+            {
+                jComboBoxContenido1.removeAllItems();
+                for (int i = 0; i < pedidos.size(); i++) {
+                    jComboBoxContenido1.addItem(pedidos.get(i));
+                }
 
-            try {
-                if(anticipoIndividual==(anticipo/cantidad)){
-                    jTextFieldFaltante.setText(String.valueOf(total-(anticipo/cantidad)));
-                    anticipoParaTransaccion=anticipo/cantidad;
-                }
-                else
-                {
-                    jTextFieldFaltante.setText(String.valueOf(total-(anticipo)));
-                    anticipoParaTransaccion=anticipo;
-                }
+                try {
+                    if(anticipoIndividual==(anticipo/cantidad)){
+                        jTextFieldFaltante.setText(String.valueOf(total-(anticipo/cantidad)));
+                        anticipoParaTransaccion=anticipo/cantidad;
+                    }
+                    else
+                    {
+                        jTextFieldFaltante.setText(String.valueOf(total-(anticipo)));
+                        anticipoParaTransaccion=anticipo;
+                    }
             } catch (Exception e) {
             }
 
-            String estadoPedido = contenido.get(4);
-            jTextFieldEstadoAntesDeSalir.setText(estadoPedido);
-            if(estadoPedido.equals("ET")){
-                jButtonFinalizarVenta.setEnabled(false);
-                jLabelDescripcionCodigo.setText("Pedido en transito");
-            }
-            if(estadoPedido.equals("T")){
-                jButtonFinalizarVenta.setEnabled(true);
-                jLabelDescripcionCodigo.setText("Ya puede retirar el pedido");
-            }
-            if(estadoPedido.equals("TR")){
-                jButtonFinalizarVenta.setEnabled(true);
-                jLabelDescripcionCodigo.setText("El pedido llego con retraso");
+                String estadoPedido = contenido.get(4);
+                jTextFieldEstadoAntesDeSalir.setText(estadoPedido);
+                if(estadoPedido.equals("ET")){
+                    jButtonFinalizarVenta.setEnabled(false);
+                    jLabelDescripcionCodigo.setText("Pedido en transito");
+                }
+                if(estadoPedido.equals("T")){
+                    jButtonFinalizarVenta.setEnabled(true);
+                    jLabelDescripcionCodigo.setText("Ya puede retirar el pedido");
+                }
+                if(estadoPedido.equals("TR")){
+                    jButtonFinalizarVenta.setEnabled(true);
+                    jLabelDescripcionCodigo.setText("El pedido llego con retraso");
                 if(anticipoParaTransaccion==total){
                     jTextFieldBonificacionCliente.setText(String.valueOf(total*0.05));
                 }
                 else{
-                    jTextFieldBonificacionCliente.setText(String.valueOf(total*0.02));
+                        jTextFieldBonificacionCliente.setText(String.valueOf(total*0.02));
                 }
-            }
-            jTextFieldNit.setText(contenido.get(5));
-            jTextFieldMontoDePago.setText(jTextFieldFaltante.getText());
+                }
+                    jTextFieldNit.setText(contenido.get(5));
+                    jTextFieldMontoDePago.setText(jTextFieldFaltante.getText());
+                }
         }
         else
         {
@@ -545,16 +553,31 @@ public class EntregaProductoJDialog extends javax.swing.JDialog {
             {
                 ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
                 pedidos = this.consultaDB.retornoDePedidos(codidoPedido);
+                this.modificarDB.modificacionEstadoPedido(codidoPedido, "entregado");
                 String fechaVenta = año+"-"+mes+"-"+dia;
+                
                 for(int i=0; i<pedidos.size();i++){
-                    this.registrarEnDB.registroVenta(new Ventas(pedidos.get(i).getCodigo(),pedidos.get(i).getTienda2(),pedidos.get(i).getCantidad(),fechaVenta));
+                    String res = this.registrarEnDB.registroVenta(new Ventas(pedidos.get(i).getProducto(),pedidos.get(i).getTienda2(),pedidos.get(i).getCantidad(),fechaVenta));
+                    if(!(res.equals(""))){
+                        JOptionPane.showMessageDialog(this, res);
+                    }
                 }
+                bonificacionCliente(pedidos.get(0).getCliente(), jTextFieldBonificacionCliente.getText());
                 JOptionPane.showMessageDialog(this, "La transaccion se ha completado");
             }
             
         }
     }//GEN-LAST:event_jButtonFinalizarVentaActionPerformed
-
+    private void bonificacionCliente(String nit,String bonificacion){
+        float bono =0;
+        try {
+            bono=Float.valueOf(bonificacion);
+        } catch (Exception e) {
+        }
+        float credito = Float.valueOf(this.consultaDB.datosCliente(nit).get(2));
+        float creditoNuevo = credito+bono;
+        System.out.println(this.modificarDB.modificarCreditoCliente(nit, String.valueOf(creditoNuevo)));
+    }
     private void jButtonLimpiarBusqueda1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarBusqueda1ActionPerformed
         // TODO add your handling code here:
         jFormattedTextFieldCodigoPedidoRetiro.setText("");
@@ -575,11 +598,18 @@ public class EntregaProductoJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_jButtonLimpiarBusquedaActionPerformed
     
     private void cambiarEstadoPaquete(String estadoNuevo){
-        int respuesta = JOptionPane.showConfirmDialog(this, "Desea cambiar el estado del paquete");
-        if(respuesta == JOptionPane.OK_OPTION){
-            this.modificarDB.modificacionEstadoPedido(this.jFormattedTextFieldCodigoPedido.getText(), estadoNuevo);
-            JOptionPane.showMessageDialog(this, "Ha cambiado el estado del pedido");
+        String estadoPaquete = this.jTextFieldEstadoPedido.getText();
+        if(estadoPaquete.equals("entregado")){
+            JOptionPane.showMessageDialog(this, "Este paquete ya fue entregado no se puede modificar");
         }
+        else{
+            int respuesta = JOptionPane.showConfirmDialog(this, "Desea cambiar el estado del paquete");
+            if(respuesta == JOptionPane.OK_OPTION){
+                this.modificarDB.modificacionEstadoPedido(this.jFormattedTextFieldCodigoPedido.getText(), estadoNuevo);
+                JOptionPane.showMessageDialog(this, "Ha cambiado el estado del pedido");
+            }
+        }
+        
         
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

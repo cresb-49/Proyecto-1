@@ -237,7 +237,7 @@ public class ConsultasDB {
     public ArrayList<Pedido> retornoDePedidos(String codigoPedido){
         ArrayList<Pedido> Pedidos = new ArrayList<Pedido>();
         
-        String consulta="SELECT cantidad,total,anticipo,fecha_orden,estado_pedido,CLIENTE_nit,PRODUCTO_codigo,TIENDA_codigo_salida,TIENDA_codigo_llegada FROM PEDIDO WHERE codigo = '"+codigoPedido+"' LIMIT 1";
+        String consulta="SELECT cantidad,total,anticipo,fecha_orden,estado_pedido,CLIENTE_nit,PRODUCTO_codigo,TIENDA_codigo_salida,TIENDA_codigo_llegada FROM PEDIDO WHERE codigo = '"+codigoPedido+"'";
         try {
             cn = con.getConexion();
             st = cn.createStatement();
@@ -330,5 +330,51 @@ public class ConsultasDB {
         } catch (Exception e) {
         }
         return codigo;
+    }
+    ///////////////////////////////////////////////////////////
+    //CONSULTAS ESPESIFICAS PARA REPORTES EN LA BASE DE DATOS//
+    ///////////////////////////////////////////////////////////
+    /**
+     * Da la informacion necesaria para generar un reporte
+     * @param codigoTienda
+     * @return 
+     */
+    public ArrayList<String[]> pedidosReporte(String codigoTienda,String estadoDePedido){
+        ArrayList<String[]> datosProducto = new ArrayList<String[]>();
+        
+        String consulta="SELECT PEDIDO.codigo,CLIENTE.nombre,PEDIDO.CLIENTE_nit,PEDIDO.TIENDA_codigo_salida FROM PEDIDO,CLIENTE WHERE PEDIDO.TIENDA_codigo_llegada = '"+codigoTienda+"' AND PEDIDO.CLIENTE_nit = CLIENTE.nit AND PEDIDO.estado_pedido='"+estadoDePedido+"';";
+        try {
+            cn = con.getConexion();
+            st = cn.createStatement();
+            rs=st.executeQuery(consulta);
+            while(rs.next()){
+                
+                datosProducto.add(new String[]{rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4)});
+            }
+        } catch (Exception e) {
+        }
+        return datosProducto;
+    }
+    /**
+     * Da la informacion de los pedidos que salieron de la tienda
+     * @param codigoTienda
+     * @param estadoDePedido
+     * @return 
+     */
+    public ArrayList<String[]> pedidosSalidaReporte(String codigoTienda){
+        ArrayList<String[]> datosProducto = new ArrayList<String[]>();
+        
+        String consulta="SELECT PEDIDO.codigo,CLIENTE.nombre,PEDIDO.CLIENTE_nit,PEDIDO.TIENDA_codigo_llegada FROM PEDIDO,CLIENTE WHERE PEDIDO.TIENDA_codigo_salida = '"+codigoTienda+"' AND PEDIDO.CLIENTE_nit = CLIENTE.nit AND PEDIDO.estado_pedido='ET';";
+        try {
+            cn = con.getConexion();
+            st = cn.createStatement();
+            rs=st.executeQuery(consulta);
+            while(rs.next()){
+                
+                datosProducto.add(new String[]{rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4)});
+            }
+        } catch (Exception e) {
+        }
+        return datosProducto;
     }
 }

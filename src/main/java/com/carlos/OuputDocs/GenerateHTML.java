@@ -1,22 +1,54 @@
 package com.carlos.OuputDocs;
 
+import com.carlos.DBSuport.ConsultasDB;
 import java.io.*;
+import java.util.ArrayList;
 
 public class GenerateHTML {
     private File archivo;
+    
+    private String codigoTienda;
+    private String NITcliente;
+    private String tiempoSuperior;
+    private String timepoInferior;
+    
+    ////////VARIABLES DE CONSULTAS A BASE DE DATOS////////////
+    private ConsultasDB consultaDB = new ConsultasDB();
 
     public GenerateHTML (File archivo){
         this.archivo=archivo;
     }
     /**
-     * Genera el archivo html
+     * Genera el archivo HTML segun el tipo de reporte que se selecciono
+     * @param tipoReporte 
      */
-    public void Generate (){
+    public void Generate (String tipoReporte){
         //genera un lugar de escritura
         PrintWriter html = null;
         try {
             html = new PrintWriter(new DataOutputStream(new FileOutputStream(archivo)));
-            html = this.htmlContenent(html);
+            //Segun el tipo de reporte se puede crear un archivo con un contenido u otro
+            if(tipoReporte.equals("Listado_Entrada_Pedido")){
+                html = this.htmlContentPedidosTienda(html);
+            }
+            if(tipoReporte.equals("Listado_Pedido_Atrazado")){
+                html = this.htmlContentPedidosAtrazadosTienda(html);
+            }
+            if(tipoReporte.equals("Listado_Pedidos_Salida_Tienda")){
+                html = this.htmlContentPedidosExpendidosPorTienda(html);
+            }
+            if(tipoReporte.equals("Listado_Compras_Cliente_")){
+                
+            }
+            if(tipoReporte.equals("Listado_Pedidos_Cliente_")){
+
+            }
+            if(tipoReporte.equals("10_Productos_Mas_Vendidos")){
+
+            }
+            if(tipoReporte.equals("Listado_Productos_No_Vendidos")){
+
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }finally{
@@ -31,7 +63,7 @@ public class GenerateHTML {
      */
     private PrintWriter htmlContenent(PrintWriter html){
         html.println("<h1>REPORTES DE TIENDA</h1>");
-        html.println("<h2>Pedidos que llegaran</h2>");
+        html.println("<h2>Pedidos que llegaran a la tienda</h2>");
         html.println("<table border=\"1\">");
         html.println("</table>");
         html.println("<h2>Pedidos a confirmar entrada </h2>");
@@ -50,4 +82,158 @@ public class GenerateHTML {
         }
         return html;
     }
+    /**
+     * Genera el archivo con los datos de los pedidos que llegran a la tienda
+     * @param html
+     * @return 
+     */
+    private PrintWriter htmlContentPedidosTienda(PrintWriter html){
+        ArrayList<String[]> pedidosDelReporte = new ArrayList<String[]>();
+        pedidosDelReporte = this.consultaDB.pedidosReporte(this.codigoTienda,"ET");
+        //////////////////////////////////////////////////////////////////////////////////////
+        html.println("<h1>REPORTES DE PEDIDOS QUE LLEGARAN A LA TIENDA "+codigoTienda+"</h1>");
+        html.println("<h2>Descripcion de los pedidos que llegaran</h2>");
+        html.println("<table border=\"1\">");
+            html.println("<thead>");
+                html.println("<tr>");
+                    html.println("<th>Codigo Pedido</th>");
+                    html.println("<th>Nombre del Cliente</th>");
+                    html.println("<th>Nit del Cliente</th>");
+                    html.println("<th>Tienda de Origen</th>");
+                html.println("</tr>");
+            html.println("</thead>");
+            html.println("<tbody>");
+                //Ciclo de imprecion de los datos a generar
+                ///////////////////////////////////////////////
+                for (int i = 0; i < pedidosDelReporte.size(); i++) {
+                    html.println("<tbody>");
+                        html.println("<td>"+pedidosDelReporte.get(i)[0]+"</td>");
+                        html.println("<td>"+pedidosDelReporte.get(i)[1]+"</td>");
+                        html.println("<td>"+pedidosDelReporte.get(i)[2]+"</td>");
+                        html.println("<td>"+pedidosDelReporte.get(i)[3]+"</td>");
+                    html.println("<tbody>");
+                }
+                ///////////////////////////////////////////////
+            html.println("</tbody>");
+        html.println("</table>");
+        try {
+            html.close();    
+        } catch (Exception e) {
+            
+        }
+        return html;
+    }
+    /**
+     * Genera el archivo de reporte con los pedidos atrasados en la tienda
+     * @param html
+     * @return 
+     */
+    private PrintWriter htmlContentPedidosAtrazadosTienda(PrintWriter html){
+        ArrayList<String[]> pedidosDelReporte = new ArrayList<String[]>();
+        pedidosDelReporte = this.consultaDB.pedidosReporte(this.codigoTienda,"TR");
+        //////////////////////////////////////////////////////////////////////////////////////
+        html.println("<h1>REPORTES DE PEDIDOS ATRAZADOS QUE ESTAN EN LA TIENDA "+codigoTienda+"</h1>");
+        html.println("<h2>Descripcion de los pedidos de ingreso atrazado</h2>");
+        html.println("<table border=\"1\">");
+            html.println("<thead>");
+                html.println("<tr>");
+                    html.println("<th>Codigo Pedido</th>");
+                    html.println("<th>Nombre del Cliente</th>");
+                    html.println("<th>Nit del Cliente</th>");
+                    html.println("<th>Tienda de Origen</th>");
+                html.println("</tr>");
+            html.println("</thead>");
+            html.println("<tbody>");
+                //Ciclo de imprecion de los datos a generar
+                ///////////////////////////////////////////////
+                for (int i = 0; i < pedidosDelReporte.size(); i++) {
+                    html.println("<tbody>");
+                        html.println("<td>"+pedidosDelReporte.get(i)[0]+"</td>");
+                        html.println("<td>"+pedidosDelReporte.get(i)[1]+"</td>");
+                        html.println("<td>"+pedidosDelReporte.get(i)[2]+"</td>");
+                        html.println("<td>"+pedidosDelReporte.get(i)[3]+"</td>");
+                    html.println("<tbody>");
+                }
+                ///////////////////////////////////////////////
+            html.println("</tbody>");
+        html.println("</table>");
+        try {
+            html.close();    
+        } catch (Exception e) {
+            
+        }
+        return html;
+    }
+    private PrintWriter htmlContentPedidosExpendidosPorTienda(PrintWriter html){
+        ArrayList<String[]> pedidosDelReporte = new ArrayList<String[]>();
+        pedidosDelReporte = this.consultaDB.pedidosSalidaReporte(this.codigoTienda);
+        //////////////////////////////////////////////////////////////////////////////////////
+        html.println("<h1>REPORTES DE PEDIDOS EXPENDIDOS POR LA TIENDA "+codigoTienda+"</h1>");
+        html.println("<h2>Descripcion de los pedidos que salieron de la tienda</h2>");
+        html.println("<table border=\"1\">");
+            html.println("<thead>");
+                html.println("<tr>");
+                    html.println("<th>Codigo Pedido</th>");
+                    html.println("<th>Nombre del Cliente</th>");
+                    html.println("<th>Nit del Cliente</th>");
+                    html.println("<th>Tienda de Origen</th>");
+                html.println("</tr>");
+            html.println("</thead>");
+            html.println("<tbody>");
+                //Ciclo de imprecion de los datos a generar
+                ///////////////////////////////////////////////
+                for (int i = 0; i < pedidosDelReporte.size(); i++) {
+                    html.println("<tbody>");
+                        html.println("<td>"+pedidosDelReporte.get(i)[0]+"</td>");
+                        html.println("<td>"+pedidosDelReporte.get(i)[1]+"</td>");
+                        html.println("<td>"+pedidosDelReporte.get(i)[2]+"</td>");
+                        html.println("<td>"+pedidosDelReporte.get(i)[3]+"</td>");
+                    html.println("<tbody>");
+                }
+                ///////////////////////////////////////////////
+            html.println("</tbody>");
+        html.println("</table>");
+        try {
+            html.close();    
+        } catch (Exception e) {
+            
+        }
+        return html;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    //ASIGANACION DE VARIABLES EN USO PARA LA GENERACION DEL REPORTE HTML//
+    ///////////////////////////////////////////////////////////////////////
+
+    public String getCodigoTienda() {
+        return codigoTienda;
+    }
+
+    public void setCodigoTienda(String codigoTienda) {
+        this.codigoTienda = codigoTienda;
+    }
+
+    public String getNITcliente() {
+        return NITcliente;
+    }
+
+    public void setNITcliente(String NITcliente) {
+        this.NITcliente = NITcliente;
+    }
+
+    public String getTiempoSuperior() {
+        return tiempoSuperior;
+    }
+
+    public void setTiempoSuperior(String tiempoSuperior) {
+        this.tiempoSuperior = tiempoSuperior;
+    }
+
+    public String getTimepoInferior() {
+        return timepoInferior;
+    }
+
+    public void setTimepoInferior(String timepoInferior) {
+        this.timepoInferior = timepoInferior;
+    }
+    
 }
