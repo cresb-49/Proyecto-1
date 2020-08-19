@@ -441,8 +441,8 @@ public class RegistrarProductoJDialog extends javax.swing.JDialog {
             {
                 Product productoModifacar = new Product(nombre, fabricante, codigo, cantidad, precio, descripcion, garantia,tienda);
                 ModificacionesDB modificacion = new ModificacionesDB();
-                String respuesta1 = modificacion.modificarProducto(productoModifacar);
-                String respuesta2 = modificacion.modificarExistencia(productoModifacar);
+                String respuesta1 = modificacion.modificarProducto(productoModifacar,this.baseDeDatos.getConexion());
+                String respuesta2 = modificacion.modificarExistencia(productoModifacar,this.baseDeDatos.getConexion());
                 if(!(respuesta1.equals(""))||!(respuesta2.equals(""))){
                     JOptionPane.showMessageDialog(this, respuesta1+respuesta2);
                 }

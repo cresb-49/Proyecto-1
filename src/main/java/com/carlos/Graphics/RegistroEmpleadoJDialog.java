@@ -380,7 +380,7 @@ public class RegistroEmpleadoJDialog extends javax.swing.JDialog {
             }
             Employee empleadoModificado = new Employee(codigoEmpleado, nombre, String.valueOf(telefono), NIT, resultadoDPI, correoElectronico, direccion);
             ModificacionesDB modificarEmpleado = new ModificacionesDB();
-            String respuesta = modificarEmpleado.modificarEmpleado(empleadoModificado);
+            String respuesta = modificarEmpleado.modificarEmpleado(empleadoModificado,this.baseDeDatos.getConexion());
             if(!(respuesta.equals(""))){
                 JOptionPane.showMessageDialog(this, respuesta);
             }

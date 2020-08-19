@@ -593,7 +593,7 @@ public class VentaJDialog extends javax.swing.JDialog {
             int nuevaExistencia = cantidadOrigianl-cantidadCompradas;
             
             Product actualizacion = new Product("", "", codigoProducto, nuevaExistencia, 0, "", 0, tiendaSleccionada);
-            this.modificacion.modificarExistencia(actualizacion);
+            this.modificacion.modificarExistencia(actualizacion,this.baseDeDatos.getConexion());
             this.registro.registroVenta(ventasAcumuladas.get(i),this.baseDeDatos.getConexion());
         }
     }
@@ -601,7 +601,7 @@ public class VentaJDialog extends javax.swing.JDialog {
         float creditoUsado = Float.valueOf(this.jFormattedTextFieldUsoCredito.getText());
         float creditoOriginal = Float.valueOf(this.consulta.datosCliente(this.jFormattedTextFieldNIT.getText(),this.baseDeDatos.getConexion()).get(2));
         float nuevoCredito = creditoOriginal-creditoUsado;
-        this.modificacion.modificarCreditoCliente(this.jFormattedTextFieldNIT.getText(), String.valueOf(nuevoCredito));
+        this.modificacion.modificarCreditoCliente(this.jFormattedTextFieldNIT.getText(), String.valueOf(nuevoCredito),this.baseDeDatos.getConexion());
     }
     private void limpiezaFormulario(){
         jFormattedTextFieldCodigoProducto.setText("");

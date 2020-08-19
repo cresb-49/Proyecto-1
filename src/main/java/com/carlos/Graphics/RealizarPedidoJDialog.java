@@ -517,14 +517,14 @@ public class RealizarPedidoJDialog extends javax.swing.JDialog {
         int nuevaCantidad = cantidadOriginarl-cantidadVendida;
         String codigoProducto = jFormattedTextFieldCodigoDelProducto.getText();
         Product productoModificar = new Product("", "", codigoProducto, nuevaCantidad, 0, "", 0, codigoTienda);
-        this.modificarDatos.modificarExistencia(productoModificar);
+        this.modificarDatos.modificarExistencia(productoModificar,this.baseDeDatos.getConexion());
     }
     private void descontarCliente(){
         String nitCliente = jFormattedTextFieldNIT.getText();
         float creditoDiponible = Float.valueOf(jFormattedTextFieldCreditoDisponible.getText());
         float creditoUsado = Float.valueOf(jFormattedTextFieldCreditoAUsar.getText());
         float nuevoCredito = creditoDiponible-creditoUsado;
-        this.modificarDatos.modificarCreditoCliente(nitCliente, String.valueOf(nuevoCredito));
+        this.modificarDatos.modificarCreditoCliente(nitCliente, String.valueOf(nuevoCredito),this.baseDeDatos.getConexion());
     }
     private void jButtonBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarClienteActionPerformed
         // TODO add your handling code here:

@@ -554,7 +554,7 @@ public class EntregaProductoJDialog extends javax.swing.JDialog {
             {
                 ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
                 pedidos = this.consultaDB.retornoDePedidos(codidoPedido,this.baseDeDatos.getConexion());
-                this.modificarDB.modificacionEstadoPedido(codidoPedido, "entregado");
+                this.modificarDB.modificacionEstadoPedido(codidoPedido, "entregado",this.baseDeDatos.getConexion());
                 String fechaVenta = año+"-"+mes+"-"+dia;
                 
                 for(int i=0; i<pedidos.size();i++){
@@ -577,7 +577,7 @@ public class EntregaProductoJDialog extends javax.swing.JDialog {
         }
         float credito = Float.valueOf(this.consultaDB.datosCliente(nit,this.baseDeDatos.getConexion()).get(2));
         float creditoNuevo = credito+bono;
-        System.out.println(this.modificarDB.modificarCreditoCliente(nit, String.valueOf(creditoNuevo)));
+        System.out.println(this.modificarDB.modificarCreditoCliente(nit, String.valueOf(creditoNuevo),this.baseDeDatos.getConexion()));
     }
     private void jButtonLimpiarBusqueda1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarBusqueda1ActionPerformed
         // TODO add your handling code here:
@@ -606,7 +606,7 @@ public class EntregaProductoJDialog extends javax.swing.JDialog {
         else{
             int respuesta = JOptionPane.showConfirmDialog(this, "Desea cambiar el estado del paquete");
             if(respuesta == JOptionPane.OK_OPTION){
-                this.modificarDB.modificacionEstadoPedido(this.jFormattedTextFieldCodigoPedido.getText(), estadoNuevo);
+                this.modificarDB.modificacionEstadoPedido(this.jFormattedTextFieldCodigoPedido.getText(), estadoNuevo,this.baseDeDatos.getConexion());
                 JOptionPane.showMessageDialog(this, "Ha cambiado el estado del pedido");
             }
         }

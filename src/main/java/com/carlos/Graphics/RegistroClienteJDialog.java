@@ -385,7 +385,7 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
                 }
                 Client clienteModificado = new Client(nombre, String.valueOf(telefono), NIT, resultadoDPI, creditoDecompra, correoElectronico, direccion);
                 ModificacionesDB modificarCliente = new ModificacionesDB();
-                String respuesta = modificarCliente.modificarCliente(clienteModificado);
+                String respuesta = modificarCliente.modificarCliente(clienteModificado,this.baseDeDatos.getConexion());
                 if(!(respuesta.equals(""))){
                     JOptionPane.showMessageDialog(this, respuesta);
                 }
