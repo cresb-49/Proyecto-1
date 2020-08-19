@@ -9,6 +9,7 @@ import com.carlos.DBSuport.*;
 
 import com.carlos.Entities.Product;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ import javax.swing.table.DefaultTableModel;
  * @author benjamin
  */
 public class RegistrarProductoJDialog extends javax.swing.JDialog {
-    private ConexionDB con = new ConexionDB();
+    private ConexionDB baseDeDatos = new ConexionDB();
     private Connection cn;
     private Statement st;
     private ResultSet rs;
@@ -231,7 +232,11 @@ public class RegistrarProductoJDialog extends javax.swing.JDialog {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(44, 44, 44)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel14)
+                        .addGap(37, 37, 37)
+                        .addComponent(jComboBoxTiendas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel2Layout.createSequentialGroup()
@@ -260,29 +265,16 @@ public class RegistrarProductoJDialog extends javax.swing.JDialog {
                             .addComponent(jFormattedTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING))
                     .addComponent(jLabel12))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(63, 63, 63)
-                        .addComponent(jLabel14)
-                        .addGap(37, 37, 37)
-                        .addComponent(jComboBoxTiendas, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(45, 45, 45)
+                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBoxTiendas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel14)))
+                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel12)
                         .addGap(21, 21, 21)
@@ -313,7 +305,11 @@ public class RegistrarProductoJDialog extends javax.swing.JDialog {
                         .addComponent(jLabel7)
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBoxTiendas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -373,14 +369,15 @@ public class RegistrarProductoJDialog extends javax.swing.JDialog {
             {
                 Product productoNuevo = new Product(nombre, fabricante, codigo, cantidad, precio, descripcion, garantia,tienda);
                 RegistroDB nuevoProducto = new RegistroDB();
-                String respuesta1 = nuevoProducto.registroProducto(productoNuevo);
-                String respuesta2 = nuevoProducto.registroExistencia(productoNuevo);
+                String respuesta1 = nuevoProducto.registroProducto(productoNuevo,this.baseDeDatos.getConexion());
+                String respuesta2 = nuevoProducto.registroExistencia(productoNuevo,this.baseDeDatos.getConexion());
                 if(!(respuesta1.equals(""))||!(respuesta2.equals(""))){
                     JOptionPane.showMessageDialog(this, respuesta1+respuesta2);
                 }
                 else{
                     JOptionPane.showMessageDialog(this, "Producto Registrado con exito");
                     listarDatos();
+                    limpiezaCampos();
                 }
             }
             else{
@@ -392,6 +389,9 @@ public class RegistrarProductoJDialog extends javax.swing.JDialog {
 
     private void jButtonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarActionPerformed
         // TODO add your handling code here:
+        limpiezaCampos();
+    }//GEN-LAST:event_jButtonLimpiarActionPerformed
+    private void limpiezaCampos(){
         this.jFormattedTextFieldNombre.setText(null);
         this.jFormattedTextFieldFabricante.setText(null);
         this.jFormattedTextFieldCodigo.setText(null);
@@ -402,7 +402,7 @@ public class RegistrarProductoJDialog extends javax.swing.JDialog {
         //------------------------------------------------
         this.jFormattedTextFieldCodigo.setEditable(true);
         //------------------------------------------------
-    }//GEN-LAST:event_jButtonLimpiarActionPerformed
+    }
     private void buscarDatos(){
         String codigo = this.jFormattedTextFieldCodigo.getText();
         this.jFormattedTextFieldCodigo.setEditable(false);
@@ -519,48 +519,52 @@ public class RegistrarProductoJDialog extends javax.swing.JDialog {
         
         DefaultTableModel modeloDeTabla;
         String modoListado = this.jComboBoxTipoBusquedaProductos.getSelectedItem().toString();
-        String sentencia = "SELECT codigo,nombre,TIENDA_codigo FROM PRODUCTO,EXISTENCIA WHERE PRODUCTO_codigo = codigo ORDER BY codigo ASC";
+        String sentencia = "SELECT codigo,nombre,TIENDA_codigo FROM PRODUCTO,EXISTENCIA WHERE codigo = PRODUCTO_codigo AND TIENDA_codigo LIKE ? ORDER BY codigo ASC;";
         String busqueda="";
         busqueda = this.jTextFieldCampoDeBusquedaProductos.getText();
         if(modoListado.equals("Todos")){
             sentencia = "SELECT codigo,nombre,TIENDA_codigo FROM PRODUCTO,EXISTENCIA WHERE codigo = PRODUCTO_codigo ORDER BY codigo ASC;";
         }
         if(modoListado.equals("Codigo")){
-            sentencia = "SELECT codigo,nombre,TIENDA_codigo FROM PRODUCTO,EXISTENCIA WHERE codigo = PRODUCTO_codigo AND codigo LIKE '%"+busqueda+"%' ORDER BY codigo ASC;";
+            sentencia = "SELECT codigo,nombre,TIENDA_codigo FROM PRODUCTO,EXISTENCIA WHERE codigo = PRODUCTO_codigo AND codigo LIKE ? ORDER BY codigo ASC;";
         }
         if(modoListado.equals("Nombre")){
-            sentencia = "SELECT codigo,nombre,TIENDA_codigo FROM PRODUCTO,EXISTENCIA WHERE codigo = PRODUCTO_codigo AND nombre LIKE '%"+busqueda+"%' ORDER BY codigo ASC;";
+            sentencia = "SELECT codigo,nombre,TIENDA_codigo FROM PRODUCTO,EXISTENCIA WHERE codigo = PRODUCTO_codigo AND nombre LIKE ? ORDER BY codigo ASC;";
         }
         if(modoListado.equals("Tienda")){
-            sentencia = "SELECT codigo,nombre,TIENDA_codigo FROM PRODUCTO,EXISTENCIA WHERE codigo = PRODUCTO_codigo AND TIENDA_codigo LIKE '%"+busqueda+"%' ORDER BY codigo ASC;";
+            sentencia = "SELECT codigo,nombre,TIENDA_codigo FROM PRODUCTO,EXISTENCIA WHERE codigo = PRODUCTO_codigo AND TIENDA_codigo LIKE ? ORDER BY codigo ASC;";
         }
-        try {
-            cn=con.getConexion();
-            st=cn.createStatement();
-            rs = st.executeQuery(sentencia);
+        
+        Connection conexion;
+        conexion = this.baseDeDatos.getConexion();
+        try(PreparedStatement preSt = conexion.prepareStatement(sentencia)){
+            //Campos de busqueda en el programa
+            if(!(modoListado.equals("Todos"))){
+                preSt.setString(1, "%" + busqueda + "%");
+            }
+            ResultSet result = preSt.executeQuery();
             Object[] productos = new Object[3];
             modeloDeTabla = (DefaultTableModel)jTableProductos.getModel();
             modeloDeTabla.setNumRows(0);
-            while (rs.next()){
-                productos[0]=rs.getString(1);
-                productos[1]=rs.getString(2);
-                productos[2]=rs.getString(3);
+            while (result.next()){
+                productos[0]=result.getString(1);
+                productos[1]=result.getString(2);
+                productos[2]=result.getString(3);
                 modeloDeTabla.addRow(productos);
             }
             jTableProductos.setModel(modeloDeTabla);
-        } catch (Exception e) {
+            result.close();
+            preSt.close();
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButtonBuscar;
-    private javax.swing.JButton jButtonBuscar1;
     private javax.swing.JButton jButtonBuscar2;
     private javax.swing.JButton jButtonLimpiar;
     private javax.swing.JButton jButtonModificar;
     private javax.swing.JComboBox<String> jComboBoxTiendas;
-    private javax.swing.JComboBox<String> jComboBoxTipoBusqueda;
-    private javax.swing.JComboBox<String> jComboBoxTipoBusqueda1;
     private javax.swing.JComboBox<String> jComboBoxTipoBusquedaProductos;
     private javax.swing.JFormattedTextField jFormattedTextField6;
     private javax.swing.JFormattedTextField jFormattedTextField8;
@@ -572,9 +576,7 @@ public class RegistrarProductoJDialog extends javax.swing.JDialog {
     private javax.swing.JFormattedTextField jFormattedTextFieldPrecio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -582,23 +584,13 @@ public class RegistrarProductoJDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTableClientes;
-    private javax.swing.JTable jTableClientes1;
     private javax.swing.JTable jTableProductos;
     private javax.swing.JTextArea jTextAreaDescripcion;
-    private javax.swing.JTextField jTextFieldCampoDeBusqueda;
-    private javax.swing.JTextField jTextFieldCampoDeBusqueda1;
     private javax.swing.JTextField jTextFieldCampoDeBusquedaProductos;
     // End of variables declaration//GEN-END:variables
 }

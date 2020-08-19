@@ -5,6 +5,7 @@
  */
 package com.carlos.Graphics;
 
+import com.carlos.DBSuport.ConexionDB;
 import com.carlos.DBSuport.ConsultasDB;
 import java.awt.*;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import javax.swing.*;
  * @author benjamin
  */
 public class LogInFrame extends javax.swing.JFrame {
+    private ConexionDB baseDeDatos = new ConexionDB();
     private PrincipalFrame principal;
     /**
      * Creates new form LogInFrame
@@ -139,7 +141,7 @@ public class LogInFrame extends javax.swing.JFrame {
         String codeNit = this.jFormattedTextFieldNITCode.getText();
         String nombreTienda = this.jComboBoxTiendas.getSelectedItem().toString();
         ConsultasDB ingresoAlSistema = new ConsultasDB();
-        int respuesta = ingresoAlSistema.consultaUsuarios(nombre, codeNit);
+        int respuesta = ingresoAlSistema.consultaUsuarios(nombre, codeNit,this.baseDeDatos.getConexion());
         if(respuesta == 0)
         {
             JOptionPane.showMessageDialog(this, "Nombre o codigo/Nit son incorrectos intentelo nuevamente");
@@ -149,12 +151,13 @@ public class LogInFrame extends javax.swing.JFrame {
                 TiendaClienteJFrame tiendaCliente = new TiendaClienteJFrame(nombreTienda);
                 tiendaCliente.setVisible(true);
                 this.setVisible(false);
+                this.baseDeDatos.cerrarConexion();
             }   
             if(respuesta == 2){
                 TiendaEmpleadoJFrame tiendaEmpleado = new TiendaEmpleadoJFrame(nombreTienda);
                 tiendaEmpleado.setVisible(true);
                 this.setVisible(false);
-                
+                this.baseDeDatos.cerrarConexion();
             }
         }
     }//GEN-LAST:event_jButtonLogActionPerformed

@@ -171,7 +171,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
         }
         finally{
             try {
-                con.cerrar();
+                con.cerrarConexion();
             } catch (Exception e) {
             }
         }

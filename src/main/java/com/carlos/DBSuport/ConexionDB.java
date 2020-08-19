@@ -42,11 +42,18 @@ public class ConexionDB {
     public Connection getConexion() {
         return conexion;
     }
-
-    public void cerrar() throws SQLException {
-        if (conexion != null) {
+    /**
+     * Cierra la conexion con la base de datos del programa
+     * @throws SQLException 
+     */
+    public void cerrarConexion(){
+        try {
+            if (conexion != null) {
             conexion.close();
         }
+        } catch (Exception e) {
+        }
+        
     }
     
 }

@@ -20,27 +20,35 @@ public class ConsultasDB {
             //TODO: handle exception
         }
     }
-    public int consultaUsuarios(String nombre,String codeNIT){
+    public int consultaUsuarios(String nombre,String codeNIT,Connection conexion){
         int respuesta = 0;
-        String consulta = "SELECT nombre,nit FROM CLIENTE WHERE nit = '"+codeNIT+"' AND nombre = '"+nombre+"'";
-        try {
-            cn = con.getConexion();
-            st = cn.createStatement();
-            rs=st.executeQuery(consulta);
-            while(rs.next()){
+        String consulta = "SELECT nombre,nit FROM CLIENTE WHERE nit = ? AND nombre = ?";
+        
+        try (PreparedStatement preSt = conexion.prepareStatement(consulta)) {
+            preSt.setString(1, codeNIT);
+            preSt.setString(2, nombre);
+            ResultSet result = preSt.executeQuery();
+             while (result.next()) {
                 respuesta=1;
             }
-        } catch (Exception e) {
+
+            result.close();
+            preSt.close();
+        }catch(Exception e){
+            System.out.println(e.getMessage());
         }
-        String consulta2 = "SELECT nombre,codigo FROM EMPLEADO WHERE codigo = '"+codeNIT+"' AND nombre = '"+nombre+"'";
-        try {
-            cn = con.getConexion();
-            st = cn.createStatement();
-            rs=st.executeQuery(consulta2);
-            while(rs.next()){
+        String consulta2 = "SELECT nombre,codigo FROM EMPLEADO WHERE codigo = ? AND nombre = ?";
+        try (PreparedStatement preSt = conexion.prepareStatement(consulta2)) {
+            preSt.setString(1, codeNIT);
+            preSt.setString(2, nombre);
+            ResultSet result = preSt.executeQuery();
+             while (result.next()) {
                 respuesta=2;
             }
-        } catch (Exception e) {
+            result.close();
+            preSt.close();
+        }catch(Exception e){
+            System.out.println(e.getMessage());
         }
         return respuesta;
     }

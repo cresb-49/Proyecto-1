@@ -7,6 +7,7 @@ package com.carlos.Graphics;
 
 import com.carlos.DBSuport.ConexionDB;
 import java.sql.*;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -15,10 +16,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class CatalogoJDialog extends javax.swing.JDialog {
     //Conexion a base de datos
-    private ConexionDB con = new ConexionDB();
-    private Connection cn;
-    private Statement st;
-    private ResultSet rs;
+    private ConexionDB baseDeDatos = new ConexionDB();
     /**
      * Creates new form CatalogoJDialog
      */
@@ -81,7 +79,30 @@ public class CatalogoJDialog extends javax.swing.JDialog {
             orden = " ORDER BY TIENDA.nombre ";
         }
         //System.out.println(sentencia+like+orden+asenDes);
-        try {
+        sentencia = sentencia+like+orden+asenDes;
+        Connection conexion;
+        conexion = this.baseDeDatos.getConexion();
+        try(PreparedStatement preSt = conexion.prepareStatement(sentencia)){
+            ResultSet result = preSt.executeQuery();
+            Object[] cliente = new Object[6];
+            modeloDeTabla = (DefaultTableModel)jTableCatalogo.getModel();
+            modeloDeTabla.setNumRows(0);
+            while (result.next()){
+                cliente[0]=result.getString(1);
+                cliente[1]=result.getString(2);
+                cliente[2]=result.getString(3);
+                cliente[3]=result.getString(4);
+                cliente[4]=result.getString(5);
+                cliente[5]=result.getString(6);
+                modeloDeTabla.addRow(cliente);
+            }
+            this.jTableCatalogo.setModel(modeloDeTabla);
+            result.close();
+            preSt.close();
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+        /*try {
             cn=con.getConexion();
             st=cn.createStatement();
             rs = st.executeQuery(sentencia+like+orden+asenDes);
@@ -96,10 +117,11 @@ public class CatalogoJDialog extends javax.swing.JDialog {
                 cliente[4]=rs.getString(5);
                 cliente[5]=rs.getString(6);
                 modeloDeTabla.addRow(cliente);
+                
             }
         }catch(Exception e){
             
-        }
+        }*/
     }
 
     /**
@@ -124,8 +146,9 @@ public class CatalogoJDialog extends javax.swing.JDialog {
         jRadioButtonDecendente = new javax.swing.JRadioButton();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jRadioButtonfabri = new javax.swing.JRadioButton();
+        jPanel1 = new javax.swing.JPanel();
         jRadioButtonNombre = new javax.swing.JRadioButton();
+        jRadioButtonfabri = new javax.swing.JRadioButton();
         jRadioButtonCodigo = new javax.swing.JRadioButton();
         jRadioButtonCantidad = new javax.swing.JRadioButton();
         jRadioButtonPrecio = new javax.swing.JRadioButton();
@@ -178,9 +201,6 @@ public class CatalogoJDialog extends javax.swing.JDialog {
             }
         });
 
-        buttonGroup2.add(jRadioButtonfabri);
-        jRadioButtonfabri.setText("Ordenar por");
-
         buttonGroup2.add(jRadioButtonNombre);
         jRadioButtonNombre.setSelected(true);
         jRadioButtonNombre.setText("Ordenar por");
@@ -189,6 +209,9 @@ public class CatalogoJDialog extends javax.swing.JDialog {
                 jRadioButtonNombreActionPerformed(evt);
             }
         });
+
+        buttonGroup2.add(jRadioButtonfabri);
+        jRadioButtonfabri.setText("Ordenar por");
 
         buttonGroup2.add(jRadioButtonCodigo);
         jRadioButtonCodigo.setText("Ordenar por");
@@ -222,6 +245,39 @@ public class CatalogoJDialog extends javax.swing.JDialog {
             }
         });
 
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(jRadioButtonNombre)
+                .addGap(81, 81, 81)
+                .addComponent(jRadioButtonfabri)
+                .addGap(72, 72, 72)
+                .addComponent(jRadioButtonCodigo)
+                .addGap(71, 71, 71)
+                .addComponent(jRadioButtonCantidad)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jRadioButtonPrecio)
+                .addGap(74, 74, 74)
+                .addComponent(jRadioButtonTienda)
+                .addGap(42, 42, 42))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(9, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRadioButtonfabri)
+                    .addComponent(jRadioButtonNombre)
+                    .addComponent(jRadioButtonCodigo)
+                    .addComponent(jRadioButtonCantidad)
+                    .addComponent(jRadioButtonPrecio)
+                    .addComponent(jRadioButtonTienda))
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -231,33 +287,18 @@ public class CatalogoJDialog extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(35, 35, 35)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 968, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 968, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(33, 33, 33)
-                                        .addComponent(jRadioButtonNombre)))
+                                .addComponent(jLabel1)
+                                .addGap(119, 119, 119)
+                                .addComponent(jComboBoxParametroDeBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(62, 62, 62)
+                                .addComponent(jLabel2)
                                 .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jComboBoxParametroDeBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(62, 62, 62)
-                                        .addComponent(jLabel2)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jFormattedTextFieldBusqeuda, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jRadioButtonfabri)
-                                        .addGap(47, 47, 47)
-                                        .addComponent(jRadioButtonCodigo)
-                                        .addGap(48, 48, 48)
-                                        .addComponent(jRadioButtonCantidad)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jRadioButtonPrecio)))
+                                .addComponent(jFormattedTextFieldBusqeuda, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jRadioButtonTienda)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(55, 55, 55)
                         .addComponent(jLabel3)
@@ -282,16 +323,10 @@ public class CatalogoJDialog extends javax.swing.JDialog {
                     .addComponent(jRadioButtonAcendente)
                     .addComponent(jRadioButtonDecendente)
                     .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButtonfabri)
-                    .addComponent(jRadioButtonNombre)
-                    .addComponent(jRadioButtonCodigo)
-                    .addComponent(jRadioButtonCantidad)
-                    .addComponent(jRadioButtonPrecio)
-                    .addComponent(jRadioButtonTienda))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
                 .addGap(33, 33, 33))
         );
 
@@ -347,6 +382,7 @@ public class CatalogoJDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton jRadioButtonAcendente;
     private javax.swing.JRadioButton jRadioButtonCantidad;
     private javax.swing.JRadioButton jRadioButtonCodigo;

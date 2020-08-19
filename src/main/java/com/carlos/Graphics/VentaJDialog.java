@@ -22,6 +22,7 @@ public class VentaJDialog extends javax.swing.JDialog {
     private ModificacionesDB modificacion = new ModificacionesDB();
     private ConsultasDB consulta = new ConsultasDB();
     private RegistroDB registro = new RegistroDB();
+    private ConexionDB baseDeDatos = new ConexionDB();
     private String tiendaSleccionada;
     private DefaultTableModel modeloDeTabla = new DefaultTableModel();
     private ArrayList<Ventas> ventasAcumuladas = new ArrayList<Ventas>();
@@ -593,7 +594,7 @@ public class VentaJDialog extends javax.swing.JDialog {
             
             Product actualizacion = new Product("", "", codigoProducto, nuevaExistencia, 0, "", 0, tiendaSleccionada);
             this.modificacion.modificarExistencia(actualizacion);
-            this.registro.registroVenta(ventasAcumuladas.get(i));
+            this.registro.registroVenta(ventasAcumuladas.get(i),this.baseDeDatos.getConexion());
         }
     }
     private void actualizacionDeCliente(){

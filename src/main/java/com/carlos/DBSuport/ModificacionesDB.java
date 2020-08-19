@@ -229,7 +229,7 @@ public class ModificacionesDB {
         return errores;
     }
     public void closeConection() throws SQLException{
-        con.cerrar();
+        con.cerrarConexion();
     }
     
     public String modificarCreditoCliente(String nit, String creditoNuevo){

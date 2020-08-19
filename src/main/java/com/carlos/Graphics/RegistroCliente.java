@@ -15,6 +15,7 @@ import com.carlos.DBSuport.*;
  * @author benjamin
  */
 public class RegistroCliente extends javax.swing.JFrame {
+    ConexionDB baseDeDatos = new ConexionDB();
     /**
      * Creates new form RegistroCliente
      */
@@ -286,7 +287,7 @@ public class RegistroCliente extends javax.swing.JFrame {
             }
             Client clienteNuevo = new Client(nombre, String.valueOf(telefono), NIT,resultadoDPI, 0, email, direccion);
             RegistroDB registro = new RegistroDB();
-            String respuesta = registro.registroCliente(clienteNuevo);
+            String respuesta = registro.registroCliente(clienteNuevo,baseDeDatos.getConexion());
             if(!(respuesta.equals(""))){
                 JOptionPane.showMessageDialog(this, "No puede registrarse con los datos introducidos!!");
             }else{

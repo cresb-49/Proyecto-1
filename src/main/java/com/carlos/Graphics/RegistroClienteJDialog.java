@@ -19,10 +19,8 @@ import javax.swing.table.DefaultTableModel;
 public class RegistroClienteJDialog extends javax.swing.JDialog {
     private float copiaDeCredito;
     //Conexion a base de datos
-    private ConexionDB con = new ConexionDB();
-    private Connection cn;
-    private Statement st;
-    private ResultSet rs;
+    private ConexionDB baseDeDatos = new ConexionDB();
+    
     /**
      * Creates new form RegistroClienteJDialog
      */
@@ -302,6 +300,9 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
 
     private void jButtonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarActionPerformed
         // TODO add your handling code here:
+        this.limpiezaCampos();
+    }//GEN-LAST:event_jButtonLimpiarActionPerformed
+    private void limpiezaCampos(){
         this.jFormattedTextFieldNombre.setText(null);
         this.jFormattedTextFieldTelefono.setText(null);
         this.jFormattedTextFieldNIT.setText(null);
@@ -312,8 +313,7 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
         //
         this.jFormattedTextFieldNIT.setEditable(true);
         this.jFormattedTextFieldCreditoCompra.setEditable(false);
-    }//GEN-LAST:event_jButtonLimpiarActionPerformed
-
+    }
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
         // TODO add your handling code here:
         if(jTextFieldCampoDeBusqueda.getText().equals("")&&!(jComboBoxTipoBusqueda.getSelectedItem().toString().equals("Todos")))
@@ -465,11 +465,12 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
                 }
                 Client clienteNuevo = new Client(nombre, String.valueOf(telefono), NIT, resultadoDPI, creditoDecompra, correoElectronico, direccion);
                 RegistroDB registroCliente = new RegistroDB();
-                String respuesta = registroCliente.registroCliente(clienteNuevo);
+                String respuesta = registroCliente.registroCliente(clienteNuevo,this.baseDeDatos.getConexion());
                 if(!(respuesta.equals(""))){
                     JOptionPane.showMessageDialog(this, respuesta);
                 }else{
                     JOptionPane.showMessageDialog(this, "Se ha registrado con exito el cliente");
+                    limpiezaCampos();
                     listarDatos();
                 }
             }
@@ -510,33 +511,40 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
     private void listarDatos(){
         DefaultTableModel modeloDeTabla;
         String modoListado = this.jComboBoxTipoBusqueda.getSelectedItem().toString();
-        String sentencia = "SELECT * FROM CLIENTE ORDER BY nit ASC";
+        String sentencia = "SELECT * FROM CLIENTE WHERE nombre LIKE ? ORDER BY nit ASC;";
         String busqueda="";
         busqueda = this.jTextFieldCampoDeBusqueda.getText();
         if(modoListado.equals("Todos")){
             sentencia = "SELECT * FROM CLIENTE ORDER BY nit ASC";
         }
         if(modoListado.equals("NIT")){
-            sentencia = "SELECT * FROM CLIENTE WHERE nit LIKE '%"+busqueda+"%' ORDER BY nit ASC;";
+            sentencia = "SELECT * FROM CLIENTE WHERE nit LIKE ? ORDER BY nit ASC;";
         }
         if(modoListado.equals("Nombre")){
-            sentencia = "SELECT * FROM CLIENTE WHERE nombre LIKE '%"+busqueda+"%' ORDER BY nit ASC;";
+            sentencia = "SELECT * FROM CLIENTE WHERE nombre LIKE ? ORDER BY nit ASC;";
         }
-        try {
-            cn=con.getConexion();
-            st=cn.createStatement();
-            rs = st.executeQuery(sentencia);
+        
+        Connection conexion;
+        conexion = this.baseDeDatos.getConexion();
+        try (PreparedStatement preSt = conexion.prepareStatement(sentencia)){
+            if(!(modoListado.equals("Todos"))){
+                preSt.setString(1, "%" + busqueda + "%");
+            }
+            ResultSet result = preSt.executeQuery();
             Object[] cliente = new Object[3];
             modeloDeTabla = (DefaultTableModel)jTableClientes.getModel();
             modeloDeTabla.setNumRows(0);
-            while (rs.next()){
-                cliente[0]=rs.getString(1);
-                cliente[1]=rs.getString(2);
-                cliente[2]=rs.getString(3);
+            while (result.next()){
+                cliente[0]=result.getString(1);
+                cliente[1]=result.getString(2);
+                cliente[2]=result.getString(3);
                 modeloDeTabla.addRow(cliente);
             }
             jTableClientes.setModel(modeloDeTabla);
+            result.close();
+            preSt.close();
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

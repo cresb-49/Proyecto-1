@@ -19,6 +19,7 @@ public class EntregaProductoJDialog extends javax.swing.JDialog {
     private ConsultasDB consultaDB = new ConsultasDB();
     private ModificacionesDB modificarDB = new ModificacionesDB();
     private RegistroDB registrarEnDB = new RegistroDB();
+    private ConexionDB baseDeDatos = new ConexionDB();
     public EntregaProductoJDialog(java.awt.Frame parent, boolean modal,String tienda) {
         super(parent, modal);
         initComponents();
@@ -557,7 +558,7 @@ public class EntregaProductoJDialog extends javax.swing.JDialog {
                 String fechaVenta = año+"-"+mes+"-"+dia;
                 
                 for(int i=0; i<pedidos.size();i++){
-                    String res = this.registrarEnDB.registroVenta(new Ventas(pedidos.get(i).getProducto(),pedidos.get(i).getTienda2(),pedidos.get(i).getCliente(),pedidos.get(i).getCantidad(),fechaVenta));
+                    String res = this.registrarEnDB.registroVenta(new Ventas(pedidos.get(i).getProducto(),pedidos.get(i).getTienda2(),pedidos.get(i).getCliente(),pedidos.get(i).getCantidad(),fechaVenta),this.baseDeDatos.getConexion());
                     if(!(res.equals(""))){
                         JOptionPane.showMessageDialog(this, res);
                     }

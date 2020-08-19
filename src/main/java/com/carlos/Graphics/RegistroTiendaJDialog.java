@@ -20,10 +20,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class RegistroTiendaJDialog extends javax.swing.JDialog {
      //Conexion a base de datos
-    private ConexionDB con = new ConexionDB();
-    private Connection cn;
-    private Statement st;
-    private ResultSet rs;
+    private ConexionDB baseDeDatos = new ConexionDB();
     /**
      * Creates new form RegistroTienda
      */
@@ -501,7 +498,7 @@ public class RegistroTiendaJDialog extends javax.swing.JDialog {
         {
             Store tiendaNueva = new Store(nombre, direcccion, codigo, String.valueOf(telefono1), String.valueOf(telefono2), email, horario);
             RegistroDB registroTienda = new RegistroDB();
-            String respuesta =registroTienda.registroTienda(tiendaNueva);
+            String respuesta =registroTienda.registroTienda(tiendaNueva,this.baseDeDatos.getConexion());
             if(!(respuesta.equals(""))){
                 JOptionPane.showMessageDialog(this, respuesta);
             }
@@ -666,33 +663,48 @@ public class RegistroTiendaJDialog extends javax.swing.JDialog {
         String tipoOrden = this.jComboBoxTipoOrden.getSelectedItem().toString().toLowerCase();
         String modoListado = this.jComboBoxTipoBusqueda.getSelectedItem().toString();
         
-        String sentencia = "SELECT nombre,codigo FROM TIENDA ORDER BY "+tipoOrden+" ASC";
+        String sentencia = "SELECT nombre,codigo FROM TIENDA WHERE codigo LIKE ? ORDER BY ? ASC;";
         String busqueda="";
         busqueda = this.jTextFieldCampoDeBusqueda.getText();
+        
         if(modoListado.equals("Todos")){
-            sentencia = "SELECT nombre,codigo FROM TIENDA ORDER BY nombre ASC";
+            sentencia = "SELECT nombre,codigo FROM TIENDA ORDER BY ? ASC";
         }
         if(modoListado.equals("Codigo")){
-            sentencia = "SELECT nombre,codigo FROM TIENDA WHERE codigo LIKE '%"+busqueda+"%' ORDER BY "+tipoOrden+" ASC;";
+            sentencia = "SELECT nombre,codigo FROM TIENDA WHERE codigo LIKE ? ORDER BY ? ASC;";
         }
         if(modoListado.equals("Nombre")){
-            sentencia = "SELECT nombre,codigo FROM TIENDA WHERE nombre LIKE '%"+busqueda+"%' ORDER BY "+tipoOrden+" ASC;";
+            sentencia = "SELECT nombre,codigo FROM TIENDA WHERE nombre LIKE ? ORDER BY ? ASC;";
         }
-        try {
-            cn=con.getConexion();
-            st=cn.createStatement();
-            rs = st.executeQuery(sentencia);
+        
+        Connection conexion;
+        conexion = this.baseDeDatos.getConexion();
+        try(PreparedStatement preSt = conexion.prepareStatement(sentencia)){
+            //Campos de busqueda en el programa
+            if(!(modoListado.equals("Todos"))){
+                preSt.setString(1, "%" + busqueda + "%");
+                preSt.setString(2, tipoOrden);
+            }
+            else{
+                preSt.setString(1, tipoOrden);
+            }
+            ResultSet result = preSt.executeQuery();
+            //////////////////////////////////////
+            //Variables para mostrar datos de consulta en tabla
             Object[] tienda = new Object[2];
             modeloDeTabla = (DefaultTableModel)jTableTiendas.getModel();
             modeloDeTabla.setNumRows(0);
-            while (rs.next()){
-                
-                tienda[0]=rs.getString(1);
-                tienda[1]=rs.getString(2);
+            ////////////////////////////////////
+            while (result.next()) {                
+                tienda[0]=result.getString(1);
+                tienda[1]=result.getString(2);
                 modeloDeTabla.addRow(tienda);
             }
             jTableTiendas.setModel(modeloDeTabla);
-        } catch (Exception e) {
+            result.close();
+            preSt.close();
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

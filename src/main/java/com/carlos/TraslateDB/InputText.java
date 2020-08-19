@@ -1,6 +1,6 @@
 package com.carlos.TraslateDB;
 
-import com.carlos.DBSuport.RegistroDB;
+import com.carlos.DBSuport.*;
 import java.io.*;
 import java.util.*;
 
@@ -17,6 +17,7 @@ public class InputText {
     private ArrayList<String> lineasDeTexto = new ArrayList<String>();
     private ArrayList<String> erroresDeDatos = new ArrayList<String>();
     private RegistroDB resistrarElemento = new RegistroDB();
+    private ConexionDB baseDeDatos = new ConexionDB();
     public InputText (){
 
     }
@@ -80,7 +81,7 @@ public class InputText {
                                         String Horario="";
 
                                         Store registroTienda = new Store(nombre, Direccion, StoreCode, Phone1, Phone2, Email, Horario);
-                                        String respuesta = this.resistrarElemento.registroTienda(registroTienda);
+                                        String respuesta = this.resistrarElemento.registroTienda(registroTienda,baseDeDatos.getConexion());
                                         //Comprueba si hubo errores por parte de la base de datos
                                         if(!(respuesta.equals(""))){
                                             String mensaje = "Linea "+(i+1)+" "+respuesta;            
@@ -125,7 +126,7 @@ public class InputText {
                                                 String email="";
                                                 String direccion="";
                                                 Employee registroEmpleado = new Employee(codigo, nombre, telefono, nit, dpi, email, direccion);
-                                                String respuesta = this.resistrarElemento.registroEmpleado(registroEmpleado);
+                                                String respuesta = this.resistrarElemento.registroEmpleado(registroEmpleado,this.baseDeDatos.getConexion());
                                                 //Comprueba si hubo errores por parte de la base de datos
                                                 if(!(respuesta.equals(""))){
                                                     String mensaje = "Linea "+(i+1)+" "+respuesta;            
@@ -174,7 +175,7 @@ public class InputText {
                                     int tiempo = Integer.valueOf(apartados.get(3));
 
                                     TimeStoreToStore registroTiempo = new TimeStoreToStore(tienda1Codigo, tienda2Codigo, tiempo);
-                                    String respuesta = this.resistrarElemento.registroTiempo(registroTiempo);
+                                    String respuesta = this.resistrarElemento.registroTiempo(registroTiempo,this.baseDeDatos.getConexion());
                                     //Comprueba si hubo errores por parte de la base de datos
                                     if(!(respuesta.equals(""))){
                                         String mensaje = "Linea "+(i+1)+" "+respuesta;            
@@ -212,7 +213,7 @@ public class InputText {
                                             String email="";
                                             String direccion="";
                                             Client registroCliente = new Client(nombre, telefono, nit, dpi, credito, email, direccion);
-                                            String respuesta = this.resistrarElemento.registroCliente(registroCliente);
+                                            String respuesta = this.resistrarElemento.registroCliente(registroCliente,baseDeDatos.getConexion());
                                             //Comprueba si hubo errores por parte de la base de datos
                                             if(!(respuesta.equals(""))){
                                                 String mensaje = "Linea "+(i+1)+" "+respuesta;            
@@ -260,14 +261,14 @@ public class InputText {
                                         int garantia=0;
                                         String tienda = apartados.get(6);
                                         Product registroProducto = new Product(name, manufacturer, code, existencia, price, description, garantia, tienda);
-                                        String respuesta = this.resistrarElemento.registroProducto(registroProducto);
+                                        String respuesta = this.resistrarElemento.registroProducto(registroProducto,this.baseDeDatos.getConexion());
                                         //Comprueba si hubo errores por parte de la base de datos
                                         if(!(respuesta.equals(""))){
                                             String mensaje = "Linea "+(i+1)+" "+respuesta;            
                                             erroresDeDatos.add(mensaje);
                                         }
 
-                                        String respuesta2 = this.resistrarElemento.registroExistencia(registroProducto);
+                                        String respuesta2 = this.resistrarElemento.registroExistencia(registroProducto,this.baseDeDatos.getConexion());
                                         if(!(respuesta2.equals(""))){
                                             String mensaje = "--Linea "+(i+1)+" "+respuesta;            
                                             erroresDeDatos.add(mensaje);
@@ -316,7 +317,7 @@ public class InputText {
                                                 float anticipo = Float.valueOf(apartados.get(9));
 
                                                 Pedido registroPedido = new Pedido(codigo, tienda1, tienda2, fecha, cliente, producto, cantidadTraslado, total, anticipo);
-                                                String respuesta = this.resistrarElemento.registroPedido(registroPedido);
+                                                String respuesta = this.resistrarElemento.registroPedido(registroPedido,this.baseDeDatos.getConexion());
                                                 //Comprueba si hubo errores por parte de la base de datos
                                                 if(!(respuesta.equals(""))){
                                                     String mensaje = "Linea "+(i+1)+" "+respuesta;            
@@ -368,10 +369,10 @@ public class InputText {
                 String mensaje = "Linea "+(i+1)+" La sistaxis no corresponde a la base de datos hay mas separdores de texto de los admitidos";
                 erroresDeDatos.add(mensaje);
             }
-
         }
         try {
-            this.resistrarElemento.closeConection();
+            //Cerrado de la conexion con la base de datos del programa
+            this.baseDeDatos.cerrarConexion();
         } catch (Exception e) {
         }
     }

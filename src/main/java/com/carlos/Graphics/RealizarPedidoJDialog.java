@@ -5,6 +5,7 @@
  */
 package com.carlos.Graphics;
 
+import com.carlos.DBSuport.ConexionDB;
 import com.carlos.DBSuport.ConsultasDB;
 import com.carlos.DBSuport.ModificacionesDB;
 import com.carlos.DBSuport.RegistroDB;
@@ -20,6 +21,7 @@ import javax.swing.JOptionPane;
  */
 public class RealizarPedidoJDialog extends javax.swing.JDialog {
     
+    private ConexionDB baseDeDatos = new ConexionDB();
     private ConsultasDB consultas = new ConsultasDB();
     private RegistroDB registrar = new RegistroDB();
     private String codigoTiendaConSeccion;
@@ -496,7 +498,7 @@ public class RealizarPedidoJDialog extends javax.swing.JDialog {
             codigoPedido=year+mes+dia+cliente;
             Pedido pedidoNuevo = new Pedido(codigoPedido, tiendaOrigen, tiendaLlegada, fecha, cliente, producto, cantidad, total, anticipo);
             //respuesta por si ocurre un error en el momento d ejcucion en la base de datos
-            String respuesta = this.registrar.registroPedido(pedidoNuevo);
+            String respuesta = this.registrar.registroPedido(pedidoNuevo,this.baseDeDatos.getConexion());
             if(!(respuesta.equals(""))){
                 JOptionPane.showMessageDialog(this, respuesta);
             }

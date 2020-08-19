@@ -11,6 +11,7 @@ import com.carlos.DBSuport.ModificacionesDB;
 import com.carlos.DBSuport.RegistroDB;
 import com.carlos.Entities.Employee;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -23,10 +24,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class RegistroEmpleadoJDialog extends javax.swing.JDialog {
     //Variables de base de datos
-    private ConexionDB con = new ConexionDB();
-    private Connection cn;
-    private Statement st;
-    private ResultSet rs;
+    private ConexionDB baseDeDatos = new ConexionDB();
     /**
      * Creates new form RegistroEmpleadoJDialog
      */
@@ -322,12 +320,13 @@ public class RegistroEmpleadoJDialog extends javax.swing.JDialog {
             }
             Employee nuevoEmpledo = new Employee(codigoEmpleado, nombre, String.valueOf(telefono), NIT, resultadoDPI, correoElectronico, direccion);
             RegistroDB registroEmpleado = new RegistroDB();
-            String respuesta = registroEmpleado.registroEmpleado(nuevoEmpledo);
+            String respuesta = registroEmpleado.registroEmpleado(nuevoEmpledo,this.baseDeDatos.getConexion());
             if(!(respuesta.equals(""))){
                 JOptionPane.showMessageDialog(this, respuesta);
             }
             else{
-                JOptionPane.showMessageDialog(this, "Se ha modificado con exito el empleado");
+                JOptionPane.showMessageDialog(this, "Se ha registrado el empleado con exito");
+                this.limpiezaDeCampos();
                 listarDatos();
             }
         }
@@ -336,7 +335,10 @@ public class RegistroEmpleadoJDialog extends javax.swing.JDialog {
 
     private void jButtonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarActionPerformed
         // TODO add your handling code here:
-        //----------------------------------------------
+        this.limpiezaDeCampos();
+    }//GEN-LAST:event_jButtonLimpiarActionPerformed
+    private void limpiezaDeCampos(){
+         //----------------------------------------------
         this.jFormattedTextFieldCodigo.setEditable(true);
         //----------------------------------------------
         this.jFormattedTextFieldCodigo.setText(null);
@@ -346,8 +348,7 @@ public class RegistroEmpleadoJDialog extends javax.swing.JDialog {
         this.jFormattedTextFieldDPI.setText(null);
         this.jFormattedTextFieldEmail.setText(null);
         this.jFormattedTextFieldDireccion.setText(null);
-    }//GEN-LAST:event_jButtonLimpiarActionPerformed
-
+    }
     private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
         // TODO add your handling code here:
         String codigoEmpleado;
@@ -361,7 +362,7 @@ public class RegistroEmpleadoJDialog extends javax.swing.JDialog {
         codigoEmpleado = this.jFormattedTextFieldCodigo.getText();
         nombre = this.jFormattedTextFieldNombre.getText();
         NIT = this.jFormattedTextField1NIT.getText();
-        correoElectronico= this.jFormattedTextFieldDireccion.getText();
+        correoElectronico= this.jFormattedTextFieldEmail.getText();
         direccion = this.jFormattedTextFieldDireccion.getText();
         try {
             telefono = Long.parseLong(this.jFormattedTextFieldTelefono.getText());
@@ -434,33 +435,40 @@ public class RegistroEmpleadoJDialog extends javax.swing.JDialog {
     private void listarDatos(){
         DefaultTableModel modeloDeTabla;
         String modoListado = this.jComboBoxTipoBusqueda.getSelectedItem().toString();
-        String sentencia = "SELECT * FROM EMPLEADO ORDER BY codigo ASC";
+        String sentencia = "SELECT * FROM EMPLEADO WHERE nombre LIKE ? ORDER BY ? ASC;";
         String busqueda="";
         busqueda = this.jTextFieldCampoDeBusqueda.getText();
         if(modoListado.equals("Todos")){
             sentencia = "SELECT * FROM EMPLEADO ORDER BY codigo ASC";
         }
         if(modoListado.equals("Codigo")){
-            sentencia = "SELECT * FROM EMPLEADO WHERE codigo LIKE '%"+busqueda+"%' ORDER BY codigo ASC;";
+            sentencia = "SELECT * FROM EMPLEADO WHERE codigo LIKE ? ORDER BY codigo ASC;";
         }
         if(modoListado.equals("Nombre")){
-            sentencia = "SELECT * FROM EMPLEADO WHERE nombre LIKE '%"+busqueda+"%' ORDER BY codigo ASC;";
+            sentencia = "SELECT * FROM EMPLEADO WHERE nombre LIKE ? ORDER BY codigo ASC;";
         }
-        try {
-            cn=con.getConexion();
-            st=cn.createStatement();
-            rs = st.executeQuery(sentencia);
+        Connection conexion;
+        conexion=this.baseDeDatos.getConexion();
+        try(PreparedStatement preSt = conexion.prepareStatement(sentencia)){
+            if(!(modoListado.equals("Todos"))){
+                preSt.setString(1, "%" + busqueda + "%");
+            }
+            ResultSet result = preSt.executeQuery();
             Object[] empleado = new Object[3];
             modeloDeTabla = (DefaultTableModel)jTableEmpleados.getModel();
             modeloDeTabla.setNumRows(0);
-            while (rs.next()){
-                empleado[0]=rs.getString(1);
-                empleado[1]=rs.getString(2);
-                empleado[2]=rs.getString(3);
+            while (result.next()){
+                empleado[0]=result.getString(1);
+                empleado[1]=result.getString(2);
+                empleado[2]=result.getString(3);
                 modeloDeTabla.addRow(empleado);
             }
             jTableEmpleados.setModel(modeloDeTabla);
-        } catch (Exception e) {
+            result.close();
+            preSt.close();
+        }catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
