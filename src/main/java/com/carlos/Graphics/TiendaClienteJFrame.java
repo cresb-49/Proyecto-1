@@ -5,17 +5,21 @@
  */
 package com.carlos.Graphics;
 
+import java.sql.Connection;
+
 /**
  *
  * @author Carlos Pac
  */
 public class TiendaClienteJFrame extends javax.swing.JFrame {
+    private Connection baseDeDatos;
     private String tienda;
     /**
      * Creates new form TiendaClienteJFrame
      */
-    public TiendaClienteJFrame(String tienda) {
+    public TiendaClienteJFrame(String tienda,Connection conexionBaseDatos) {
         super("Mi Empresa "+tienda);
+        this.baseDeDatos=conexionBaseDatos;
         initComponents();
         this.tienda=tienda;
         this.setLocationRelativeTo(null);
@@ -80,13 +84,13 @@ public class TiendaClienteJFrame extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-        RastreoPedidoJDialog rastreoPedido = new RastreoPedidoJDialog(this, true);
+        RastreoPedidoJDialog rastreoPedido = new RastreoPedidoJDialog(this, true,this.baseDeDatos);
         rastreoPedido.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItemProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemProductosActionPerformed
         // TODO add your handling code here:
-        CatalogoJDialog catalogoProductos = new CatalogoJDialog(this, true);
+        CatalogoJDialog catalogoProductos = new CatalogoJDialog(this, true,this.baseDeDatos);
         catalogoProductos.setVisible(true);
     }//GEN-LAST:event_jMenuItemProductosActionPerformed
 

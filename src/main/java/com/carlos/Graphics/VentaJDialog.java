@@ -7,6 +7,7 @@ package com.carlos.Graphics;
 
 import com.carlos.DBSuport.*;
 import com.carlos.Entities.*;
+import java.sql.Connection;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -22,16 +23,17 @@ public class VentaJDialog extends javax.swing.JDialog {
     private ModificacionesDB modificacion = new ModificacionesDB();
     private ConsultasDB consulta = new ConsultasDB();
     private RegistroDB registro = new RegistroDB();
-    private ConexionDB baseDeDatos = new ConexionDB();
+    private Connection baseDeDatos ;
     private String tiendaSleccionada;
     private DefaultTableModel modeloDeTabla = new DefaultTableModel();
     private ArrayList<Ventas> ventasAcumuladas = new ArrayList<Ventas>();
     /**
      * Creates new form VentaJDialog
      */
-    public VentaJDialog(java.awt.Frame parent, boolean modal,String tiendaSleccionada) {
+    public VentaJDialog(java.awt.Frame parent, boolean modal,String tiendaSleccionada,Connection conexionBaseDatos) {
         super(parent, modal);
-        this.tiendaSleccionada = this.consulta.codigoTienda(tiendaSleccionada,this.baseDeDatos.getConexion());
+        this.baseDeDatos=conexionBaseDatos;
+        this.tiendaSleccionada = this.consulta.codigoTienda(tiendaSleccionada,this.baseDeDatos);
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("VENTAS");
@@ -416,7 +418,7 @@ public class VentaJDialog extends javax.swing.JDialog {
     private void jButtonBuscarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarProductoActionPerformed
         // TODO add your handling code here:
         String codigoProducto = this.jFormattedTextFieldCodigoProducto.getText();
-        String existencia =this.consulta.datosExistenciaProducto(codigoProducto, tiendaSleccionada,this.baseDeDatos.getConexion());
+        String existencia =this.consulta.datosExistenciaProducto(codigoProducto, tiendaSleccionada,this.baseDeDatos);
         if(existencia.equals("0")||existencia.equals("")){
             
             JOptionPane.showMessageDialog(this, "No hay existencia del producto en tienda haga un pedido del mismo en el apartado");
@@ -431,7 +433,7 @@ public class VentaJDialog extends javax.swing.JDialog {
             {
                 try {
                     ArrayList<String> datosProducto = new ArrayList<String>();
-                    datosProducto = this.consulta.datosProducto(codigoProducto,this.baseDeDatos.getConexion());
+                    datosProducto = this.consulta.datosProducto(codigoProducto,this.baseDeDatos);
                     jFormattedTextFieldNombreProducto.setText(datosProducto.get(0));
                     jFormattedTextFieldPrecio.setText(datosProducto.get(2));
                     jButtonIngresar.setEnabled(true);
@@ -454,7 +456,7 @@ public class VentaJDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
         String nitCliente = this.jFormattedTextFieldNIT.getText();
         ArrayList<String> datosCliente = new ArrayList<String>();
-        datosCliente = this.consulta.datosCliente(nitCliente,this.baseDeDatos.getConexion());
+        datosCliente = this.consulta.datosCliente(nitCliente,this.baseDeDatos);
         try {
             jFormattedTextFieldNombreCliente.setText(datosCliente.get(0));
             jTextFieldCreditoCliente.setText(datosCliente.get(2));
@@ -528,7 +530,7 @@ public class VentaJDialog extends javax.swing.JDialog {
         if(!(codigoProducto.equals("")||NombreProducto.equals("")))
         {
             //verifica la existencia de los productos en la tienda
-            if(!(this.consulta.datosExistenciaProducto(codigoProducto, tiendaSleccionada,this.baseDeDatos.getConexion()).equals("0"))){
+            if(!(this.consulta.datosExistenciaProducto(codigoProducto, tiendaSleccionada,this.baseDeDatos).equals("0"))){
                 //Verifica los datos del cliente quien hace la compra
                 if(!(NIT.equals("")||NombreCliente.equals(""))){
                     if(!(usoCredito>creditoCliente)){
@@ -588,20 +590,20 @@ public class VentaJDialog extends javax.swing.JDialog {
             
             String codigoProducto = ventasAcumuladas.get(i).getCodigoProducto();
             int cantidadCompradas = ventasAcumuladas.get(i).getCantidad();
-            String existencia =this.consulta.datosExistenciaProducto(codigoProducto, tiendaSleccionada,this.baseDeDatos.getConexion());
+            String existencia =this.consulta.datosExistenciaProducto(codigoProducto, tiendaSleccionada,this.baseDeDatos);
             int cantidadOrigianl = Integer.valueOf(existencia);
             int nuevaExistencia = cantidadOrigianl-cantidadCompradas;
             
             Product actualizacion = new Product("", "", codigoProducto, nuevaExistencia, 0, "", 0, tiendaSleccionada);
-            this.modificacion.modificarExistencia(actualizacion,this.baseDeDatos.getConexion());
-            this.registro.registroVenta(ventasAcumuladas.get(i),this.baseDeDatos.getConexion());
+            this.modificacion.modificarExistencia(actualizacion,this.baseDeDatos);
+            this.registro.registroVenta(ventasAcumuladas.get(i),this.baseDeDatos);
         }
     }
     private void actualizacionDeCliente(){
         float creditoUsado = Float.valueOf(this.jFormattedTextFieldUsoCredito.getText());
-        float creditoOriginal = Float.valueOf(this.consulta.datosCliente(this.jFormattedTextFieldNIT.getText(),this.baseDeDatos.getConexion()).get(2));
+        float creditoOriginal = Float.valueOf(this.consulta.datosCliente(this.jFormattedTextFieldNIT.getText(),this.baseDeDatos).get(2));
         float nuevoCredito = creditoOriginal-creditoUsado;
-        this.modificacion.modificarCreditoCliente(this.jFormattedTextFieldNIT.getText(), String.valueOf(nuevoCredito),this.baseDeDatos.getConexion());
+        this.modificacion.modificarCreditoCliente(this.jFormattedTextFieldNIT.getText(), String.valueOf(nuevoCredito),this.baseDeDatos);
     }
     private void limpiezaFormulario(){
         jFormattedTextFieldCodigoProducto.setText("");

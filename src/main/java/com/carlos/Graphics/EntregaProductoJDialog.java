@@ -7,6 +7,7 @@ package com.carlos.Graphics;
 
 import com.carlos.DBSuport.*;
 import com.carlos.Entities.*;
+import java.sql.Connection;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -19,13 +20,14 @@ public class EntregaProductoJDialog extends javax.swing.JDialog {
     private ConsultasDB consultaDB = new ConsultasDB();
     private ModificacionesDB modificarDB = new ModificacionesDB();
     private RegistroDB registrarEnDB = new RegistroDB();
-    private ConexionDB baseDeDatos = new ConexionDB();
-    public EntregaProductoJDialog(java.awt.Frame parent, boolean modal,String tienda) {
+    private Connection baseDeDatos;
+    public EntregaProductoJDialog(java.awt.Frame parent, boolean modal,String tienda,Connection conexionBaseDatos) {
         super(parent, modal);
+        this.baseDeDatos=conexionBaseDatos;
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("ENTREGA DE PRODUCTO");
-        tiendaSeleccionada=this.consultaDB.codigoTienda(tienda,this.baseDeDatos.getConexion());
+        tiendaSeleccionada=this.consultaDB.codigoTienda(tienda,this.baseDeDatos);
     }
 
     /**
@@ -432,13 +434,13 @@ public class EntregaProductoJDialog extends javax.swing.JDialog {
         
         
             ArrayList<String> datosPedido = new ArrayList<String>();
-            datosPedido= this.consultaDB.estadoPedido(codigoPedido,this.baseDeDatos.getConexion());
+            datosPedido= this.consultaDB.estadoPedido(codigoPedido,this.baseDeDatos);
 
             String codigoTienda = datosPedido.get(8);
 
             if(tiendaSeleccionada.equals(codigoTienda)){
                 ArrayList<String> contenido = new ArrayList<String>();
-                contenido = consultaDB.productoDeUnPedido(codigoPedido,this.baseDeDatos.getConexion());
+                contenido = consultaDB.productoDeUnPedido(codigoPedido,this.baseDeDatos);
                 jComboBoxContenido.removeAllItems();
                 for (int i = 0; i < contenido.size(); i++) {
                     jComboBoxContenido.addItem(contenido.get(i));
@@ -475,13 +477,13 @@ public class EntregaProductoJDialog extends javax.swing.JDialog {
         try {
             String codigoPedidoRetiro = jFormattedTextFieldCodigoPedidoRetiro.getText();
             ArrayList<String> contenido = new ArrayList<String>();
-            contenido = consultaDB.estadoPedido(codigoPedidoRetiro,this.baseDeDatos.getConexion());
+            contenido = consultaDB.estadoPedido(codigoPedidoRetiro,this.baseDeDatos);
             float anticipoIndividual = Float.parseFloat(contenido.get(2));
 
-            int cantidad =this.consultaDB.contarPedidos(codigoPedidoRetiro,this.baseDeDatos.getConexion());
+            int cantidad =this.consultaDB.contarPedidos(codigoPedidoRetiro,this.baseDeDatos);
 
-            float total = this.consultaDB.sumaTotalPedido(codigoPedidoRetiro,this.baseDeDatos.getConexion());
-            float anticipo = this.consultaDB.sumaAnticipoPedido(codigoPedidoRetiro,this.baseDeDatos.getConexion());
+            float total = this.consultaDB.sumaTotalPedido(codigoPedidoRetiro,this.baseDeDatos);
+            float anticipo = this.consultaDB.sumaAnticipoPedido(codigoPedidoRetiro,this.baseDeDatos);
 
             float anticipoParaTransaccion=0;
 
@@ -490,7 +492,7 @@ public class EntregaProductoJDialog extends javax.swing.JDialog {
             if(tiendaSeleccionada.equals(codigoTienda)){
 
                 ArrayList<String> pedidos = new ArrayList<String>();
-                pedidos = consultaDB.productoDeUnPedido(codigoPedidoRetiro,this.baseDeDatos.getConexion());
+                pedidos = consultaDB.productoDeUnPedido(codigoPedidoRetiro,this.baseDeDatos);
 
                 String estadoPaquete = contenido.get(4);
                 if(estadoPaquete.equals("entregado")){
@@ -566,12 +568,12 @@ public class EntregaProductoJDialog extends javax.swing.JDialog {
             else
             {
                 ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
-                pedidos = this.consultaDB.retornoDePedidos(codidoPedido,this.baseDeDatos.getConexion());
-                this.modificarDB.modificacionEstadoPedido(codidoPedido, "entregado",this.baseDeDatos.getConexion());
+                pedidos = this.consultaDB.retornoDePedidos(codidoPedido,this.baseDeDatos);
+                this.modificarDB.modificacionEstadoPedido(codidoPedido, "entregado",this.baseDeDatos);
                 String fechaVenta = año+"-"+mes+"-"+dia;
                 
                 for(int i=0; i<pedidos.size();i++){
-                    String res = this.registrarEnDB.registroVenta(new Ventas(pedidos.get(i).getProducto(),pedidos.get(i).getTienda2(),pedidos.get(i).getCliente(),pedidos.get(i).getCantidad(),fechaVenta),this.baseDeDatos.getConexion());
+                    String res = this.registrarEnDB.registroVenta(new Ventas(pedidos.get(i).getProducto(),pedidos.get(i).getTienda2(),pedidos.get(i).getCliente(),pedidos.get(i).getCantidad(),fechaVenta),this.baseDeDatos);
                     if(!(res.equals(""))){
                         JOptionPane.showMessageDialog(this, res);
                     }
@@ -589,9 +591,9 @@ public class EntregaProductoJDialog extends javax.swing.JDialog {
             bono=Float.valueOf(bonificacion);
         } catch (Exception e) {
         }
-        float credito = Float.valueOf(this.consultaDB.datosCliente(nit,this.baseDeDatos.getConexion()).get(2));
+        float credito = Float.valueOf(this.consultaDB.datosCliente(nit,this.baseDeDatos).get(2));
         float creditoNuevo = credito+bono;
-        System.out.println(this.modificarDB.modificarCreditoCliente(nit, String.valueOf(creditoNuevo),this.baseDeDatos.getConexion()));
+        System.out.println(this.modificarDB.modificarCreditoCliente(nit, String.valueOf(creditoNuevo),this.baseDeDatos));
     }
     private void jButtonLimpiarBusqueda1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarBusqueda1ActionPerformed
         // TODO add your handling code here:
@@ -625,7 +627,7 @@ public class EntregaProductoJDialog extends javax.swing.JDialog {
         else{
             int respuesta = JOptionPane.showConfirmDialog(this, "Desea cambiar el estado del paquete");
             if(respuesta == JOptionPane.OK_OPTION){
-                this.modificarDB.modificacionEstadoPedido(this.jFormattedTextFieldCodigoPedido.getText(), estadoNuevo,this.baseDeDatos.getConexion());
+                this.modificarDB.modificacionEstadoPedido(this.jFormattedTextFieldCodigoPedido.getText(), estadoNuevo,this.baseDeDatos);
                 JOptionPane.showMessageDialog(this, "Ha cambiado el estado del pedido");
             }
         }

@@ -9,19 +9,21 @@ import com.carlos.Entities.Client;
 import java.awt.*;
 import javax.swing.*;
 import com.carlos.DBSuport.*;
+import java.sql.Connection;
 
 /**
  *
  * @author benjamin
  */
 public class RegistroCliente extends javax.swing.JFrame {
-    ConexionDB baseDeDatos = new ConexionDB();
+    private Connection baseDeDatos;
     /**
      * Creates new form RegistroCliente
      */
     private PrincipalFrame principal;
-    public RegistroCliente(PrincipalFrame principal) {
+    public RegistroCliente(PrincipalFrame principal,Connection conexionBaseDeDatos) {
         super("Registro");
+        this. baseDeDatos = conexionBaseDeDatos;
         this.principal=principal;
         initComponents();
         ProfileComponents();
@@ -287,7 +289,7 @@ public class RegistroCliente extends javax.swing.JFrame {
             }
             Client clienteNuevo = new Client(nombre, String.valueOf(telefono), NIT,resultadoDPI, 0, email, direccion);
             RegistroDB registro = new RegistroDB();
-            String respuesta = registro.registroCliente(clienteNuevo,baseDeDatos.getConexion());
+            String respuesta = registro.registroCliente(clienteNuevo,baseDeDatos);
             if(!(respuesta.equals(""))){
                 JOptionPane.showMessageDialog(this, "No puede registrarse con los datos introducidos!!");
             }else{

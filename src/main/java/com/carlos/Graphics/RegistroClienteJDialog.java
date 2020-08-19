@@ -19,13 +19,14 @@ import javax.swing.table.DefaultTableModel;
 public class RegistroClienteJDialog extends javax.swing.JDialog {
     private float copiaDeCredito;
     //Conexion a base de datos
-    private ConexionDB baseDeDatos = new ConexionDB();
+    private Connection baseDeDatos;
     
     /**
      * Creates new form RegistroClienteJDialog
      */
-    public RegistroClienteJDialog(java.awt.Frame parent, boolean modal) {
+    public RegistroClienteJDialog(java.awt.Frame parent, boolean modal,Connection conexionBaseDatos) {
         super(parent, modal);
+        this.baseDeDatos=conexionBaseDatos;
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("REGISTRO DE CLIENTE");
@@ -385,7 +386,7 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
                 }
                 Client clienteModificado = new Client(nombre, String.valueOf(telefono), NIT, resultadoDPI, creditoDecompra, correoElectronico, direccion);
                 ModificacionesDB modificarCliente = new ModificacionesDB();
-                String respuesta = modificarCliente.modificarCliente(clienteModificado,this.baseDeDatos.getConexion());
+                String respuesta = modificarCliente.modificarCliente(clienteModificado,this.baseDeDatos);
                 if(!(respuesta.equals(""))){
                     JOptionPane.showMessageDialog(this, respuesta);
                 }
@@ -465,7 +466,7 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
                 }
                 Client clienteNuevo = new Client(nombre, String.valueOf(telefono), NIT, resultadoDPI, creditoDecompra, correoElectronico, direccion);
                 RegistroDB registroCliente = new RegistroDB();
-                String respuesta = registroCliente.registroCliente(clienteNuevo,this.baseDeDatos.getConexion());
+                String respuesta = registroCliente.registroCliente(clienteNuevo,this.baseDeDatos);
                 if(!(respuesta.equals(""))){
                     JOptionPane.showMessageDialog(this, respuesta);
                 }else{
@@ -497,7 +498,7 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
         if(!(filaSeleccionada==-1)){
             String nitCliente = String.valueOf(jTableClientes.getValueAt(filaSeleccionada, 0));
             ConsultasDB consutaCliente = new ConsultasDB();
-            ArrayList<String> datosCliente = consutaCliente.datosCliente(nitCliente,this.baseDeDatos.getConexion());
+            ArrayList<String> datosCliente = consutaCliente.datosCliente(nitCliente,this.baseDeDatos);
             jFormattedTextFieldNIT.setText(nitCliente);
             jFormattedTextFieldNombre.setText(datosCliente.get(0));
             jFormattedTextFieldTelefono.setText(datosCliente.get(1));
@@ -524,9 +525,7 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
             sentencia = "SELECT * FROM CLIENTE WHERE nombre LIKE ? ORDER BY nit ASC;";
         }
         
-        Connection conexion;
-        conexion = this.baseDeDatos.getConexion();
-        try (PreparedStatement preSt = conexion.prepareStatement(sentencia)){
+        try (PreparedStatement preSt = this.baseDeDatos.prepareStatement(sentencia)){
             if(!(modoListado.equals("Todos"))){
                 preSt.setString(1, "%" + busqueda + "%");
             }

@@ -6,11 +6,6 @@ import com.carlos.Entities.*;
  * ModificacionesDB
  */
 public class ModificacionesDB {
-    //VARIABLES DE CONEXION A BASE DE DATOS
-    ConexionDB con = new ConexionDB();
-    Connection cn;
-    Statement st;
-    ResultSet rs;
     /**
      * Constructor vacio de la clase modificaciones de los datos de la base de datos
      */

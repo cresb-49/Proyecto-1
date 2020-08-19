@@ -12,6 +12,7 @@ import com.carlos.DBSuport.RegistroDB;
 import com.carlos.Entities.Client;
 import com.carlos.Entities.Pedido;
 import com.carlos.Entities.Product;
+import java.sql.Connection;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -21,7 +22,7 @@ import javax.swing.JOptionPane;
  */
 public class RealizarPedidoJDialog extends javax.swing.JDialog {
     
-    private ConexionDB baseDeDatos = new ConexionDB();
+    private Connection baseDeDatos;
     private ConsultasDB consultas = new ConsultasDB();
     private RegistroDB registrar = new RegistroDB();
     private String codigoTiendaConSeccion;
@@ -29,12 +30,13 @@ public class RealizarPedidoJDialog extends javax.swing.JDialog {
     /**
      * Creates new form RealizarPedidoJDialog
      */
-    public RealizarPedidoJDialog(java.awt.Frame parent, boolean modal,String nombreTienda) {
+    public RealizarPedidoJDialog(java.awt.Frame parent, boolean modal,String nombreTienda,Connection conexionBaseDatos) {
         super(parent, modal);
+        this.baseDeDatos=conexionBaseDatos;
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("REALIZAR PEDIDO");
-        codigoTiendaConSeccion=consultas.codigoTienda(nombreTienda,this.baseDeDatos.getConexion());
+        codigoTiendaConSeccion=consultas.codigoTienda(nombreTienda,this.baseDeDatos);
         listarTiendas();
     }
 
@@ -421,7 +423,7 @@ public class RealizarPedidoJDialog extends javax.swing.JDialog {
         //Se comprueban los datos de entrada en para verficar que se haya seleccionado un producto
         if(!(codigoProducto.equals("")||precioProducto==0)){
             //verifica la disponibilidad del producto
-            if(!(consultas.datosExistenciaProducto(codigoProducto, codigoTienda,this.baseDeDatos.getConexion()).endsWith("0"))){
+            if(!(consultas.datosExistenciaProducto(codigoProducto, codigoTienda,this.baseDeDatos).endsWith("0"))){
                 //Verifica que hayan los datos disponibles del cliente 
                 if(!(nombreCliente.equals("")||NIT.equals(""))){
                     //verifica que el credito a utilizar sea una cantiad real
@@ -498,7 +500,7 @@ public class RealizarPedidoJDialog extends javax.swing.JDialog {
             codigoPedido=year+mes+dia+cliente;
             Pedido pedidoNuevo = new Pedido(codigoPedido, tiendaOrigen, tiendaLlegada, fecha, cliente, producto, cantidad, total, anticipo);
             //respuesta por si ocurre un error en el momento d ejcucion en la base de datos
-            String respuesta = this.registrar.registroPedido(pedidoNuevo,this.baseDeDatos.getConexion());
+            String respuesta = this.registrar.registroPedido(pedidoNuevo,this.baseDeDatos);
             if(!(respuesta.equals(""))){
                 JOptionPane.showMessageDialog(this, respuesta);
             }
@@ -517,14 +519,14 @@ public class RealizarPedidoJDialog extends javax.swing.JDialog {
         int nuevaCantidad = cantidadOriginarl-cantidadVendida;
         String codigoProducto = jFormattedTextFieldCodigoDelProducto.getText();
         Product productoModificar = new Product("", "", codigoProducto, nuevaCantidad, 0, "", 0, codigoTienda);
-        this.modificarDatos.modificarExistencia(productoModificar,this.baseDeDatos.getConexion());
+        this.modificarDatos.modificarExistencia(productoModificar,this.baseDeDatos);
     }
     private void descontarCliente(){
         String nitCliente = jFormattedTextFieldNIT.getText();
         float creditoDiponible = Float.valueOf(jFormattedTextFieldCreditoDisponible.getText());
         float creditoUsado = Float.valueOf(jFormattedTextFieldCreditoAUsar.getText());
         float nuevoCredito = creditoDiponible-creditoUsado;
-        this.modificarDatos.modificarCreditoCliente(nitCliente, String.valueOf(nuevoCredito),this.baseDeDatos.getConexion());
+        this.modificarDatos.modificarCreditoCliente(nitCliente, String.valueOf(nuevoCredito),this.baseDeDatos);
     }
     private void jButtonBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarClienteActionPerformed
         // TODO add your handling code here:
@@ -534,7 +536,7 @@ public class RealizarPedidoJDialog extends javax.swing.JDialog {
         {
             this.jFormattedTextFieldNIT.setEditable(false);
             ArrayList<String> nombreCliente = new ArrayList<String>();
-            nombreCliente = consultas.datosCliente(cliente,this.baseDeDatos.getConexion());
+            nombreCliente = consultas.datosCliente(cliente,this.baseDeDatos);
             jFormattedTextFieldNombreCliente1.setText(nombreCliente.get(0));
             jFormattedTextFieldCreditoDisponible.setText(nombreCliente.get(2));
         }
@@ -563,7 +565,7 @@ public class RealizarPedidoJDialog extends javax.swing.JDialog {
                 this.jComboBoxTiendas.setEnabled(false);
                 this.jFormattedTextFieldCodigoDelProducto.setEnabled(false);
 
-                jFormattedTextFieldExistenciaDelProducto.setText(consultas.datosExistenciaProducto(codigoProducto, codigoTienda,this.baseDeDatos.getConexion()));
+                jFormattedTextFieldExistenciaDelProducto.setText(consultas.datosExistenciaProducto(codigoProducto, codigoTienda,this.baseDeDatos));
                 if(!(jFormattedTextFieldExistenciaDelProducto.getText().equals("0")))
                 {
                     jComboBoxUnidadeComprar.removeAllItems();
@@ -573,7 +575,7 @@ public class RealizarPedidoJDialog extends javax.swing.JDialog {
                     }
                     //Mostrar los atributos del producto
                     ArrayList<String> datosProducto = new ArrayList<String>();
-                    datosProducto=consultas.datosProducto(codigoProducto,this.baseDeDatos.getConexion());
+                    datosProducto=consultas.datosProducto(codigoProducto,this.baseDeDatos);
                     jFormattedTextFieldPrecioDelProducto.setText(datosProducto.get(2));
                     calculosDeCosto();
                 }
@@ -639,7 +641,7 @@ public class RealizarPedidoJDialog extends javax.swing.JDialog {
 
     private void listarTiendas(){
         ArrayList<String> tiendas = new ArrayList<String>();
-        tiendas = consultas.codigosDeTiendas(this.baseDeDatos.getConexion());
+        tiendas = consultas.codigosDeTiendas(this.baseDeDatos);
         for (int i = 0; i < tiendas.size(); i++) {
             jComboBoxTiendas.addItem(tiendas.get(i));
         }

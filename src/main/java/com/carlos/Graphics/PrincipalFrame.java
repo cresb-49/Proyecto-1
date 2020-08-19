@@ -18,10 +18,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author benjamin
  */
 public class PrincipalFrame extends javax.swing.JFrame {
-    private ConexionDB con;
-    private Connection cn;
-    private Statement st;
-    private ResultSet rs;
+    private ConexionDB conexionPrincipal;
     //Esta variable representa el estado de la base de datos
     private boolean estadoDB=true;
     //True significa que la base de datos no tiene datos y false es que ya contiene datos en su interior
@@ -34,13 +31,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
         initComponents();
         this.setVisible(true);
         this.setLocationRelativeTo(null);
-        try {
-            con = new ConexionDB();
-            this.comprobacionDB();
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e.getMessage());
-        }
+        this.comprobacionDB();
         ProfileComponents();
     }
 
@@ -127,7 +118,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         //Crea un frame de tipo de registro de clientes
         this.setVisible(false);
-        RegistroCliente registroNuevo = new RegistroCliente(this);
+        RegistroCliente registroNuevo = new RegistroCliente(this,this.conexionPrincipal.getConexion());
         registroNuevo.setVisible(true);
     }//GEN-LAST:event_jButtonRegistrarseActionPerformed
 
@@ -135,7 +126,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         //Genera un frame de tipo login
         this.setVisible(false);
-        LogInFrame login = new LogInFrame(this);
+        LogInFrame login = new LogInFrame(this,this.conexionPrincipal.getConexion());
         login.setVisible(true);
         
     }//GEN-LAST:event_jButtonIniciarSesionActionPerformed
@@ -158,22 +149,29 @@ public class PrincipalFrame extends javax.swing.JFrame {
     public void AccesoDeUsuario(boolean token){
         this.setVisible(true);
     }
+    /**
+     * Conprueba si hay informacion en la base de datos para el funcioamiento del programa
+     */
     private void comprobacionDB(){
-        String consulta="SELECT * FROM TIENDA";
-        try {
-            cn = con.getConexion();
-            st = cn.createStatement();
-            rs=st.executeQuery(consulta);
-            while(rs.next()){
-                this.estadoDB = false;
+        try{
+           this.conexionPrincipal = new ConexionDB();
+           String consulta="SELECT * FROM TIENDA";
+           
+           try (PreparedStatement preSt = conexionPrincipal.getConexion().prepareStatement(consulta))
+           {
+                try (ResultSet result = preSt.executeQuery()){
+                    while (result.next()) {
+                        this.estadoDB = false;
+                    }
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, e.getMessage());
+                }
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(this, e.getMessage());
             }
+            
         } catch (Exception e) {
-        }
-        finally{
-            try {
-                con.cerrarConexion();
-            } catch (Exception e) {
-            }
+            JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }
     private void cargaDatos(){

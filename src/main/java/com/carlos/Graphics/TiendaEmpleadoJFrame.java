@@ -7,6 +7,7 @@ package com.carlos.Graphics;
 import com.carlos.Graphics.*;
 import com.carlos.TraslateDB.InputText;
 import java.io.File;
+import java.sql.Connection;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -15,12 +16,14 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author Carlos Pac
  */
 public class TiendaEmpleadoJFrame extends javax.swing.JFrame {
+    private Connection baseDeDatos;
     private String tienda;
     /**
      * Creates new form TiendaEmpleadoJFrame
      */
-    public TiendaEmpleadoJFrame(String tienda) {
+    public TiendaEmpleadoJFrame(String tienda,Connection conexionBaseDatos) {
         super("Mi Empresa "+tienda);
+        this.baseDeDatos=conexionBaseDatos;
         initComponents();
         this.tienda=tienda;
         this.setLocationRelativeTo(null);
@@ -177,25 +180,25 @@ public class TiendaEmpleadoJFrame extends javax.swing.JFrame {
 
     private void jMenuItemRegistroTiendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRegistroTiendaActionPerformed
         // TODO add your handling code here:
-        RegistroTiendaJDialog tiendaNueva = new RegistroTiendaJDialog(this, true,tienda);
+        RegistroTiendaJDialog tiendaNueva = new RegistroTiendaJDialog(this, true,tienda,this.baseDeDatos);
         tiendaNueva.setVisible(true);
     }//GEN-LAST:event_jMenuItemRegistroTiendaActionPerformed
 
     private void jMenuItemRegistroClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRegistroClienteActionPerformed
         // TODO add your handling code here:
-        RegistroClienteJDialog cliente = new RegistroClienteJDialog(this, true);
+        RegistroClienteJDialog cliente = new RegistroClienteJDialog(this, true,this.baseDeDatos);
         cliente.setVisible(true);
     }//GEN-LAST:event_jMenuItemRegistroClienteActionPerformed
 
     private void jMenuItemRegistroEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRegistroEmpleadoActionPerformed
         // TODO add your handling code here:
-        RegistroEmpleadoJDialog empleado = new RegistroEmpleadoJDialog(this, true);
+        RegistroEmpleadoJDialog empleado = new RegistroEmpleadoJDialog(this, true,this.baseDeDatos);
         empleado.setVisible(true);
     }//GEN-LAST:event_jMenuItemRegistroEmpleadoActionPerformed
 
     private void jMenuItemTransaccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemTransaccionActionPerformed
         // TODO add your handling code here:
-        VentaJDialog ventaProducto = new VentaJDialog(this, true,tienda);
+        VentaJDialog ventaProducto = new VentaJDialog(this, true,tienda,this.baseDeDatos);
         ventaProducto.setLocationRelativeTo(null);
         ventaProducto.setVisible(true);
     }//GEN-LAST:event_jMenuItemTransaccionActionPerformed
@@ -208,13 +211,13 @@ public class TiendaEmpleadoJFrame extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-        EntregaProductoJDialog tremiteEntrda = new EntregaProductoJDialog(this, true,tienda);
+        EntregaProductoJDialog tremiteEntrda = new EntregaProductoJDialog(this, true,tienda,this.baseDeDatos);
         tremiteEntrda.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItemRealizarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRealizarPedidoActionPerformed
         // TODO add your handling code here:
-        RealizarPedidoJDialog pedidoNuevo = new RealizarPedidoJDialog(this, true,tienda);
+        RealizarPedidoJDialog pedidoNuevo = new RealizarPedidoJDialog(this, true,tienda,this.baseDeDatos);
         pedidoNuevo.setVisible(true);
         
     }//GEN-LAST:event_jMenuItemRealizarPedidoActionPerformed
@@ -253,13 +256,13 @@ public class TiendaEmpleadoJFrame extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
-        CaracteristicaReportesJDialog reportes = new CaracteristicaReportesJDialog(this, true,this.tienda);
+        CaracteristicaReportesJDialog reportes = new CaracteristicaReportesJDialog(this, true,this.tienda,this.baseDeDatos);
         reportes.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItemCatalogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCatalogoActionPerformed
         // TODO add your handling code here:
-        CatalogoJDialog catalogoProductos = new CatalogoJDialog(this, true);
+        CatalogoJDialog catalogoProductos = new CatalogoJDialog(this, true,this.baseDeDatos);
         catalogoProductos.setVisible(true);
     }//GEN-LAST:event_jMenuItemCatalogoActionPerformed
 

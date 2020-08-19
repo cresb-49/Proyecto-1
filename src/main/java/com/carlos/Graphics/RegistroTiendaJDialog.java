@@ -20,12 +20,13 @@ import javax.swing.table.DefaultTableModel;
  */
 public class RegistroTiendaJDialog extends javax.swing.JDialog {
      //Conexion a base de datos
-    private ConexionDB baseDeDatos = new ConexionDB();
+    private Connection baseDeDatos;
     /**
      * Creates new form RegistroTienda
      */
-    public RegistroTiendaJDialog(java.awt.Frame parent, boolean modal,String tienda) {
+    public RegistroTiendaJDialog(java.awt.Frame parent, boolean modal,String tienda,Connection conexionBaseDatos) {
         super(parent, modal);
+        this.baseDeDatos=conexionBaseDatos;
         initComponents();
         PropiedadesDeEntidades();
         listarDatos();
@@ -36,7 +37,7 @@ public class RegistroTiendaJDialog extends javax.swing.JDialog {
         this.setTitle("REGISTRO DE TIENDA");
         
         ConsultasDB consultas = new ConsultasDB();
-        ArrayList<String> tiendas = consultas.consultaDeTiendas(this.baseDeDatos.getConexion());
+        ArrayList<String> tiendas = consultas.consultaDeTiendas(this.baseDeDatos);
          for (int i = 0; i < tiendas.size(); i++) {
              jComboBoxTiendaSalida.addItem(tiendas.get(i).toString());
              jComboBoxTiendaLlegada.addItem(tiendas.get(i).toString());
@@ -498,7 +499,7 @@ public class RegistroTiendaJDialog extends javax.swing.JDialog {
         {
             Store tiendaNueva = new Store(nombre, direcccion, codigo, String.valueOf(telefono1), String.valueOf(telefono2), email, horario);
             RegistroDB registroTienda = new RegistroDB();
-            String respuesta =registroTienda.registroTienda(tiendaNueva,this.baseDeDatos.getConexion());
+            String respuesta =registroTienda.registroTienda(tiendaNueva,this.baseDeDatos);
             if(!(respuesta.equals(""))){
                 JOptionPane.showMessageDialog(this, respuesta);
             }
@@ -580,7 +581,7 @@ public class RegistroTiendaJDialog extends javax.swing.JDialog {
         {
             Store tiendaNueva = new Store(nombre, direcccion, codigo, String.valueOf(telefono1), String.valueOf(telefono2), email, horario);
             ModificacionesDB modificarTienda = new ModificacionesDB();
-            String respuesta =modificarTienda.modificarTienda(tiendaNueva,this.baseDeDatos.getConexion());
+            String respuesta =modificarTienda.modificarTienda(tiendaNueva,this.baseDeDatos);
             if(!(respuesta.equals(""))){
                 JOptionPane.showMessageDialog(this, respuesta);
             }
@@ -604,7 +605,7 @@ public class RegistroTiendaJDialog extends javax.swing.JDialog {
             String codigoTienda = String.valueOf(jTableTiendas.getValueAt(filaSeleccionada, 1));
             
             ConsultasDB consultaTienda = new ConsultasDB();
-            ArrayList<String> datosCliente = consultaTienda.datosTienda(codigoTienda,this.baseDeDatos.getConexion());
+            ArrayList<String> datosCliente = consultaTienda.datosTienda(codigoTienda,this.baseDeDatos);
             
             jFormattedTextFieldCodigo.setText(codigoTienda);
             jFormattedTextFieldNombre.setText(datosCliente.get(0));
@@ -648,9 +649,9 @@ public class RegistroTiendaJDialog extends javax.swing.JDialog {
             String codigoTienda2 = this.jComboBoxTiendaLlegada.getSelectedItem().toString();
             ConsultasDB consultaTiempo = new ConsultasDB();
             //Variables para mostrar el codigo de la tieda y no el nombre de las mismas
-            codigoTienda1=consultaTiempo.codigoTienda(codigoTienda1,this.baseDeDatos.getConexion());
-            codigoTienda2=consultaTiempo.codigoTienda(codigoTienda2,this.baseDeDatos.getConexion());
-            ArrayList<String> tiempo = consultaTiempo.tiempoEntreTiendas(codigoTienda1, codigoTienda2,this.baseDeDatos.getConexion());
+            codigoTienda1=consultaTiempo.codigoTienda(codigoTienda1,this.baseDeDatos);
+            codigoTienda2=consultaTiempo.codigoTienda(codigoTienda2,this.baseDeDatos);
+            ArrayList<String> tiempo = consultaTiempo.tiempoEntreTiendas(codigoTienda1, codigoTienda2,this.baseDeDatos);
             this.jTextFieldId.setText(tiempo.get(1).toString());
             this.jFormattedTextFieldTiempo.setText(tiempo.get(0).toString());
         } catch (Exception e) {
@@ -678,9 +679,7 @@ public class RegistroTiendaJDialog extends javax.swing.JDialog {
             sentencia = "SELECT nombre,codigo FROM TIENDA WHERE nombre LIKE ? ORDER BY ? ASC;";
         }
         
-        Connection conexion;
-        conexion = this.baseDeDatos.getConexion();
-        try(PreparedStatement preSt = conexion.prepareStatement(sentencia)){
+        try(PreparedStatement preSt = this.baseDeDatos.prepareStatement(sentencia)){
             //Campos de busqueda en el programa
             if(!(modoListado.equals("Todos"))){
                 preSt.setString(1, "%" + busqueda + "%");

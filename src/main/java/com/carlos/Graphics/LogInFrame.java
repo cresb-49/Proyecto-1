@@ -8,6 +8,7 @@ package com.carlos.Graphics;
 import com.carlos.DBSuport.ConexionDB;
 import com.carlos.DBSuport.ConsultasDB;
 import java.awt.*;
+import java.sql.Connection;
 import java.util.ArrayList;
 import javax.swing.*;
 /**
@@ -15,13 +16,14 @@ import javax.swing.*;
  * @author benjamin
  */
 public class LogInFrame extends javax.swing.JFrame {
-    private ConexionDB baseDeDatos = new ConexionDB();
+    private Connection baseDeDatos;
     private PrincipalFrame principal;
     /**
      * Creates new form LogInFrame
      */
-    public LogInFrame(PrincipalFrame principal) {
+    public LogInFrame(PrincipalFrame principal,Connection conexionBaseDeDatos) {
         super("Iniciar Sesion");
+        this.baseDeDatos = conexionBaseDeDatos;
         initComponents();
         ProfileComponents();
         this.principal=principal;
@@ -141,23 +143,21 @@ public class LogInFrame extends javax.swing.JFrame {
         String codeNit = this.jFormattedTextFieldNITCode.getText();
         String nombreTienda = this.jComboBoxTiendas.getSelectedItem().toString();
         ConsultasDB ingresoAlSistema = new ConsultasDB();
-        int respuesta = ingresoAlSistema.consultaUsuarios(nombre, codeNit,this.baseDeDatos.getConexion());
+        int respuesta = ingresoAlSistema.consultaUsuarios(nombre, codeNit,this.baseDeDatos);
         if(respuesta == 0)
         {
             JOptionPane.showMessageDialog(this, "Nombre o codigo/Nit son incorrectos intentelo nuevamente");
         }
         else{
             if(respuesta == 1){
-                TiendaClienteJFrame tiendaCliente = new TiendaClienteJFrame(nombreTienda);
+                TiendaClienteJFrame tiendaCliente = new TiendaClienteJFrame(nombreTienda,this.baseDeDatos);
                 tiendaCliente.setVisible(true);
                 this.setVisible(false);
-                this.baseDeDatos.cerrarConexion();
             }   
             if(respuesta == 2){
-                TiendaEmpleadoJFrame tiendaEmpleado = new TiendaEmpleadoJFrame(nombreTienda);
+                TiendaEmpleadoJFrame tiendaEmpleado = new TiendaEmpleadoJFrame(nombreTienda,this.baseDeDatos);
                 tiendaEmpleado.setVisible(true);
                 this.setVisible(false);
-                this.baseDeDatos.cerrarConexion();
             }
         }
     }//GEN-LAST:event_jButtonLogActionPerformed
@@ -166,7 +166,7 @@ public class LogInFrame extends javax.swing.JFrame {
         jLabelImagen.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
         ConsultasDB tiendas = new ConsultasDB();
         ArrayList<String> tiendasRegistradas = new ArrayList<String>();
-        tiendasRegistradas = tiendas.consultaDeTiendas(this.baseDeDatos.getConexion());
+        tiendasRegistradas = tiendas.consultaDeTiendas(this.baseDeDatos);
         //Se agregan las tiendas que se encuntran en la base de datos
         for (int i = 0; i < tiendasRegistradas.size(); i++) {
             //System.out.println(tiendasRegistradas.get(i));

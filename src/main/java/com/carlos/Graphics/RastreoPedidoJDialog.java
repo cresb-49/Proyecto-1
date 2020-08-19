@@ -7,6 +7,7 @@ package com.carlos.Graphics;
 
 import com.carlos.DBSuport.ConexionDB;
 import com.carlos.DBSuport.ConsultasDB;
+import java.sql.Connection;
 import java.util.ArrayList;
 
 /**
@@ -14,12 +15,13 @@ import java.util.ArrayList;
  * @author benjamin
  */
 public class RastreoPedidoJDialog extends javax.swing.JDialog {
-    private ConexionDB baseDeDatos = new ConexionDB();
+    private Connection baseDeDatos;
     /**
      * Creates new form RastreoPedidoJDialog
      */
-    public RastreoPedidoJDialog(java.awt.Frame parent, boolean modal) {
+    public RastreoPedidoJDialog(java.awt.Frame parent, boolean modal,Connection conexionBaseDatos) {
         super(parent, modal);
+        this.baseDeDatos=conexionBaseDatos;
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("RASTREO DE PEDIDO");
@@ -187,9 +189,9 @@ public class RastreoPedidoJDialog extends javax.swing.JDialog {
         ConsultasDB consultaDePedido = new ConsultasDB();
         ArrayList<String> productos = new ArrayList<String>();
         ArrayList<String> datoPedidos = new ArrayList<String>();
-        productos = consultaDePedido.productoDeUnPedido(codigoPedido,this.baseDeDatos.getConexion());
-        datoPedidos= consultaDePedido.datosPedido(codigoPedido,this.baseDeDatos.getConexion());
-        float totalPedido = consultaDePedido.sumaTotalPedido(codigoPedido,this.baseDeDatos.getConexion());
+        productos = consultaDePedido.productoDeUnPedido(codigoPedido,this.baseDeDatos);
+        datoPedidos= consultaDePedido.datosPedido(codigoPedido,this.baseDeDatos);
+        float totalPedido = consultaDePedido.sumaTotalPedido(codigoPedido,this.baseDeDatos);
         float anticipo = Float.valueOf(datoPedidos.get(0));
         jComboBoxProductos.removeAllItems();
         for (int i = 0; i < productos.size(); i++) {

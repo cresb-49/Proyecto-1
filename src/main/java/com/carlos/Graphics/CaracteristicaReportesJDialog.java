@@ -10,6 +10,7 @@ import com.carlos.DBSuport.ConsultasDB;
 import com.carlos.OuputDocs.*;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -22,15 +23,16 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class CaracteristicaReportesJDialog extends javax.swing.JDialog {
     private ConsultasDB consDB = new ConsultasDB();
-    private ConexionDB baseDeDatos = new ConexionDB();
+    private Connection baseDeDatos;
     private String codigoDeTiendaSeleccionada;
     private String nitClienteSelecionado;
     /**
      * Creates new form CaracteristicaReportesJDialog
      */
-    public CaracteristicaReportesJDialog(java.awt.Frame parent, boolean modal,String tienda) {
+    public CaracteristicaReportesJDialog(java.awt.Frame parent, boolean modal,String tienda,Connection conexionBaseDatos) {
         super(parent, modal);
-        this.codigoDeTiendaSeleccionada=this.consDB.codigoTienda(tienda,this.baseDeDatos.getConexion());
+        this.baseDeDatos=conexionBaseDatos;
+        this.codigoDeTiendaSeleccionada=this.consDB.codigoTienda(tienda,this.baseDeDatos);
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("REPORTES DE TIENDA");
@@ -303,7 +305,7 @@ public class CaracteristicaReportesJDialog extends javax.swing.JDialog {
                 {
                     //usa un objeto de tipo GenerateHTML para crear el archivo de salida
                     //Segun el tipo de reporte se puede crear un archivo con un contenido u otro
-                    GenerateHTML html = new GenerateHTML(guardado);
+                    GenerateHTML html = new GenerateHTML(guardado,this.baseDeDatos);
                     html.setCodigoTienda(this.codigoDeTiendaSeleccionada);
                     html.setNITcliente(this.nitClienteSelecionado);
                     html.setTiempoSuperior("");

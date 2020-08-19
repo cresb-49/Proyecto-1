@@ -25,13 +25,13 @@ public class ConsultasDB {
         try (PreparedStatement preSt = conexion.prepareStatement(consulta)) {
             preSt.setString(1, codeNIT);
             preSt.setString(2, nombre);
-            ResultSet result = preSt.executeQuery();
-             while (result.next()) {
+            try (ResultSet result = preSt.executeQuery()){
+                while (result.next()) {
                 respuesta=1;
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
-
-            result.close();
-            preSt.close();
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
@@ -39,12 +39,13 @@ public class ConsultasDB {
         try (PreparedStatement preSt = conexion.prepareStatement(consulta2)) {
             preSt.setString(1, codeNIT);
             preSt.setString(2, nombre);
-            ResultSet result = preSt.executeQuery();
-             while (result.next()) {
+            try(ResultSet result = preSt.executeQuery()) {
+                while (result.next()) {
                 respuesta=2;
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
-            result.close();
-            preSt.close();
         }catch(Exception e){
             System.out.println(e.getMessage());
         }

@@ -24,12 +24,13 @@ import javax.swing.table.DefaultTableModel;
  */
 public class RegistroEmpleadoJDialog extends javax.swing.JDialog {
     //Variables de base de datos
-    private ConexionDB baseDeDatos = new ConexionDB();
+    private Connection baseDeDatos ;
     /**
      * Creates new form RegistroEmpleadoJDialog
      */
-    public RegistroEmpleadoJDialog(java.awt.Frame parent, boolean modal) {
+    public RegistroEmpleadoJDialog(java.awt.Frame parent, boolean modal,Connection conexionBaseDatos) {
         super(parent, modal);
+        this.baseDeDatos=conexionBaseDatos;
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("REGISTRO DE EMPLEADO");
@@ -320,7 +321,7 @@ public class RegistroEmpleadoJDialog extends javax.swing.JDialog {
             }
             Employee nuevoEmpledo = new Employee(codigoEmpleado, nombre, String.valueOf(telefono), NIT, resultadoDPI, correoElectronico, direccion);
             RegistroDB registroEmpleado = new RegistroDB();
-            String respuesta = registroEmpleado.registroEmpleado(nuevoEmpledo,this.baseDeDatos.getConexion());
+            String respuesta = registroEmpleado.registroEmpleado(nuevoEmpledo,this.baseDeDatos);
             if(!(respuesta.equals(""))){
                 JOptionPane.showMessageDialog(this, respuesta);
             }
@@ -380,7 +381,7 @@ public class RegistroEmpleadoJDialog extends javax.swing.JDialog {
             }
             Employee empleadoModificado = new Employee(codigoEmpleado, nombre, String.valueOf(telefono), NIT, resultadoDPI, correoElectronico, direccion);
             ModificacionesDB modificarEmpleado = new ModificacionesDB();
-            String respuesta = modificarEmpleado.modificarEmpleado(empleadoModificado,this.baseDeDatos.getConexion());
+            String respuesta = modificarEmpleado.modificarEmpleado(empleadoModificado,this.baseDeDatos);
             if(!(respuesta.equals(""))){
                 JOptionPane.showMessageDialog(this, respuesta);
             }
@@ -422,7 +423,7 @@ public class RegistroEmpleadoJDialog extends javax.swing.JDialog {
         if(!(filaSeleccionada==-1)){
             String codigoEmpleado = String.valueOf(jTableEmpleados.getValueAt(filaSeleccionada, 0));
             ConsultasDB consultaEmpleado = new ConsultasDB();
-            ArrayList<String> datosCliente = consultaEmpleado.datosEmpleado(codigoEmpleado,this.baseDeDatos.getConexion());
+            ArrayList<String> datosCliente = consultaEmpleado.datosEmpleado(codigoEmpleado,this.baseDeDatos);
             jFormattedTextFieldCodigo.setText(codigoEmpleado);
             jFormattedTextFieldNombre.setText(datosCliente.get(0));
             jFormattedTextFieldTelefono.setText(datosCliente.get(1));
@@ -447,9 +448,8 @@ public class RegistroEmpleadoJDialog extends javax.swing.JDialog {
         if(modoListado.equals("Nombre")){
             sentencia = "SELECT * FROM EMPLEADO WHERE nombre LIKE ? ORDER BY codigo ASC;";
         }
-        Connection conexion;
-        conexion=this.baseDeDatos.getConexion();
-        try(PreparedStatement preSt = conexion.prepareStatement(sentencia)){
+        
+        try(PreparedStatement preSt = this.baseDeDatos.prepareStatement(sentencia)){
             if(!(modoListado.equals("Todos"))){
                 preSt.setString(1, "%" + busqueda + "%");
             }

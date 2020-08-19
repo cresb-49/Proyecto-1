@@ -16,12 +16,13 @@ import javax.swing.table.DefaultTableModel;
  */
 public class CatalogoJDialog extends javax.swing.JDialog {
     //Conexion a base de datos
-    private ConexionDB baseDeDatos = new ConexionDB();
+    private Connection baseDeDatos;
     /**
      * Creates new form CatalogoJDialog
      */
-    public CatalogoJDialog(java.awt.Frame parent, boolean modal) {
+    public CatalogoJDialog(java.awt.Frame parent, boolean modal,Connection conexionBaseDatos) {
         super(parent, modal);
+        this.baseDeDatos=conexionBaseDatos;
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("CATALOGO");
@@ -80,9 +81,7 @@ public class CatalogoJDialog extends javax.swing.JDialog {
         }
         //System.out.println(sentencia+like+orden+asenDes);
         sentencia = sentencia+like+orden+asenDes;
-        Connection conexion;
-        conexion = this.baseDeDatos.getConexion();
-        try(PreparedStatement preSt = conexion.prepareStatement(sentencia)){
+        try(PreparedStatement preSt = this.baseDeDatos.prepareStatement(sentencia)){
             ResultSet result = preSt.executeQuery();
             Object[] cliente = new Object[6];
             modeloDeTabla = (DefaultTableModel)jTableCatalogo.getModel();

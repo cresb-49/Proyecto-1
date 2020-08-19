@@ -21,10 +21,7 @@ import javax.swing.table.DefaultTableModel;
  * @author benjamin
  */
 public class RegistrarProductoJDialog extends javax.swing.JDialog {
-    private ConexionDB baseDeDatos = new ConexionDB();
-    private Connection cn;
-    private Statement st;
-    private ResultSet rs;
+    private Connection baseDeDatos;
     /**
      * Creates new form RegistrarProductoJDialog
      */
@@ -369,8 +366,8 @@ public class RegistrarProductoJDialog extends javax.swing.JDialog {
             {
                 Product productoNuevo = new Product(nombre, fabricante, codigo, cantidad, precio, descripcion, garantia,tienda);
                 RegistroDB nuevoProducto = new RegistroDB();
-                String respuesta1 = nuevoProducto.registroProducto(productoNuevo,this.baseDeDatos.getConexion());
-                String respuesta2 = nuevoProducto.registroExistencia(productoNuevo,this.baseDeDatos.getConexion());
+                String respuesta1 = nuevoProducto.registroProducto(productoNuevo,this.baseDeDatos);
+                String respuesta2 = nuevoProducto.registroExistencia(productoNuevo,this.baseDeDatos);
                 if(!(respuesta1.equals(""))||!(respuesta2.equals(""))){
                     JOptionPane.showMessageDialog(this, respuesta1+respuesta2);
                 }
@@ -441,8 +438,8 @@ public class RegistrarProductoJDialog extends javax.swing.JDialog {
             {
                 Product productoModifacar = new Product(nombre, fabricante, codigo, cantidad, precio, descripcion, garantia,tienda);
                 ModificacionesDB modificacion = new ModificacionesDB();
-                String respuesta1 = modificacion.modificarProducto(productoModifacar,this.baseDeDatos.getConexion());
-                String respuesta2 = modificacion.modificarExistencia(productoModifacar,this.baseDeDatos.getConexion());
+                String respuesta1 = modificacion.modificarProducto(productoModifacar,this.baseDeDatos);
+                String respuesta2 = modificacion.modificarExistencia(productoModifacar,this.baseDeDatos);
                 if(!(respuesta1.equals(""))||!(respuesta2.equals(""))){
                     JOptionPane.showMessageDialog(this, respuesta1+respuesta2);
                 }
@@ -492,9 +489,9 @@ public class RegistrarProductoJDialog extends javax.swing.JDialog {
             ConsultasDB consutaProducto = new ConsultasDB();
             listarTiendas();
             ArrayList<String> datosProducto = new ArrayList<String>();
-            datosProducto=consutaProducto.datosProducto(codigoProducto,this.baseDeDatos.getConexion());
+            datosProducto=consutaProducto.datosProducto(codigoProducto,this.baseDeDatos);
             
-            String cantidad = consutaProducto.datosExistenciaProducto(codigoProducto, codigoTienda,this.baseDeDatos.getConexion());
+            String cantidad = consutaProducto.datosExistenciaProducto(codigoProducto, codigoTienda,this.baseDeDatos);
             
             jFormattedTextFieldCodigo.setText(codigoProducto);
             jFormattedTextFieldNombre.setText(datosProducto.get(0));
@@ -509,7 +506,7 @@ public class RegistrarProductoJDialog extends javax.swing.JDialog {
     private void listarTiendas(){
         ConsultasDB consutaTiendas = new ConsultasDB();
         ArrayList<String> tiendas = new ArrayList<String>();
-            tiendas = consutaTiendas.codigosDeTiendas(this.baseDeDatos.getConexion());
+            tiendas = consutaTiendas.codigosDeTiendas(this.baseDeDatos);
             jComboBoxTiendas.removeAllItems();
             for (int i = 0; i < tiendas.size(); i++) {
                 jComboBoxTiendas.addItem(tiendas.get(i));
@@ -535,9 +532,7 @@ public class RegistrarProductoJDialog extends javax.swing.JDialog {
             sentencia = "SELECT codigo,nombre,TIENDA_codigo FROM PRODUCTO,EXISTENCIA WHERE codigo = PRODUCTO_codigo AND TIENDA_codigo LIKE ? ORDER BY codigo ASC;";
         }
         
-        Connection conexion;
-        conexion = this.baseDeDatos.getConexion();
-        try(PreparedStatement preSt = conexion.prepareStatement(sentencia)){
+        try(PreparedStatement preSt = this.baseDeDatos.prepareStatement(sentencia)){
             //Campos de busqueda en el programa
             if(!(modoListado.equals("Todos"))){
                 preSt.setString(1, "%" + busqueda + "%");
