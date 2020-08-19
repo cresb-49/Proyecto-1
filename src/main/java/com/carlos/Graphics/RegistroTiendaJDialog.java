@@ -36,7 +36,7 @@ public class RegistroTiendaJDialog extends javax.swing.JDialog {
         this.setTitle("REGISTRO DE TIENDA");
         
         ConsultasDB consultas = new ConsultasDB();
-        ArrayList<String> tiendas = consultas.consultaDeTiendas();
+        ArrayList<String> tiendas = consultas.consultaDeTiendas(this.baseDeDatos.getConexion());
          for (int i = 0; i < tiendas.size(); i++) {
              jComboBoxTiendaSalida.addItem(tiendas.get(i).toString());
              jComboBoxTiendaLlegada.addItem(tiendas.get(i).toString());
@@ -604,7 +604,7 @@ public class RegistroTiendaJDialog extends javax.swing.JDialog {
             String codigoTienda = String.valueOf(jTableTiendas.getValueAt(filaSeleccionada, 1));
             
             ConsultasDB consultaTienda = new ConsultasDB();
-            ArrayList<String> datosCliente = consultaTienda.datosTienda(codigoTienda);
+            ArrayList<String> datosCliente = consultaTienda.datosTienda(codigoTienda,this.baseDeDatos.getConexion());
             
             jFormattedTextFieldCodigo.setText(codigoTienda);
             jFormattedTextFieldNombre.setText(datosCliente.get(0));
@@ -647,9 +647,10 @@ public class RegistroTiendaJDialog extends javax.swing.JDialog {
             String codigoTienda1 = this.jComboBoxTiendaSalida.getSelectedItem().toString();
             String codigoTienda2 = this.jComboBoxTiendaLlegada.getSelectedItem().toString();
             ConsultasDB consultaTiempo = new ConsultasDB();
-            codigoTienda1=consultaTiempo.codigoTienda(codigoTienda1);
-            codigoTienda2=consultaTiempo.codigoTienda(codigoTienda2);
-            ArrayList<String> tiempo = consultaTiempo.tiempoEntreTiendas(codigoTienda1, codigoTienda2);
+            //Variables para mostrar el codigo de la tieda y no el nombre de las mismas
+            codigoTienda1=consultaTiempo.codigoTienda(codigoTienda1,this.baseDeDatos.getConexion());
+            codigoTienda2=consultaTiempo.codigoTienda(codigoTienda2,this.baseDeDatos.getConexion());
+            ArrayList<String> tiempo = consultaTiempo.tiempoEntreTiendas(codigoTienda1, codigoTienda2,this.baseDeDatos.getConexion());
             this.jTextFieldId.setText(tiempo.get(1).toString());
             this.jFormattedTextFieldTiempo.setText(tiempo.get(0).toString());
         } catch (Exception e) {

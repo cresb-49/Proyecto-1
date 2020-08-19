@@ -422,7 +422,7 @@ public class RegistroEmpleadoJDialog extends javax.swing.JDialog {
         if(!(filaSeleccionada==-1)){
             String codigoEmpleado = String.valueOf(jTableEmpleados.getValueAt(filaSeleccionada, 0));
             ConsultasDB consultaEmpleado = new ConsultasDB();
-            ArrayList<String> datosCliente = consultaEmpleado.datosEmpleado(codigoEmpleado);
+            ArrayList<String> datosCliente = consultaEmpleado.datosEmpleado(codigoEmpleado,this.baseDeDatos.getConexion());
             jFormattedTextFieldCodigo.setText(codigoEmpleado);
             jFormattedTextFieldNombre.setText(datosCliente.get(0));
             jFormattedTextFieldTelefono.setText(datosCliente.get(1));

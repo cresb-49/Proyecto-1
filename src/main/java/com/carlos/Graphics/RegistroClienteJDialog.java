@@ -497,7 +497,7 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
         if(!(filaSeleccionada==-1)){
             String nitCliente = String.valueOf(jTableClientes.getValueAt(filaSeleccionada, 0));
             ConsultasDB consutaCliente = new ConsultasDB();
-            ArrayList<String> datosCliente = consutaCliente.datosCliente(nitCliente);
+            ArrayList<String> datosCliente = consutaCliente.datosCliente(nitCliente,this.baseDeDatos.getConexion());
             jFormattedTextFieldNIT.setText(nitCliente);
             jFormattedTextFieldNombre.setText(datosCliente.get(0));
             jFormattedTextFieldTelefono.setText(datosCliente.get(1));

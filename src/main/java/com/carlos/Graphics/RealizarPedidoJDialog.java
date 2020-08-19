@@ -34,7 +34,7 @@ public class RealizarPedidoJDialog extends javax.swing.JDialog {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("REALIZAR PEDIDO");
-        codigoTiendaConSeccion=consultas.codigoTienda(nombreTienda);
+        codigoTiendaConSeccion=consultas.codigoTienda(nombreTienda,this.baseDeDatos.getConexion());
         listarTiendas();
     }
 
@@ -421,7 +421,7 @@ public class RealizarPedidoJDialog extends javax.swing.JDialog {
         //Se comprueban los datos de entrada en para verficar que se haya seleccionado un producto
         if(!(codigoProducto.equals("")||precioProducto==0)){
             //verifica la disponibilidad del producto
-            if(!(consultas.datosExistenciaProducto(codigoProducto, codigoTienda).endsWith("0"))){
+            if(!(consultas.datosExistenciaProducto(codigoProducto, codigoTienda,this.baseDeDatos.getConexion()).endsWith("0"))){
                 //Verifica que hayan los datos disponibles del cliente 
                 if(!(nombreCliente.equals("")||NIT.equals(""))){
                     //verifica que el credito a utilizar sea una cantiad real
@@ -534,7 +534,7 @@ public class RealizarPedidoJDialog extends javax.swing.JDialog {
         {
             this.jFormattedTextFieldNIT.setEditable(false);
             ArrayList<String> nombreCliente = new ArrayList<String>();
-            nombreCliente = consultas.datosCliente(cliente);
+            nombreCliente = consultas.datosCliente(cliente,this.baseDeDatos.getConexion());
             jFormattedTextFieldNombreCliente1.setText(nombreCliente.get(0));
             jFormattedTextFieldCreditoDisponible.setText(nombreCliente.get(2));
         }
@@ -563,7 +563,7 @@ public class RealizarPedidoJDialog extends javax.swing.JDialog {
                 this.jComboBoxTiendas.setEnabled(false);
                 this.jFormattedTextFieldCodigoDelProducto.setEnabled(false);
 
-                jFormattedTextFieldExistenciaDelProducto.setText(consultas.datosExistenciaProducto(codigoProducto, codigoTienda));
+                jFormattedTextFieldExistenciaDelProducto.setText(consultas.datosExistenciaProducto(codigoProducto, codigoTienda,this.baseDeDatos.getConexion()));
                 if(!(jFormattedTextFieldExistenciaDelProducto.getText().equals("0")))
                 {
                     jComboBoxUnidadeComprar.removeAllItems();
@@ -573,7 +573,7 @@ public class RealizarPedidoJDialog extends javax.swing.JDialog {
                     }
                     //Mostrar los atributos del producto
                     ArrayList<String> datosProducto = new ArrayList<String>();
-                    datosProducto=consultas.datosProducto(codigoProducto);
+                    datosProducto=consultas.datosProducto(codigoProducto,this.baseDeDatos.getConexion());
                     jFormattedTextFieldPrecioDelProducto.setText(datosProducto.get(2));
                     calculosDeCosto();
                 }
@@ -639,7 +639,7 @@ public class RealizarPedidoJDialog extends javax.swing.JDialog {
 
     private void listarTiendas(){
         ArrayList<String> tiendas = new ArrayList<String>();
-        tiendas = consultas.codigosDeTiendas();
+        tiendas = consultas.codigosDeTiendas(this.baseDeDatos.getConexion());
         for (int i = 0; i < tiendas.size(); i++) {
             jComboBoxTiendas.addItem(tiendas.get(i));
         }

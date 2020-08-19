@@ -166,7 +166,7 @@ public class LogInFrame extends javax.swing.JFrame {
         jLabelImagen.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
         ConsultasDB tiendas = new ConsultasDB();
         ArrayList<String> tiendasRegistradas = new ArrayList<String>();
-        tiendasRegistradas = tiendas.consultaDeTiendas();
+        tiendasRegistradas = tiendas.consultaDeTiendas(this.baseDeDatos.getConexion());
         //Se agregan las tiendas que se encuntran en la base de datos
         for (int i = 0; i < tiendasRegistradas.size(); i++) {
             //System.out.println(tiendasRegistradas.get(i));

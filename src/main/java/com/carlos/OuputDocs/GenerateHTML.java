@@ -1,5 +1,6 @@
 package com.carlos.OuputDocs;
 
+import com.carlos.DBSuport.ConexionDB;
 import com.carlos.DBSuport.ConsultasDB;
 import java.io.*;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ public class GenerateHTML {
     
     ////////VARIABLES DE CONSULTAS A BASE DE DATOS////////////
     private ConsultasDB consultaDB = new ConsultasDB();
+    private ConexionDB baseDeDatos = new ConexionDB();
 
     public GenerateHTML (File archivo){
         this.archivo=archivo;
@@ -89,7 +91,7 @@ public class GenerateHTML {
      */
     private PrintWriter htmlContentPedidosTienda(PrintWriter html){
         ArrayList<String[]> pedidosDelReporte = new ArrayList<String[]>();
-        pedidosDelReporte = this.consultaDB.pedidosReporte(this.codigoTienda,"ET");
+        pedidosDelReporte = this.consultaDB.pedidosReporte(this.codigoTienda,"ET",this.baseDeDatos.getConexion());
         //////////////////////////////////////////////////////////////////////////////////////
         html.println("<h1>REPORTE DE PEDIDOS QUE LLEGARAN A LA TIENDA "+codigoTienda+"</h1>");
         html.println("<h2>Descripcion de los pedidos que llegaran</h2>");
@@ -130,7 +132,7 @@ public class GenerateHTML {
      */
     private PrintWriter htmlContentPedidosAtrazadosTienda(PrintWriter html){
         ArrayList<String[]> pedidosDelReporte = new ArrayList<String[]>();
-        pedidosDelReporte = this.consultaDB.pedidosReporte(this.codigoTienda,"TR");
+        pedidosDelReporte = this.consultaDB.pedidosReporte(this.codigoTienda,"TR",this.baseDeDatos.getConexion());
         //////////////////////////////////////////////////////////////////////////////////////
         html.println("<h1>REPORTE DE PEDIDOS ATRAZADOS QUE ESTAN EN LA TIENDA "+codigoTienda+"</h1>");
         html.println("<h2>Descripcion de los pedidos de ingreso atrazado</h2>");
@@ -166,7 +168,7 @@ public class GenerateHTML {
     }
     private PrintWriter htmlContentPedidosExpendidosPorTienda(PrintWriter html){
         ArrayList<String[]> pedidosDelReporte = new ArrayList<String[]>();
-        pedidosDelReporte = this.consultaDB.pedidosSalidaReporte(this.codigoTienda);
+        pedidosDelReporte = this.consultaDB.pedidosSalidaReporte(this.codigoTienda,this.baseDeDatos.getConexion());
         //////////////////////////////////////////////////////////////////////////////////////
         html.println("<h1>REPORTE DE PEDIDOS EXPENDIDOS POR LA TIENDA "+codigoTienda+"</h1>");
         html.println("<h2>Descripcion de los pedidos que salieron de la tienda</h2>");
@@ -207,7 +209,7 @@ public class GenerateHTML {
      */
     private PrintWriter htmlComprasPorCliente(PrintWriter html){
         ArrayList<String[]> comprasCliente = new ArrayList<String[]>();
-        comprasCliente = this.consultaDB.comprasClienteReporte(NITcliente);
+        comprasCliente = this.consultaDB.comprasClienteReporte(NITcliente,this.baseDeDatos.getConexion());
         //////////////////////////////////////////////////////////////////////////////////////
         html.println("<h1>REPORTE DE COMPRAS HECHOS POR EL CLIENTE "+NITcliente+"</h1>");
         html.println("<h2>Descripcion de las compras hechas</h2>");
@@ -248,7 +250,7 @@ public class GenerateHTML {
      */
     private PrintWriter htmlPedidosPorCliente(PrintWriter html){
         ArrayList<String[]> pedidosCliente = new ArrayList<String[]>();
-        pedidosCliente = this.consultaDB.pedidosClienteReporte(NITcliente);
+        pedidosCliente = this.consultaDB.pedidosClienteReporte(NITcliente,this.baseDeDatos.getConexion());
         //////////////////////////////////////////////////////////////////////////////////////
         html.println("<h1>REPORTE DE PEDIDOS HECHOS POR EL CLIENTE "+NITcliente+"</h1>");
         html.println("<h2>Descripcion de las compras hechas</h2>");

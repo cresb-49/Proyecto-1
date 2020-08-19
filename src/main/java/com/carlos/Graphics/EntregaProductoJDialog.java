@@ -25,7 +25,7 @@ public class EntregaProductoJDialog extends javax.swing.JDialog {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("ENTREGA DE PRODUCTO");
-        tiendaSeleccionada=this.consultaDB.codigoTienda(tienda);
+        tiendaSeleccionada=this.consultaDB.codigoTienda(tienda,this.baseDeDatos.getConexion());
     }
 
     /**
@@ -430,13 +430,13 @@ public class EntregaProductoJDialog extends javax.swing.JDialog {
         
         
         ArrayList<String> datosPedido = new ArrayList<String>();
-        datosPedido= this.consultaDB.estadoPedido(codigoPedido);
+        datosPedido= this.consultaDB.estadoPedido(codigoPedido,this.baseDeDatos.getConexion());
         
         String codigoTienda = datosPedido.get(8);
         
         if(tiendaSeleccionada.equals(codigoTienda)){
             ArrayList<String> contenido = new ArrayList<String>();
-            contenido = consultaDB.productoDeUnPedido(codigoPedido);
+            contenido = consultaDB.productoDeUnPedido(codigoPedido,this.baseDeDatos.getConexion());
             jComboBoxContenido.removeAllItems();
             for (int i = 0; i < contenido.size(); i++) {
                 jComboBoxContenido.addItem(contenido.get(i));
@@ -465,13 +465,13 @@ public class EntregaProductoJDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
         String codigoPedidoRetiro = jFormattedTextFieldCodigoPedidoRetiro.getText();
         ArrayList<String> contenido = new ArrayList<String>();
-        contenido = consultaDB.estadoPedido(codigoPedidoRetiro);
+        contenido = consultaDB.estadoPedido(codigoPedidoRetiro,this.baseDeDatos.getConexion());
         float anticipoIndividual = Float.parseFloat(contenido.get(2));
         
-        int cantidad =this.consultaDB.contarPedidos(codigoPedidoRetiro);
+        int cantidad =this.consultaDB.contarPedidos(codigoPedidoRetiro,this.baseDeDatos.getConexion());
         
-        float total = this.consultaDB.sumaTotalPedido(codigoPedidoRetiro);
-        float anticipo = this.consultaDB.sumaAnticipoPedido(codigoPedidoRetiro);
+        float total = this.consultaDB.sumaTotalPedido(codigoPedidoRetiro,this.baseDeDatos.getConexion());
+        float anticipo = this.consultaDB.sumaAnticipoPedido(codigoPedidoRetiro,this.baseDeDatos.getConexion());
         
         float anticipoParaTransaccion=0;
         
@@ -480,7 +480,7 @@ public class EntregaProductoJDialog extends javax.swing.JDialog {
         if(tiendaSeleccionada.equals(codigoTienda)){
             
             ArrayList<String> pedidos = new ArrayList<String>();
-            pedidos = consultaDB.productoDeUnPedido(codigoPedidoRetiro);
+            pedidos = consultaDB.productoDeUnPedido(codigoPedidoRetiro,this.baseDeDatos.getConexion());
             
             String estadoPaquete = contenido.get(4);
             if(estadoPaquete.equals("entregado")){
@@ -553,7 +553,7 @@ public class EntregaProductoJDialog extends javax.swing.JDialog {
             else
             {
                 ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
-                pedidos = this.consultaDB.retornoDePedidos(codidoPedido);
+                pedidos = this.consultaDB.retornoDePedidos(codidoPedido,this.baseDeDatos.getConexion());
                 this.modificarDB.modificacionEstadoPedido(codidoPedido, "entregado");
                 String fechaVenta = año+"-"+mes+"-"+dia;
                 
@@ -575,7 +575,7 @@ public class EntregaProductoJDialog extends javax.swing.JDialog {
             bono=Float.valueOf(bonificacion);
         } catch (Exception e) {
         }
-        float credito = Float.valueOf(this.consultaDB.datosCliente(nit).get(2));
+        float credito = Float.valueOf(this.consultaDB.datosCliente(nit,this.baseDeDatos.getConexion()).get(2));
         float creditoNuevo = credito+bono;
         System.out.println(this.modificarDB.modificarCreditoCliente(nit, String.valueOf(creditoNuevo)));
     }

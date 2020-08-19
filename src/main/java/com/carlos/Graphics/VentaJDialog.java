@@ -31,7 +31,7 @@ public class VentaJDialog extends javax.swing.JDialog {
      */
     public VentaJDialog(java.awt.Frame parent, boolean modal,String tiendaSleccionada) {
         super(parent, modal);
-        this.tiendaSleccionada = this.consulta.codigoTienda(tiendaSleccionada);
+        this.tiendaSleccionada = this.consulta.codigoTienda(tiendaSleccionada,this.baseDeDatos.getConexion());
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("VENTAS");
@@ -416,7 +416,7 @@ public class VentaJDialog extends javax.swing.JDialog {
     private void jButtonBuscarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarProductoActionPerformed
         // TODO add your handling code here:
         String codigoProducto = this.jFormattedTextFieldCodigoProducto.getText();
-        String existencia =this.consulta.datosExistenciaProducto(codigoProducto, tiendaSleccionada);
+        String existencia =this.consulta.datosExistenciaProducto(codigoProducto, tiendaSleccionada,this.baseDeDatos.getConexion());
         if(existencia.equals("0")||existencia.equals("")){
             
             JOptionPane.showMessageDialog(this, "No hay existencia del producto en tienda haga un pedido del mismo en el apartado");
@@ -431,7 +431,7 @@ public class VentaJDialog extends javax.swing.JDialog {
             {
                 try {
                     ArrayList<String> datosProducto = new ArrayList<String>();
-                    datosProducto = this.consulta.datosProducto(codigoProducto);
+                    datosProducto = this.consulta.datosProducto(codigoProducto,this.baseDeDatos.getConexion());
                     jFormattedTextFieldNombreProducto.setText(datosProducto.get(0));
                     jFormattedTextFieldPrecio.setText(datosProducto.get(2));
                     jButtonIngresar.setEnabled(true);
@@ -454,7 +454,7 @@ public class VentaJDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
         String nitCliente = this.jFormattedTextFieldNIT.getText();
         ArrayList<String> datosCliente = new ArrayList<String>();
-        datosCliente = this.consulta.datosCliente(nitCliente);
+        datosCliente = this.consulta.datosCliente(nitCliente,this.baseDeDatos.getConexion());
         try {
             jFormattedTextFieldNombreCliente.setText(datosCliente.get(0));
             jTextFieldCreditoCliente.setText(datosCliente.get(2));
@@ -528,7 +528,7 @@ public class VentaJDialog extends javax.swing.JDialog {
         if(!(codigoProducto.equals("")||NombreProducto.equals("")))
         {
             //verifica la existencia de los productos en la tienda
-            if(!(this.consulta.datosExistenciaProducto(codigoProducto, tiendaSleccionada).equals("0"))){
+            if(!(this.consulta.datosExistenciaProducto(codigoProducto, tiendaSleccionada,this.baseDeDatos.getConexion()).equals("0"))){
                 //Verifica los datos del cliente quien hace la compra
                 if(!(NIT.equals("")||NombreCliente.equals(""))){
                     if(!(usoCredito>creditoCliente)){
@@ -588,7 +588,7 @@ public class VentaJDialog extends javax.swing.JDialog {
             
             String codigoProducto = ventasAcumuladas.get(i).getCodigoProducto();
             int cantidadCompradas = ventasAcumuladas.get(i).getCantidad();
-            String existencia =this.consulta.datosExistenciaProducto(codigoProducto, tiendaSleccionada);
+            String existencia =this.consulta.datosExistenciaProducto(codigoProducto, tiendaSleccionada,this.baseDeDatos.getConexion());
             int cantidadOrigianl = Integer.valueOf(existencia);
             int nuevaExistencia = cantidadOrigianl-cantidadCompradas;
             
@@ -599,7 +599,7 @@ public class VentaJDialog extends javax.swing.JDialog {
     }
     private void actualizacionDeCliente(){
         float creditoUsado = Float.valueOf(this.jFormattedTextFieldUsoCredito.getText());
-        float creditoOriginal = Float.valueOf(this.consulta.datosCliente(this.jFormattedTextFieldNIT.getText()).get(2));
+        float creditoOriginal = Float.valueOf(this.consulta.datosCliente(this.jFormattedTextFieldNIT.getText(),this.baseDeDatos.getConexion()).get(2));
         float nuevoCredito = creditoOriginal-creditoUsado;
         this.modificacion.modificarCreditoCliente(this.jFormattedTextFieldNIT.getText(), String.valueOf(nuevoCredito));
     }

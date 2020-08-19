@@ -492,9 +492,9 @@ public class RegistrarProductoJDialog extends javax.swing.JDialog {
             ConsultasDB consutaProducto = new ConsultasDB();
             listarTiendas();
             ArrayList<String> datosProducto = new ArrayList<String>();
-            datosProducto=consutaProducto.datosProducto(codigoProducto);
+            datosProducto=consutaProducto.datosProducto(codigoProducto,this.baseDeDatos.getConexion());
             
-            String cantidad = consutaProducto.datosExistenciaProducto(codigoProducto, codigoTienda);
+            String cantidad = consutaProducto.datosExistenciaProducto(codigoProducto, codigoTienda,this.baseDeDatos.getConexion());
             
             jFormattedTextFieldCodigo.setText(codigoProducto);
             jFormattedTextFieldNombre.setText(datosProducto.get(0));
@@ -509,7 +509,7 @@ public class RegistrarProductoJDialog extends javax.swing.JDialog {
     private void listarTiendas(){
         ConsultasDB consutaTiendas = new ConsultasDB();
         ArrayList<String> tiendas = new ArrayList<String>();
-            tiendas = consutaTiendas.codigosDeTiendas();
+            tiendas = consutaTiendas.codigosDeTiendas(this.baseDeDatos.getConexion());
             jComboBoxTiendas.removeAllItems();
             for (int i = 0; i < tiendas.size(); i++) {
                 jComboBoxTiendas.addItem(tiendas.get(i));

@@ -5,6 +5,7 @@
  */
 package com.carlos.Graphics;
 
+import com.carlos.DBSuport.ConexionDB;
 import com.carlos.DBSuport.ConsultasDB;
 import com.carlos.OuputDocs.*;
 import java.io.File;
@@ -21,6 +22,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class CaracteristicaReportesJDialog extends javax.swing.JDialog {
     private ConsultasDB consDB = new ConsultasDB();
+    private ConexionDB baseDeDatos = new ConexionDB();
     private String codigoDeTiendaSeleccionada;
     private String nitClienteSelecionado;
     /**
@@ -28,7 +30,7 @@ public class CaracteristicaReportesJDialog extends javax.swing.JDialog {
      */
     public CaracteristicaReportesJDialog(java.awt.Frame parent, boolean modal,String tienda) {
         super(parent, modal);
-        this.codigoDeTiendaSeleccionada=this.consDB.codigoTienda(tienda);
+        this.codigoDeTiendaSeleccionada=this.consDB.codigoTienda(tienda,this.baseDeDatos.getConexion());
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("REPORTES DE TIENDA");
