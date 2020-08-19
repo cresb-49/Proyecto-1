@@ -125,7 +125,7 @@ public class TiendaEmpleadoJFrame extends javax.swing.JFrame {
         });
         jMenuRealizarPedido.add(jMenuItemRealizarPedido);
 
-        jMenuItem1.setText("Acciones dePedido");
+        jMenuItem1.setText("Recepcion / Entrega");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);

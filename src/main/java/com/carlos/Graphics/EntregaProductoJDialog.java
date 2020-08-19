@@ -426,29 +426,38 @@ public class EntregaProductoJDialog extends javax.swing.JDialog {
 
     private void jButtonBuscarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarPedidoActionPerformed
         // TODO add your handling code here:
-        String codigoPedido = jFormattedTextFieldCodigoPedido.getText();
+        
+        try {
+            String codigoPedido = jFormattedTextFieldCodigoPedido.getText();
         
         
-        ArrayList<String> datosPedido = new ArrayList<String>();
-        datosPedido= this.consultaDB.estadoPedido(codigoPedido,this.baseDeDatos.getConexion());
-        
-        String codigoTienda = datosPedido.get(8);
-        
-        if(tiendaSeleccionada.equals(codigoTienda)){
-            ArrayList<String> contenido = new ArrayList<String>();
-            contenido = consultaDB.productoDeUnPedido(codigoPedido,this.baseDeDatos.getConexion());
-            jComboBoxContenido.removeAllItems();
-            for (int i = 0; i < contenido.size(); i++) {
-                jComboBoxContenido.addItem(contenido.get(i));
+            ArrayList<String> datosPedido = new ArrayList<String>();
+            datosPedido= this.consultaDB.estadoPedido(codigoPedido,this.baseDeDatos.getConexion());
+
+            String codigoTienda = datosPedido.get(8);
+
+            if(tiendaSeleccionada.equals(codigoTienda)){
+                ArrayList<String> contenido = new ArrayList<String>();
+                contenido = consultaDB.productoDeUnPedido(codigoPedido,this.baseDeDatos.getConexion());
+                jComboBoxContenido.removeAllItems();
+                for (int i = 0; i < contenido.size(); i++) {
+                    jComboBoxContenido.addItem(contenido.get(i));
+                }
+                this.jTextFieldNitCliente.setText(datosPedido.get(5));
+                this.jTextFieldTiendaOrigen.setText(datosPedido.get(7));
+                this.jTextFieldEstadoPedido.setText(datosPedido.get(4));
             }
-            this.jTextFieldNitCliente.setText(datosPedido.get(5));
-            this.jTextFieldTiendaOrigen.setText(datosPedido.get(7));
-            this.jTextFieldEstadoPedido.setText(datosPedido.get(4));
+            else
+            {
+                JOptionPane.showMessageDialog(this, "El pedido que seleciono no llegara a esta tienda");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "No existe un pedido con este codigo");
+            limpiarCampos2();
         }
-        else
-        {
-            JOptionPane.showMessageDialog(this, "El pedido que seleciono no llegara a esta tienda");
-        }
+        
+        
+        
     }//GEN-LAST:event_jButtonBuscarPedidoActionPerformed
 
     private void jButtonETActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonETActionPerformed
@@ -463,78 +472,82 @@ public class EntregaProductoJDialog extends javax.swing.JDialog {
 
     private void jButtonBuscarPedidoRetiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarPedidoRetiroActionPerformed
         // TODO add your handling code here:
-        String codigoPedidoRetiro = jFormattedTextFieldCodigoPedidoRetiro.getText();
-        ArrayList<String> contenido = new ArrayList<String>();
-        contenido = consultaDB.estadoPedido(codigoPedidoRetiro,this.baseDeDatos.getConexion());
-        float anticipoIndividual = Float.parseFloat(contenido.get(2));
-        
-        int cantidad =this.consultaDB.contarPedidos(codigoPedidoRetiro,this.baseDeDatos.getConexion());
-        
-        float total = this.consultaDB.sumaTotalPedido(codigoPedidoRetiro,this.baseDeDatos.getConexion());
-        float anticipo = this.consultaDB.sumaAnticipoPedido(codigoPedidoRetiro,this.baseDeDatos.getConexion());
-        
-        float anticipoParaTransaccion=0;
-        
-        String codigoTienda = contenido.get(8);
-        
-        if(tiendaSeleccionada.equals(codigoTienda)){
-            
-            ArrayList<String> pedidos = new ArrayList<String>();
-            pedidos = consultaDB.productoDeUnPedido(codigoPedidoRetiro,this.baseDeDatos.getConexion());
-            
-            String estadoPaquete = contenido.get(4);
-            if(estadoPaquete.equals("entregado")){
-                JOptionPane.showMessageDialog(this, "Este paquete ya fue entregado");
+        try {
+            String codigoPedidoRetiro = jFormattedTextFieldCodigoPedidoRetiro.getText();
+            ArrayList<String> contenido = new ArrayList<String>();
+            contenido = consultaDB.estadoPedido(codigoPedidoRetiro,this.baseDeDatos.getConexion());
+            float anticipoIndividual = Float.parseFloat(contenido.get(2));
+
+            int cantidad =this.consultaDB.contarPedidos(codigoPedidoRetiro,this.baseDeDatos.getConexion());
+
+            float total = this.consultaDB.sumaTotalPedido(codigoPedidoRetiro,this.baseDeDatos.getConexion());
+            float anticipo = this.consultaDB.sumaAnticipoPedido(codigoPedidoRetiro,this.baseDeDatos.getConexion());
+
+            float anticipoParaTransaccion=0;
+
+            String codigoTienda = contenido.get(8);
+
+            if(tiendaSeleccionada.equals(codigoTienda)){
+
+                ArrayList<String> pedidos = new ArrayList<String>();
+                pedidos = consultaDB.productoDeUnPedido(codigoPedidoRetiro,this.baseDeDatos.getConexion());
+
+                String estadoPaquete = contenido.get(4);
+                if(estadoPaquete.equals("entregado")){
+                    JOptionPane.showMessageDialog(this, "Este paquete ya fue entregado");
+                }
+                else
+                {
+                    jComboBoxContenido1.removeAllItems();
+                    for (int i = 0; i < pedidos.size(); i++) {
+                        jComboBoxContenido1.addItem(pedidos.get(i));
+                    }
+
+                    try {
+                        if(anticipoIndividual==(anticipo/cantidad)){
+                            jTextFieldFaltante.setText(String.valueOf(total-(anticipo/cantidad)));
+                            anticipoParaTransaccion=anticipo/cantidad;
+                        }
+                        else
+                        {
+                            jTextFieldFaltante.setText(String.valueOf(total-(anticipo)));
+                            anticipoParaTransaccion=anticipo;
+                        }
+                } catch (Exception e) {
+                }
+
+                    String estadoPedido = contenido.get(4);
+                    jTextFieldEstadoAntesDeSalir.setText(estadoPedido);
+                    if(estadoPedido.equals("ET")){
+                        jButtonFinalizarVenta.setEnabled(false);
+                        jLabelDescripcionCodigo.setText("Pedido en transito");
+                    }
+                    if(estadoPedido.equals("T")){
+                        jButtonFinalizarVenta.setEnabled(true);
+                        jLabelDescripcionCodigo.setText("Ya puede retirar el pedido");
+                    }
+                    if(estadoPedido.equals("TR")){
+                        jButtonFinalizarVenta.setEnabled(true);
+                        jLabelDescripcionCodigo.setText("El pedido llego con retraso");
+                    if(anticipoParaTransaccion==total){
+                        jTextFieldBonificacionCliente.setText(String.valueOf(total*0.05));
+                    }
+                    else{
+                            jTextFieldBonificacionCliente.setText(String.valueOf(total*0.02));
+                    }
+                    }
+                        jTextFieldNit.setText(contenido.get(5));
+                        jTextFieldMontoDePago.setText(jTextFieldFaltante.getText());
+                    }
             }
             else
             {
-                jComboBoxContenido1.removeAllItems();
-                for (int i = 0; i < pedidos.size(); i++) {
-                    jComboBoxContenido1.addItem(pedidos.get(i));
-                }
-
-                try {
-                    if(anticipoIndividual==(anticipo/cantidad)){
-                        jTextFieldFaltante.setText(String.valueOf(total-(anticipo/cantidad)));
-                        anticipoParaTransaccion=anticipo/cantidad;
-                    }
-                    else
-                    {
-                        jTextFieldFaltante.setText(String.valueOf(total-(anticipo)));
-                        anticipoParaTransaccion=anticipo;
-                    }
-            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "El pedido no esta en esta tienda");
             }
-
-                String estadoPedido = contenido.get(4);
-                jTextFieldEstadoAntesDeSalir.setText(estadoPedido);
-                if(estadoPedido.equals("ET")){
-                    jButtonFinalizarVenta.setEnabled(false);
-                    jLabelDescripcionCodigo.setText("Pedido en transito");
-                }
-                if(estadoPedido.equals("T")){
-                    jButtonFinalizarVenta.setEnabled(true);
-                    jLabelDescripcionCodigo.setText("Ya puede retirar el pedido");
-                }
-                if(estadoPedido.equals("TR")){
-                    jButtonFinalizarVenta.setEnabled(true);
-                    jLabelDescripcionCodigo.setText("El pedido llego con retraso");
-                if(anticipoParaTransaccion==total){
-                    jTextFieldBonificacionCliente.setText(String.valueOf(total*0.05));
-                }
-                else{
-                        jTextFieldBonificacionCliente.setText(String.valueOf(total*0.02));
-                }
-                }
-                    jTextFieldNit.setText(contenido.get(5));
-                    jTextFieldMontoDePago.setText(jTextFieldFaltante.getText());
-                }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "No existe un pedido con este codigo");
+            limpiarCampos();
         }
-        else
-        {
-            JOptionPane.showMessageDialog(this, "El pedido no esta en esta tienda");
-        }
-        
     }//GEN-LAST:event_jButtonBuscarPedidoRetiroActionPerformed
 
     private void jButtonFinalizarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFinalizarVentaActionPerformed
@@ -565,6 +578,7 @@ public class EntregaProductoJDialog extends javax.swing.JDialog {
                 }
                 bonificacionCliente(pedidos.get(0).getCliente(), jTextFieldBonificacionCliente.getText());
                 JOptionPane.showMessageDialog(this, "La transaccion se ha completado");
+                limpiarCampos();
             }
             
         }
@@ -581,23 +595,28 @@ public class EntregaProductoJDialog extends javax.swing.JDialog {
     }
     private void jButtonLimpiarBusqueda1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarBusqueda1ActionPerformed
         // TODO add your handling code here:
+        limpiarCampos();
+    }//GEN-LAST:event_jButtonLimpiarBusqueda1ActionPerformed
+
+    private void jButtonLimpiarBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarBusquedaActionPerformed
+        // TODO add your handling code here:
+        limpiarCampos2();
+    }//GEN-LAST:event_jButtonLimpiarBusquedaActionPerformed
+    private void limpiarCampos2(){
+        jFormattedTextFieldCodigoPedido.setText("");
+        jTextFieldNitCliente.setText("");
+        jTextFieldTiendaOrigen.setText("");
+        jComboBoxContenido.removeAllItems();
+        jTextFieldEstadoPedido.setText("");
+    }
+    private void limpiarCampos(){
         jFormattedTextFieldCodigoPedidoRetiro.setText("");
         jTextFieldEstadoAntesDeSalir.setText("");
         jTextFieldFaltante.setText("0");
         jComboBoxContenido1.removeAllItems();
         jTextFieldNit.setText("");
         jTextFieldMontoDePago.setText("0");
-    }//GEN-LAST:event_jButtonLimpiarBusqueda1ActionPerformed
-
-    private void jButtonLimpiarBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarBusquedaActionPerformed
-        // TODO add your handling code here:
-        jFormattedTextFieldCodigoPedido.setText("");
-        jTextFieldNitCliente.setText("");
-        jTextFieldTiendaOrigen.setText("");
-        jComboBoxContenido.removeAllItems();
-        jTextFieldEstadoPedido.setText("");
-    }//GEN-LAST:event_jButtonLimpiarBusquedaActionPerformed
-    
+    }
     private void cambiarEstadoPaquete(String estadoNuevo){
         String estadoPaquete = this.jTextFieldEstadoPedido.getText();
         if(estadoPaquete.equals("entregado")){
