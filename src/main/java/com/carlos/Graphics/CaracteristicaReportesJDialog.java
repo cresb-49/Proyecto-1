@@ -11,8 +11,8 @@ import com.carlos.OuputDocs.*;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -36,7 +36,7 @@ public class CaracteristicaReportesJDialog extends javax.swing.JDialog {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("REPORTES DE TIENDA");
-        
+        this.deshabilitarCamposDeFecha(false);
     }
 
     /**
@@ -146,16 +146,36 @@ public class CaracteristicaReportesJDialog extends javax.swing.JDialog {
 
         buttonGroup1.add(jRadioButton3);
         jRadioButton3.setText("3. Listado de los pedidos que salieron de la tienda");
+        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton3ActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(jRadioButton2);
         jRadioButton2.setText("2. Listado pedidos atrazados que llegaran a la tienda");
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton2ActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(jRadioButton1);
         jRadioButton1.setSelected(true);
         jRadioButton1.setText("1. Listado de productos que llegaran a la tienda");
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(jRadioButton8);
         jRadioButton8.setText("8. Listado de productos que no se han vendido por tienda");
+        jRadioButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton8ActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(jRadioButton7);
         jRadioButton7.setText("7. Listado de los productos mas vendidos por tienda en un lapso de tiempo");
@@ -175,9 +195,19 @@ public class CaracteristicaReportesJDialog extends javax.swing.JDialog {
 
         buttonGroup1.add(jRadioButton5);
         jRadioButton5.setText("5. Pedidos de un cliente");
+        jRadioButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton5ActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(jRadioButton4);
         jRadioButton4.setText("4. Compras realizadas por un cliente");
+        jRadioButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -258,21 +288,115 @@ public class CaracteristicaReportesJDialog extends javax.swing.JDialog {
     private void jButtonRealizarreporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRealizarreporteActionPerformed
         // TODO add your handling code here:
         String confReporte = this.tipoReporte();
+        if(jComboBoxMesInferior.isEnabled()){
+            if(!verificacionDeFecha()){
+                int respuesta = JOptionPane.showConfirmDialog(this, "¿Configurara un rango de fecha para el reporte?");
+                if(respuesta==JOptionPane.NO_OPTION){
+                    this.deshabilitarCamposDeFecha(false);
+                    GeneracionDelArchivo(confReporte);
+                    this.deshabilitarCamposDeFecha(true);
+                }
+            }
+            else
+            {
+                GeneracionDelArchivo(confReporte);
+            }
+        }
+        else{
+            GeneracionDelArchivo(confReporte);
+        }
         
-        GeneracionDelArchivo(confReporte);
+        
     }//GEN-LAST:event_jButtonRealizarreporteActionPerformed
-
+    private boolean verificacionDeFecha(){
+        ///////////////////////////////////7
+        String añoSuperior = this.jComboBoxYearSuperior.getSelectedItem().toString();
+        String mesSuperior = this.jComboBoxMesSuperior.getSelectedItem().toString();
+        String diaSuperior = this.jComboBoxDiasSuperior.getSelectedItem().toString();
+        ////////////////////////////////////
+        String añoInferior = this.jComboBoxYearInferior.getSelectedItem().toString();
+        String mesInferior = this.jComboBoxMesInferior.getSelectedItem().toString();
+        String diaInferior = this.jComboBoxDiasInferior.getSelectedItem().toString();
+        
+        if(añoSuperior.equals("Año")||mesSuperior.equals("Mes")||diaSuperior.equals("Dia")){
+            JOptionPane.showMessageDialog(this, "La fecha superior no es valida");
+            return false;
+        }
+        else
+        {
+            if(añoInferior.equals("Año")||mesInferior.equals("Mes")||diaInferior.equals("Dia")){
+                JOptionPane.showMessageDialog(this, "La fecha superior no es valida");
+                return false;
+            }
+            else
+            {
+                try {
+                    SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+                    Date fecha1 = formatoFecha.parse(añoInferior+"-"+mesInferior+"-"+diaInferior);
+                    Date fecha2 = formatoFecha.parse(añoSuperior+"-"+mesSuperior+"-"+diaSuperior);
+                    
+                    if(fecha1.compareTo(fecha2)>0){
+                        JOptionPane.showMessageDialog(this, "La fecha inferior no corresponde");
+                        return false;
+                    }
+                    if(fecha1.compareTo(fecha2)==0){
+                        JOptionPane.showMessageDialog(this, "Fechas iguales");
+                        return false;
+                    }
+                    if(fecha1.compareTo(fecha2)<0){
+                        return true;
+                    }
+                    
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(this, ex.getMessage());
+                }
+            }
+        }
+        return false;
+    }
     private void jRadioButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton6ActionPerformed
         // TODO add your handling code here:
+        this.deshabilitarCamposDeFecha(true);
         JOptionPane.showMessageDialog(this, "Introduza un intervalo de tiempo si desea evaluar un tiempo determinado\n"
                 + "De lo contrario mostarara todas la ventas");
     }//GEN-LAST:event_jRadioButton6ActionPerformed
 
     private void jRadioButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton7ActionPerformed
         // TODO add your handling code here:
+        this.deshabilitarCamposDeFecha(true);
         JOptionPane.showMessageDialog(this, "Introduza un intervalo de tiempo si desea evaluar un tiempo determinado\n"
                 + "De lo contrario mostarara todas la ventas de la tienda");
     }//GEN-LAST:event_jRadioButton7ActionPerformed
+
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+        // TODO add your handling code here:
+        this.deshabilitarCamposDeFecha(false);
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+        // TODO add your handling code here:
+        this.deshabilitarCamposDeFecha(false);
+    }//GEN-LAST:event_jRadioButton2ActionPerformed
+
+    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
+        // TODO add your handling code here:
+        this.deshabilitarCamposDeFecha(false);
+    }//GEN-LAST:event_jRadioButton3ActionPerformed
+
+    private void jRadioButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton4ActionPerformed
+        // TODO add your handling code here:
+        this.deshabilitarCamposDeFecha(false);
+    }//GEN-LAST:event_jRadioButton4ActionPerformed
+
+    private void jRadioButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton5ActionPerformed
+        // TODO add your handling code here:
+        this.deshabilitarCamposDeFecha(false);
+    }//GEN-LAST:event_jRadioButton5ActionPerformed
+
+    private void jRadioButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton8ActionPerformed
+        // TODO add your handling code here:
+        this.deshabilitarCamposDeFecha(false);
+    }//GEN-LAST:event_jRadioButton8ActionPerformed
     private void GeneracionDelArchivo(String tipoReporte){
         
         JFileChooser ventanaDeGuardado = new JFileChooser();
@@ -308,8 +432,10 @@ public class CaracteristicaReportesJDialog extends javax.swing.JDialog {
                     GenerateHTML html = new GenerateHTML(guardado,this.baseDeDatos);
                     html.setCodigoTienda(this.codigoDeTiendaSeleccionada);
                     html.setNITcliente(this.nitClienteSelecionado);
-                    html.setTiempoSuperior("");
-                    html.setTimepoInferior("");
+                    String fechaInferior=jComboBoxYearInferior.getSelectedItem().toString()+"-"+jComboBoxMesInferior.getSelectedItem().toString()+"-"+jComboBoxDiasInferior.getSelectedItem().toString();
+                    String fechaSuperior=jComboBoxYearSuperior.getSelectedItem().toString()+"-"+jComboBoxMesSuperior.getSelectedItem().toString()+"-"+jComboBoxDiasSuperior.getSelectedItem().toString();
+                    html.setTiempoSuperior(fechaSuperior);
+                    html.setTimepoInferior(fechaInferior);
                     
                     html.Generate(tipoReporte);
                 }
@@ -322,6 +448,25 @@ public class CaracteristicaReportesJDialog extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, "Tipo de archivo no soportado exporte nuevamente la infomarmacion");
             }
         }
+    }
+    private void deshabilitarCamposDeFecha(boolean estado){
+        
+        if(!estado){
+            jComboBoxDiasInferior.setSelectedIndex(0);
+            jComboBoxDiasSuperior.setSelectedIndex(0);
+            jComboBoxMesInferior.setSelectedIndex(0);
+            jComboBoxMesSuperior.setSelectedIndex(0);
+            jComboBoxYearInferior.setSelectedIndex(0);
+            jComboBoxYearSuperior.setSelectedIndex(0);
+        }
+        ////////////////////////////////////////
+        jComboBoxYearInferior.setEnabled(estado);
+        jComboBoxMesInferior.setEnabled(estado);
+        jComboBoxDiasInferior.setEnabled(estado);
+        ////////////////////////////////////////
+        jComboBoxYearSuperior.setEnabled(estado);
+        jComboBoxMesSuperior.setEnabled(estado);
+        jComboBoxDiasSuperior.setEnabled(estado);
     }
     private String tipoReporte(){
         String tipoReporte = "";
@@ -341,7 +486,6 @@ public class CaracteristicaReportesJDialog extends javax.swing.JDialog {
         if(jRadioButton5.isSelected()){
             tipoReporte = "Listado_Pedidos_Cliente_";
             this.nitClienteSelecionado = JOptionPane.showInputDialog(this, "Ingrese el nit del cliente en el cual se basara el reporte");
-            
         }
         if(jRadioButton6.isSelected()){
             tipoReporte = "10_Productos_Mas_Vendidos";

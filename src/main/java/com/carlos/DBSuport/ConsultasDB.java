@@ -351,7 +351,7 @@ public class ConsultasDB {
     public int contarPedidos(String codigoPedido,Connection conexion){
         int contar=0;
         
-        String consulta="SELECT COUNT(*) FROM PEDIDO WHERE codigo = ?;";
+        String consulta="SELECT COUNT(*) FROM PEDIDO WHERE codigo = ?";
         
         try (PreparedStatement preSt = conexion.prepareStatement(consulta)) {
 	    preSt.setString(1,codigoPedido);
@@ -375,7 +375,7 @@ public class ConsultasDB {
     public ArrayList<String> datosPedido(String codigo,Connection conexion){
         ArrayList<String> datosProducto = new ArrayList<String>();
         
-        String consulta="SELECT anticipo,TIENDA_codigo_salida,TIENDA_codigo_llegada FROM PEDIDO  WHERE codigo = ? LIMIT 1;";
+        String consulta="SELECT anticipo,TIENDA_codigo_salida,TIENDA_codigo_llegada FROM PEDIDO  WHERE codigo = ? LIMIT 1";
         
         try (PreparedStatement preSt = conexion.prepareStatement(consulta)) {
 	    preSt.setString(1,codigo);
@@ -497,7 +497,7 @@ public class ConsultasDB {
     public ArrayList<String[]> pedidosSalidaReporte(String codigoTienda,Connection conexion){
         ArrayList<String[]> datosProducto = new ArrayList<String[]>();
         
-        String consulta="SELECT PEDIDO.codigo,CLIENTE.nombre,PEDIDO.CLIENTE_nit,PEDIDO.TIENDA_codigo_llegada FROM PEDIDO,CLIENTE WHERE PEDIDO.TIENDA_codigo_salida = ? AND PEDIDO.CLIENTE_nit = CLIENTE.nit AND PEDIDO.estado_pedido='ET';";
+        String consulta="SELECT PEDIDO.codigo,CLIENTE.nombre,PEDIDO.CLIENTE_nit,PEDIDO.TIENDA_codigo_llegada FROM PEDIDO,CLIENTE WHERE PEDIDO.TIENDA_codigo_salida = ? AND PEDIDO.CLIENTE_nit = CLIENTE.nit AND PEDIDO.estado_pedido='ET'";
         
         try (PreparedStatement preSt = conexion.prepareStatement(consulta)) {
 	    preSt.setString(1,codigoTienda);
@@ -543,7 +543,7 @@ public class ConsultasDB {
     public ArrayList<String[]> pedidosClienteReporte(String nitCliente,Connection conexion){
         ArrayList<String[]> pedidosCliente = new ArrayList<String[]>();
         
-        String consulta="SELECT codigo,PRODUCTO_codigo,cantidad,TIENDA_codigo_salida,TIENDA_codigo_llegada FROM PEDIDO WHERE CLIENTE_nit = ? AND estado_pedido != 'entregado';";
+        String consulta="SELECT codigo,PRODUCTO_codigo,cantidad,TIENDA_codigo_salida,TIENDA_codigo_llegada FROM PEDIDO WHERE CLIENTE_nit = ? AND estado_pedido != 'entregado'";
         
         try (PreparedStatement preSt = conexion.prepareStatement(consulta)) {
 	    preSt.setString(1,nitCliente);
@@ -557,5 +557,135 @@ public class ConsultasDB {
 	    System.out.println(e.getMessage());
 	}
         return pedidosCliente;
+    }
+    /**
+     * Retorna los 10 productos mas vendidos contando todas las tiendas
+     * @param conexion
+     * @return 
+     */
+    public ArrayList<String[]> diezProductosMasVendidos(Connection conexion){
+        ArrayList<String[]> productosMasVendidos = new ArrayList<String[]>();
+        
+        String consulta="SELECT PRODUCTO.codigo,PRODUCTO.nombre,PRODUCTO.fabricante FROM PRODUCTO WHERE codigo IN (SELECT PRODUCTO_codigo FROM VENTAS GROUP BY PRODUCTO_codigo ORDER BY count(PRODUCTO_codigo) DESC) LIMIT 10";
+        
+        try (PreparedStatement preSt = conexion.prepareStatement(consulta)) {
+            try(ResultSet result = preSt.executeQuery()){
+                while(result.next()){
+                productosMasVendidos.add(new String[]{result.getString(1),result.getString(2),result.getString(3)});
+	    }
+            }catch(Exception e){
+                
+            }
+	}catch(Exception e){
+	    System.out.println(e.getMessage());
+	}
+        return productosMasVendidos;
+    }
+    /**
+     * Retorna los 10 productos mas vendidos contando todas las tiendas en un intervalo de tiempo
+     * @param conexion
+     * @return 
+     */
+    public ArrayList<String[]> diezProductosMasVendidosIntervalo(String fechaInferior,String fechaSuperior,Connection conexion){
+        ArrayList<String[]> productosMasVendidos = new ArrayList<String[]>();
+        
+        String consulta="SELECT PRODUCTO.codigo,PRODUCTO.nombre,PRODUCTO.fabricante FROM PRODUCTO WHERE codigo IN (SELECT PRODUCTO_codigo FROM VENTAS WHERE fecha_venta BETWEEN ? AND ? GROUP BY PRODUCTO_codigo ORDER BY count(PRODUCTO_codigo) DESC) LIMIT 10";
+        
+        try (PreparedStatement preSt = conexion.prepareStatement(consulta)) {
+            preSt.setString(1,fechaInferior);
+            preSt.setString(2,fechaSuperior);
+            try(ResultSet result = preSt.executeQuery()){
+                while(result.next()){
+                productosMasVendidos.add(new String[]{result.getString(1),result.getString(2),result.getString(3)});
+	    }
+            }catch(Exception e){
+                
+            }
+	}catch(Exception e){
+	    System.out.println(e.getMessage());
+	}
+        return productosMasVendidos;
+    }
+    /**
+     * Retorna los prodcutos mas vendidos por la tienda en que se realizo el reporte
+     * @param codigoTienda
+     * @param conexion
+     * @return 
+     */
+    public ArrayList<String[]> ProductosMasVendidosTienda(String codigoTienda,Connection conexion){
+        ArrayList<String[]> productosMasVendidos = new ArrayList<String[]>();
+        
+        String consulta="SELECT PRODUCTO.codigo,PRODUCTO.nombre,PRODUCTO.fabricante FROM PRODUCTO WHERE codigo IN (SELECT PRODUCTO_codigo FROM VENTAS WHERE VENTAS.TIENDA_codigo = ? GROUP BY PRODUCTO_codigo ORDER BY count(PRODUCTO_codigo) DESC)";
+        
+        try (PreparedStatement preSt = conexion.prepareStatement(consulta)) {
+            preSt.setString(1,codigoTienda);
+            try(ResultSet result = preSt.executeQuery()){
+                while(result.next()){
+                productosMasVendidos.add(new String[]{result.getString(1),result.getString(2),result.getString(3)});
+	    }
+            }catch(Exception e){
+                
+            }
+	}catch(Exception e){
+	    System.out.println(e.getMessage());
+	}
+        return productosMasVendidos;
+    }
+    /**
+     * Retorna los productos mas vendidos en una tienda especifica y un rango de tiempo
+     * @param codigoTienda
+     * @param fechaInferior
+     * @param fechaSuperior
+     * @param conexion
+     * @return 
+     */
+     public ArrayList<String[]> ProductosMasVendidosTiendaIntervalo(String codigoTienda,String fechaInferior,String fechaSuperior,Connection conexion){
+        ArrayList<String[]> productosMasVendidos = new ArrayList<String[]>();
+        
+        String consulta="SELECT PRODUCTO.codigo,PRODUCTO.nombre,PRODUCTO.fabricante FROM PRODUCTO WHERE codigo IN (SELECT PRODUCTO_codigo FROM VENTAS WHERE VENTAS.TIENDA_codigo = ? AND fecha_venta BETWEEN ? AND ? GROUP BY PRODUCTO_codigo ORDER BY count(PRODUCTO_codigo) DESC)";
+        
+        try (PreparedStatement preSt = conexion.prepareStatement(consulta)) {
+            preSt.setString(1,codigoTienda);
+            preSt.setString(2,fechaInferior);
+            preSt.setString(3,fechaSuperior);
+            try(ResultSet result = preSt.executeQuery()){
+                while(result.next()){
+                productosMasVendidos.add(new String[]{result.getString(1),result.getString(2),result.getString(3)});
+	    }
+            }catch(Exception e){
+                
+            }
+	}catch(Exception e){
+	    System.out.println(e.getMessage());
+	}
+        return productosMasVendidos;
+    }
+     /**
+      * Retorna los productos que nunca se han vendido segun la tienda que se seleccione
+      * @param codigoTienda
+      * @param fechaInferior
+      * @param fechaSuperior
+      * @param conexion
+      * @return 
+      */
+     public ArrayList<String[]> productosNoVendidosPorTienda(String codigoTienda,Connection conexion){
+        ArrayList<String[]> productoNoVendidos = new ArrayList<String[]>();
+        
+        String consulta="SELECT PRODUCTO.codigo,PRODUCTO.nombre,PRODUCTO.fabricante FROM PRODUCTO WHERE codigo IN (SELECT PRODUCTO_codigo FROM EXISTENCIA WHERE ((SELECT COUNT(*) FROM VENTAS WHERE VENTAS.TIENDA_codigo = ? AND VENTAS.PRODUCTO_codigo = EXISTENCIA.PRODUCTO_codigo) = 0) AND EXISTENCIA.TIENDA_codigo= ? )";
+        
+        try (PreparedStatement preSt = conexion.prepareStatement(consulta)) {
+            preSt.setString(1,codigoTienda);
+            preSt.setString(2,codigoTienda);
+            try(ResultSet result = preSt.executeQuery()){
+                while(result.next()){
+                productoNoVendidos.add(new String[]{result.getString(1),result.getString(2),result.getString(3)});
+	    }
+            }catch(Exception e){
+                
+            }
+	}catch(Exception e){
+	    System.out.println(e.getMessage());
+	}
+        return productoNoVendidos;
     }
 }
