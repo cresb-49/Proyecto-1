@@ -5,6 +5,7 @@ import com.carlos.Entities.*;
 
 
 public class RegistroDB {
+    private ConsultasDB consDB = new ConsultasDB();
     /**
      * CONSTRUCTOR VACIO DE LA CLASE DE REGISTRO EN BASE DE DATOS
      */
@@ -83,6 +84,7 @@ public class RegistroDB {
             preSt.executeUpdate();
             preSt.close();
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             errores=e.getMessage();
         }
         return errores;
@@ -172,15 +174,20 @@ public class RegistroDB {
         codeProducto = producto.getCode();
         cantidad = producto.getCantidad();
         tienda = producto.getTienda();
-        try(PreparedStatement preSt = conexion.prepareStatement(query)) {
-            preSt.setString(1,tienda);
-            preSt.setString(2,codeProducto);
-            preSt.setInt(3,cantidad);
-            preSt.executeUpdate();
-            
-            preSt.close();
-        } catch (Exception e) {
-            errores=e.getMessage();
+        if(this.consDB.datosExistenciaProducto(codeProducto,tienda,conexion).equals("")){
+            try(PreparedStatement preSt = conexion.prepareStatement(query)) {
+                preSt.setString(1,tienda);
+                preSt.setString(2,codeProducto);
+                preSt.setInt(3,cantidad);
+                preSt.executeUpdate();
+
+                preSt.close();
+            } catch (Exception e) {
+                errores=e.getMessage();
+            }
+        }
+        else{
+            errores = "Referencias de producto ya registradas";
         }
         return errores;
     }

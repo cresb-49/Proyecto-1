@@ -19,8 +19,8 @@ public class InputText {
     private ArrayList<String> erroresDeDatos = new ArrayList<String>();
     private RegistroDB resistrarElemento = new RegistroDB();
     private Connection baseDeDatos;
-    public InputText (){
-
+    public InputText (Connection conexionBaseDatos){
+        this.baseDeDatos=conexionBaseDatos;
     }
     /**
      * Ingreso de los datos existentes en una base de datos
@@ -271,7 +271,7 @@ public class InputText {
 
                                         String respuesta2 = this.resistrarElemento.registroExistencia(registroProducto,this.baseDeDatos);
                                         if(!(respuesta2.equals(""))){
-                                            String mensaje = "--Linea "+(i+1)+" "+respuesta;            
+                                            String mensaje = "-Linea "+(i+1)+" "+respuesta2;            
                                             erroresDeDatos.add(mensaje);
                                         }
                                     }

@@ -190,6 +190,31 @@ public class ConsultasDB {
         return cliente;
     }
     /**
+     * Verifica si ya existe un registro con una configuracion dada
+     * @param codigoTienda
+     * @param codigoProducto
+     * @param conexion
+     * @return 
+     */
+    public boolean consultarExistencia(String codigoTienda,String codigoProducto,Connection conexion){
+        boolean respuesta = false;
+        String consulta ="SELECT id FROM EXISTENCIA WHERE TIENDA_codigo = ? AND PRODUCTO_codigo = ?";
+        try(PreparedStatement preSt = conexion.prepareStatement(consulta)) {
+            preSt.setString(1, codigoTienda);
+            preSt.setString(2, codigoProducto);
+            try(ResultSet result = preSt.executeQuery()) {
+                while (result.next()) {                    
+                    respuesta = true;
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return respuesta;
+    }
+    /**
      * Retorna el tiempo entre las tiendas segun el codigo de tienda ingrasados
      * @param codigoTienda1
      * @param codigoTienda2
@@ -202,13 +227,15 @@ public class ConsultasDB {
         try (PreparedStatement preSt = conexion.prepareStatement(consulta)) {
 	    preSt.setString(1,codigoTienda1);
             preSt.setString(2,codigoTienda2);
-	    ResultSet result = preSt.executeQuery();
-	    while(result.next()){
-                tiempo.add(result.getString(1));
-                tiempo.add(result.getString(2));
-	    }
-	    result.close();
-	    preSt.close();
+            try (ResultSet result = preSt.executeQuery()){
+                while(result.next()){
+                    tiempo.add(result.getString(1));
+                    tiempo.add(result.getString(2));
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+	    
 	}catch(Exception e){
 	    System.out.println(e.getMessage());
 	}
@@ -242,7 +269,7 @@ public class ConsultasDB {
         return datosProducto;
     }
     /**
-     * Retorna los datos de existencia de un producto
+     * Retorna el valor de existencia del producto en String
      * @param codigo
      * @param codigoTienda
      * @return 

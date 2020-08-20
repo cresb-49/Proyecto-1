@@ -189,7 +189,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
             File ficheroSeleccionado = cargaDeDatos.getSelectedFile();
             //si el fichero es aceptado entonces se hacen las instruccuiones de carga
             if (ficheroSeleccionado.getName().endsWith("txt")){
-                InputText entradaDeInformacion = new InputText();
+                InputText entradaDeInformacion = new InputText(this.conexionPrincipal.getConexion());
                 entradaDeInformacion.LecturaEIngreso(ficheroSeleccionado);
                 //se muestran los errores de carga y donde sucedieron los mismos
                 if(entradaDeInformacion.getErroresDeDatos().size()>0)
