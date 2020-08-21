@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS TIENDA(
     email VARCHAR(20),
     horario VARCHAR(100),
     PRIMARY KEY (codigo),
-    UNIQUE (codigo)
+    UNIQUE (codigo,nombre)
 );
 
 CREATE TABLE IF NOT EXISTS CLIENTE (
