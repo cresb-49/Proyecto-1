@@ -15,7 +15,7 @@ public class ConexionDB {
     // Puerto
     private String port = "3306";
     // Ruta de nuestra base de datos (desactivamos el uso de SSL con "?useSSL=false")
-    private String url = "jdbc:mysql://" + hostname + ":" + port + "/" + database + "?useSSL=false";
+    private String url = "jdbc:mysql://" + hostname + ":" + port + "/" + database + "?useSSL=false&&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     // Nombre de usuario
     private String username = "carlospac";
     // Clave de usuario
