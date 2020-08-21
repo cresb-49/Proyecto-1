@@ -25,6 +25,16 @@
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>5.1.49</version>
+    </dependency>
+    <dependency>
+      <groupId>com.toedter</groupId>
+      <artifactId>jcalendar</artifactId>
+      <version>1.4</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -63,7 +73,7 @@
                     <archive>
                         <manifest>
                             //Aqui se establece el nombre de la clase principal
-                            <mainClass>com.carlos.Main</mainClass>
+                            <mainClass>com.carlos.App.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -122,4 +132,11 @@
       </plugins>
     </pluginManagement>
   </build>
+    <repositories>
+        <repository>
+            <id>unknown-jars-temp-repo</id>
+            <name>A temporary repository created by NetBeans for libraries and jars it could not identify. Please replace the dependencies in this repository with correct ones and delete this repository.</name>
+            <url>file:${project.basedir}/lib</url>
+        </repository>
+    </repositories>
 </project>
