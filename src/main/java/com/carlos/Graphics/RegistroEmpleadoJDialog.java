@@ -338,6 +338,9 @@ public class RegistroEmpleadoJDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
         this.limpiezaDeCampos();
     }//GEN-LAST:event_jButtonLimpiarActionPerformed
+    /**
+     * Elimina el texto que se encuentra en las entrdas de texto
+     */
     private void limpiezaDeCampos(){
          //----------------------------------------------
         this.jFormattedTextFieldCodigo.setEditable(true);
@@ -433,6 +436,9 @@ public class RegistroEmpleadoJDialog extends javax.swing.JDialog {
             jFormattedTextFieldDireccion.setText(datosCliente.get(5));
         }
     }//GEN-LAST:event_jTableEmpleadosMouseClicked
+    /**
+     * Lsita los empleados en la tabla que se encuntra en la tabla de interfaz
+     */
     private void listarDatos(){
         DefaultTableModel modeloDeTabla;
         String modoListado = this.jComboBoxTipoBusqueda.getSelectedItem().toString();

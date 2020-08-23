@@ -508,7 +508,9 @@ public class VentaJDialog extends javax.swing.JDialog {
         
         
     }//GEN-LAST:event_jButtonIngresarActionPerformed
-
+    /**
+     * Transaccion normal de un producto
+     */
     private void transaccionNormal(){
         float creditoCliente=0;
         float pagoEfectivo =0;
@@ -585,6 +587,9 @@ public class VentaJDialog extends javax.swing.JDialog {
         jFormattedTextFieldPagoEfectivo.setText("0.00");
         jFormattedTextFieldUsoCredito.setEnabled(false);
     }
+    /**
+     * Realiza el descuento de existencia del producto comprado segun el codigo de tienda
+     */
     private void transaccionesDeInventario(){
         for (int i = 0; i < this.ventasAcumuladas.size(); i++) {
             
@@ -599,12 +604,18 @@ public class VentaJDialog extends javax.swing.JDialog {
             this.registro.registroVenta(ventasAcumuladas.get(i),this.baseDeDatos);
         }
     }
+    /**
+     * Actualiza el credito del liente si fue utilizado
+     */
     private void actualizacionDeCliente(){
         float creditoUsado = Float.valueOf(this.jFormattedTextFieldUsoCredito.getText());
         float creditoOriginal = Float.valueOf(this.consulta.datosCliente(this.jFormattedTextFieldNIT.getText(),this.baseDeDatos).get(2));
         float nuevoCredito = creditoOriginal-creditoUsado;
         this.modificacion.modificarCreditoCliente(this.jFormattedTextFieldNIT.getText(), String.valueOf(nuevoCredito),this.baseDeDatos);
     }
+    /**
+     * Limpia los campos de texto en la entrda garfica
+     */
     private void limpiezaFormulario(){
         jFormattedTextFieldCodigoProducto.setText("");
         jFormattedTextFieldNombreProducto.setText("");

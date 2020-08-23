@@ -32,7 +32,10 @@ public class RegistroTiendaJDialog extends javax.swing.JDialog {
         listarDatos();
         this.jTextFieldCampoDeBusqueda.setEditable(false);
     }
-     private void PropiedadesDeEntidades(){
+    /**
+     * Asgina caracteristicas a ciertos elemntos graficos
+     */
+    private void PropiedadesDeEntidades(){
         this.setLocationRelativeTo(null);
         this.setTitle("REGISTRO DE TIENDA");
         
@@ -558,7 +561,6 @@ public class RegistroTiendaJDialog extends javax.swing.JDialog {
         nombre = this.jFormattedTextFieldNombre.getText();
         direcccion =  this.jFormattedTextFieldDireccion.getText();
         codigo = this.jFormattedTextFieldCodigo.getText();
-        System.out.println(codigo);
         try {
             if(this.jFormattedTextFieldPhone1.getText().length()==8)
             {
@@ -642,6 +644,9 @@ public class RegistroTiendaJDialog extends javax.swing.JDialog {
     private void jButtonModificarTiempoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarTiempoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonModificarTiempoActionPerformed
+    /**
+     * Procedimiento para tiempos entre tiendas
+     */
     private void tiempoTiendas(){
         
         try {
@@ -658,6 +663,9 @@ public class RegistroTiendaJDialog extends javax.swing.JDialog {
         }
         
     }
+    /**
+     * Lista las tiendas registradas en la tabla de intefaz
+     */
     private void listarDatos(){
         
         DefaultTableModel modeloDeTabla;

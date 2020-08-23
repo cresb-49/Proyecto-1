@@ -508,7 +508,9 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
             jFormattedTextFieldDirecion.setText(datosCliente.get(5));
         }
     }//GEN-LAST:event_jTableClientesMouseClicked
-
+    /**
+     * Lsita los datos de los productos en la tabla que se encuentra en la aplicacion de ususario
+     */
     private void listarDatos(){
         DefaultTableModel modeloDeTabla;
         String modoListado = this.jComboBoxTipoBusqueda.getSelectedItem().toString();
