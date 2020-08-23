@@ -19,7 +19,9 @@ public class LogInFrame extends javax.swing.JFrame {
     private Connection baseDeDatos;
     private PrincipalFrame principal;
     /**
-     * Creates new form LogInFrame
+     * Formulario de acceso al software en el cual se hace el filtro de empleados y clientes
+     * @param principal
+     * @param conexionBaseDeDatos
      */
     public LogInFrame(PrincipalFrame principal,Connection conexionBaseDeDatos) {
         super("Iniciar Sesion");

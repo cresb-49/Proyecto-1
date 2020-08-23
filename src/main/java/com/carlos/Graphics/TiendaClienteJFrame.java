@@ -15,7 +15,9 @@ public class TiendaClienteJFrame extends javax.swing.JFrame {
     private Connection baseDeDatos;
     private String tienda;
     /**
-     * Creates new form TiendaClienteJFrame
+     * Espacio de acceso al usuario en el cual puede visualizar solo, rastreo de pedidos y el catalogo de todos los productos
+     * @param tienda
+     * @param conexionBaseDatos
      */
     public TiendaClienteJFrame(String tienda,Connection conexionBaseDatos) {
         super("Mi Empresa "+tienda);

@@ -22,7 +22,11 @@ public class RegistroTiendaJDialog extends javax.swing.JDialog {
      //Conexion a base de datos
     private Connection baseDeDatos;
     /**
-     * Creates new form RegistroTienda
+     * Registro y modificacion de las tiendas y lista de las tienda ya registradas en la base de datos
+     * @param parent
+     * @param modal
+     * @param tienda
+     * @param conexionBaseDatos
      */
     public RegistroTiendaJDialog(java.awt.Frame parent, boolean modal,String tienda,Connection conexionBaseDatos) {
         super(parent, modal);

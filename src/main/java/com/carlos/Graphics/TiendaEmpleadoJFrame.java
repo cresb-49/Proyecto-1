@@ -19,7 +19,9 @@ public class TiendaEmpleadoJFrame extends javax.swing.JFrame {
     private Connection baseDeDatos;
     private String tienda;
     /**
-     * Creates new form TiendaEmpleadoJFrame
+     * Espacio de software en el cual solo pueden acceder los empleados y tienen a sus dispocicion el registro y modificacion de infromacion y exprtacion de reportes y lo refereido a pedidos
+     * @param tienda
+     * @param conexionBaseDatos
      */
     public TiendaEmpleadoJFrame(String tienda,Connection conexionBaseDatos) {
         super("Mi Empresa "+tienda);

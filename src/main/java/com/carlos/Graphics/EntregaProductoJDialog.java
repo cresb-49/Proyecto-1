@@ -21,6 +21,13 @@ public class EntregaProductoJDialog extends javax.swing.JDialog {
     private ModificacionesDB modificarDB = new ModificacionesDB();
     private RegistroDB registrarEnDB = new RegistroDB();
     private Connection baseDeDatos;
+    /**
+     * Formulario en el cual se ingresan datos de pedidos para su entrega posteriormente realizar su transaccion venta y registro en el sistema
+     * @param parent
+     * @param modal
+     * @param tienda
+     * @param conexionBaseDatos
+     */
     public EntregaProductoJDialog(java.awt.Frame parent, boolean modal,String tienda,Connection conexionBaseDatos) {
         super(parent, modal);
         this.baseDeDatos=conexionBaseDatos;

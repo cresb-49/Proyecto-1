@@ -24,7 +24,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
     //True significa que la base de datos no tiene datos y false es que ya contiene datos en su interior
 
     /**
-     * Creates new form PrincipalFrame
+     * Pagina de inicio del software
      */
     public PrincipalFrame(String titulo) {
         super(titulo);

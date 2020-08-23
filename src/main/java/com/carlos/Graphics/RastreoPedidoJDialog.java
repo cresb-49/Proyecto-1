@@ -17,7 +17,10 @@ import java.util.ArrayList;
 public class RastreoPedidoJDialog extends javax.swing.JDialog {
     private Connection baseDeDatos;
     /**
-     * Creates new form RastreoPedidoJDialog
+     * Formulario apartado para el rastreo e informacion de un pedido mediante codigo de pedido del mismo
+     * @param parent
+     * @param modal
+     * @param conexionBaseDatos
      */
     public RastreoPedidoJDialog(java.awt.Frame parent, boolean modal,Connection conexionBaseDatos) {
         super(parent, modal);

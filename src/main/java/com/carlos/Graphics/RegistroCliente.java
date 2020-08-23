@@ -17,10 +17,13 @@ import java.sql.Connection;
  */
 public class RegistroCliente extends javax.swing.JFrame {
     private Connection baseDeDatos;
-    /**
-     * Creates new form RegistroCliente
-     */
+    
     private PrincipalFrame principal;
+    /**
+     * Formulario para el registro para nuevos clientes desde la pestaña principal
+     * @param principal
+     * @param conexionBaseDeDatos
+     */
     public RegistroCliente(PrincipalFrame principal,Connection conexionBaseDeDatos) {
         super("Registro");
         this. baseDeDatos = conexionBaseDeDatos;

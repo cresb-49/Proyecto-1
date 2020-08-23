@@ -28,7 +28,11 @@ public class VentaJDialog extends javax.swing.JDialog {
     private DefaultTableModel modeloDeTabla = new DefaultTableModel();
     private ArrayList<Ventas> ventasAcumuladas = new ArrayList<Ventas>();
     /**
-     * Creates new form VentaJDialog
+     * Formulario mediante el cual se hacen la ventas de productos del ctaalogo de la empresa
+     * @param parent
+     * @param modal
+     * @param tiendaSleccionada
+     * @param conexionBaseDatos
      */
     public VentaJDialog(java.awt.Frame parent, boolean modal,String tiendaSleccionada,Connection conexionBaseDatos) {
         super(parent, modal);

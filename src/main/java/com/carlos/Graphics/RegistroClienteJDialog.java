@@ -22,7 +22,10 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
     private Connection baseDeDatos;
     
     /**
-     * Creates new form RegistroClienteJDialog
+     * Formulario para registro y modificacion de infromacion de clientes, asi una lista de todos los clientes registrados en el sistema
+     * @param parent
+     * @param modal
+     * @param conexionBaseDatos
      */
     public RegistroClienteJDialog(java.awt.Frame parent, boolean modal,Connection conexionBaseDatos) {
         super(parent, modal);

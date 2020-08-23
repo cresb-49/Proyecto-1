@@ -28,7 +28,11 @@ public class RealizarPedidoJDialog extends javax.swing.JDialog {
     private String codigoTiendaConSeccion;
     private ModificacionesDB modificarDatos = new ModificacionesDB();
     /**
-     * Creates new form RealizarPedidoJDialog
+     * Formaulario en el cual se hace un pedido introduciendo los datos de lo que se quiere solicitar
+     * @param parent
+     * @param modal
+     * @param nombreTienda
+     * @param conexionBaseDatos
      */
     public RealizarPedidoJDialog(java.awt.Frame parent, boolean modal,String nombreTienda,Connection conexionBaseDatos) {
         super(parent, modal);

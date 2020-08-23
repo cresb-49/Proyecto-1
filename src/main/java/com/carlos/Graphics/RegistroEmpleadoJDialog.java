@@ -26,7 +26,10 @@ public class RegistroEmpleadoJDialog extends javax.swing.JDialog {
     //Variables de base de datos
     private Connection baseDeDatos ;
     /**
-     * Creates new form RegistroEmpleadoJDialog
+     * Formulario para registro y modificacion de los empleados, y lista de los empleados ya encontrados en la base de datos del sistema
+     * @param parent
+     * @param modal
+     * @param conexionBaseDatos
      */
     public RegistroEmpleadoJDialog(java.awt.Frame parent, boolean modal,Connection conexionBaseDatos) {
         super(parent, modal);

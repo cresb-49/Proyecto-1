@@ -16,7 +16,10 @@ import javax.swing.DefaultListModel;
 public class VisualizadorDeErroresJDialog extends javax.swing.JDialog {
     private ArrayList<String> erroresDeDatos;
     /**
-     * Creates new form VisualizadorDeErroresJDialog
+     * Formulario en el cual se muestran los errores de cargar del archivo de informacion para la base de datos del producto
+     * @param parent
+     * @param modal
+     * @param erroresDeDatos
      */
     public VisualizadorDeErroresJDialog(java.awt.Frame parent, boolean modal,ArrayList<String> erroresDeDatos) {
         super(parent, modal);

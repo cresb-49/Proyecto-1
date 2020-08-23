@@ -18,7 +18,10 @@ public class CatalogoJDialog extends javax.swing.JDialog {
     //Conexion a base de datos
     private Connection baseDeDatos;
     /**
-     * Creates new form CatalogoJDialog
+     * Genera una ventana en la cual por medio de una tablas y por metodo de ordenamiento de base de datos podemos visualizar todo el catalogo de productos
+     * @param parent
+     * @param modal
+     * @param conexionBaseDatos
      */
     public CatalogoJDialog(java.awt.Frame parent, boolean modal,Connection conexionBaseDatos) {
         super(parent, modal);

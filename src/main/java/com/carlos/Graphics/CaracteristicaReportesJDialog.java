@@ -27,7 +27,11 @@ public class CaracteristicaReportesJDialog extends javax.swing.JDialog {
     private String codigoDeTiendaSeleccionada;
     private String nitClienteSelecionado;
     /**
-     * Creates new form CaracteristicaReportesJDialog
+     * Configura los reportes y adjunta la infomacion que ingresa el usuario para luego exportarlos por medio de HTML
+     * @param parent
+     * @param modal
+     * @param tienda
+     * @param conexionBaseDatos
      */
     public CaracteristicaReportesJDialog(java.awt.Frame parent, boolean modal,String tienda,Connection conexionBaseDatos) {
         super(parent, modal);
