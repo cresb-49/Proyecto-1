@@ -308,6 +308,10 @@ public class CaracteristicaReportesJDialog extends javax.swing.JDialog {
         
         
     }//GEN-LAST:event_jButtonRealizarreporteActionPerformed
+    /**
+     * Se Realiza la verificacion de la fecha ingresada
+     * @return
+     */
     private boolean verificacionDeFecha(){
         ///////////////////////////////////7
         String añoSuperior = this.jComboBoxYearSuperior.getSelectedItem().toString();
@@ -397,6 +401,10 @@ public class CaracteristicaReportesJDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
         this.deshabilitarCamposDeFecha(false);
     }//GEN-LAST:event_jRadioButton8ActionPerformed
+    /**
+     * Recopilacion de la informacion para realizar los informes del sistema
+     * @param tipoReporte
+     */
     private void GeneracionDelArchivo(String tipoReporte){
         
         JFileChooser ventanaDeGuardado = new JFileChooser();
@@ -449,6 +457,10 @@ public class CaracteristicaReportesJDialog extends javax.swing.JDialog {
             }
         }
     }
+    /**
+     * Deshabilita los campos de seleccion de fecha cuando no es nesesario
+     * @param estado
+     */
     private void deshabilitarCamposDeFecha(boolean estado){
         
         if(!estado){
@@ -468,6 +480,10 @@ public class CaracteristicaReportesJDialog extends javax.swing.JDialog {
         jComboBoxMesSuperior.setEnabled(estado);
         jComboBoxDiasSuperior.setEnabled(estado);
     }
+    /**
+     * Asigna el tipo de reporte seleccionado a nivel grafico
+     * @return
+     */
     private String tipoReporte(){
         String tipoReporte = "";
         if(jRadioButton1.isSelected()){

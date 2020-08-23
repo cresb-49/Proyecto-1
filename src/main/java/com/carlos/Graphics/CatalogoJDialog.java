@@ -29,6 +29,9 @@ public class CatalogoJDialog extends javax.swing.JDialog {
         ListarDatos();
         jFormattedTextFieldBusqeuda.setEditable(false);
     }
+    /**
+     * Recupera la informacion a nivel visual y genera la orden para la pedida de informacion
+     */
     private void ListarDatos(){
         DefaultTableModel modeloDeTabla;
         
@@ -101,26 +104,6 @@ public class CatalogoJDialog extends javax.swing.JDialog {
         }catch(Exception e){
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
-        /*try {
-            cn=con.getConexion();
-            st=cn.createStatement();
-            rs = st.executeQuery(sentencia+like+orden+asenDes);
-            Object[] cliente = new Object[6];
-            modeloDeTabla = (DefaultTableModel)jTableCatalogo.getModel();
-            modeloDeTabla.setNumRows(0);
-            while (rs.next()){
-                cliente[0]=rs.getString(1);
-                cliente[1]=rs.getString(2);
-                cliente[2]=rs.getString(3);
-                cliente[3]=rs.getString(4);
-                cliente[4]=rs.getString(5);
-                cliente[5]=rs.getString(6);
-                modeloDeTabla.addRow(cliente);
-                
-            }
-        }catch(Exception e){
-            
-        }*/
     }
 
     /**

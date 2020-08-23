@@ -388,6 +388,9 @@ public class RegistrarProductoJDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
         limpiezaCampos();
     }//GEN-LAST:event_jButtonLimpiarActionPerformed
+    /**
+     * Limpiar los campos de introduccion de datos
+     */
     private void limpiezaCampos(){
         this.jFormattedTextFieldNombre.setText(null);
         this.jFormattedTextFieldFabricante.setText(null);
@@ -400,6 +403,9 @@ public class RegistrarProductoJDialog extends javax.swing.JDialog {
         this.jFormattedTextFieldCodigo.setEditable(true);
         //------------------------------------------------
     }
+    /**
+     * Busqueda segun el codigo
+     */
     private void buscarDatos(){
         String codigo = this.jFormattedTextFieldCodigo.getText();
         this.jFormattedTextFieldCodigo.setEditable(false);
@@ -503,6 +509,9 @@ public class RegistrarProductoJDialog extends javax.swing.JDialog {
             jComboBoxTiendas.setSelectedItem(codigoTienda);
         }
     }//GEN-LAST:event_jTableProductosMouseClicked
+    /**
+     * Lista los codigos de tienda
+     */
     private void listarTiendas(){
         ConsultasDB consutaTiendas = new ConsultasDB();
         ArrayList<String> tiendas = new ArrayList<String>();
@@ -512,6 +521,9 @@ public class RegistrarProductoJDialog extends javax.swing.JDialog {
                 jComboBoxTiendas.addItem(tiendas.get(i));
             }
     }
+    /**
+     * Forma es que se listan los datos de la tabla de los productos
+     */
     private void listarDatos(){
         
         DefaultTableModel modeloDeTabla;

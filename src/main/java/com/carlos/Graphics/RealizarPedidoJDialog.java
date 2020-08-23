@@ -476,6 +476,9 @@ public class RealizarPedidoJDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "No a seleccionado ningun producto\nNo se realizara la transaccion");
         }
     }//GEN-LAST:event_jButtonRealizarTransaccionActionPerformed
+    /**
+     * Realiza la creacion del objeto pedido y lo introduce en la base de datos
+     */
     private void ejecutarPedido(){
         String year = jComboBoxYear.getSelectedItem().toString();
         String mes = jComboBoxMes.getSelectedItem().toString();
@@ -512,6 +515,9 @@ public class RealizarPedidoJDialog extends javax.swing.JDialog {
             
         }
     }
+    /**
+     * Descuenta las existencia pedidadas de un producto en la tienda que lo expende
+     */
     private void descontarTienda(){
         int cantidadVendida = Integer.valueOf(jComboBoxUnidadeComprar.getSelectedItem().toString());
         int cantidadOriginarl = Integer.valueOf(jFormattedTextFieldExistenciaDelProducto.getText());
@@ -521,6 +527,9 @@ public class RealizarPedidoJDialog extends javax.swing.JDialog {
         Product productoModificar = new Product("", "", codigoProducto, nuevaCantidad, 0, "", 0, codigoTienda);
         this.modificarDatos.modificarExistencia(productoModificar,this.baseDeDatos);
     }
+    /**
+     * Descuenta la cantidad de credito del cliente si tuviera
+     */
     private void descontarCliente(){
         String nitCliente = jFormattedTextFieldNIT.getText();
         float creditoDiponible = Float.valueOf(jFormattedTextFieldCreditoDisponible.getText());
@@ -592,7 +601,9 @@ public class RealizarPedidoJDialog extends javax.swing.JDialog {
         }
         
     }//GEN-LAST:event_jButtonBuscarProductoActionPerformed
-    
+    /**
+     * Realiza los calculos del costo mediante la cantidad y el precio
+     */
     private void calculosDeCosto(){
         try{
         double precioProducto = Double.valueOf(jFormattedTextFieldPrecioDelProducto.getText());
@@ -638,7 +649,9 @@ public class RealizarPedidoJDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
         calculosDeCosto();
     }//GEN-LAST:event_jComboBoxUnidadeComprarItemStateChanged
-
+    /**
+     * Lista los codigos de tiendas que se encuentran en la base de datos
+     */
     private void listarTiendas(){
         ArrayList<String> tiendas = new ArrayList<String>();
         tiendas = consultas.codigosDeTiendas(this.baseDeDatos);

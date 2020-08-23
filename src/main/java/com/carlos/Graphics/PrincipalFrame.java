@@ -143,7 +143,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
     }
 
     /**
-     * 
+     * Permite el acceso al usuario al sistema
      * @param token
      */
     public void AccesoDeUsuario(boolean token){

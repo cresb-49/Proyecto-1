@@ -585,6 +585,11 @@ public class EntregaProductoJDialog extends javax.swing.JDialog {
             
         }
     }//GEN-LAST:event_jButtonFinalizarVentaActionPerformed
+    /**
+     * Calcula la bonificacion si un paquete llegar tarde a la tienda y lo recoje el cliente asgignado
+     * @param nit
+     * @param bonificacion
+     */
     private void bonificacionCliente(String nit,String bonificacion){
         float bono =0;
         try {
@@ -604,6 +609,9 @@ public class EntregaProductoJDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
         limpiarCampos2();
     }//GEN-LAST:event_jButtonLimpiarBusquedaActionPerformed
+    /**
+     * Elimina el texo de los campos de entrada
+     */
     private void limpiarCampos2(){
         jFormattedTextFieldCodigoPedido.setText("");
         jTextFieldNitCliente.setText("");
@@ -611,6 +619,9 @@ public class EntregaProductoJDialog extends javax.swing.JDialog {
         jComboBoxContenido.removeAllItems();
         jTextFieldEstadoPedido.setText("");
     }
+    /**
+     * Elimina el texto de los campos de entrada
+     */
     private void limpiarCampos(){
         jFormattedTextFieldCodigoPedidoRetiro.setText("");
         jTextFieldEstadoAntesDeSalir.setText("");
@@ -619,6 +630,9 @@ public class EntregaProductoJDialog extends javax.swing.JDialog {
         jTextFieldNit.setText("");
         jTextFieldMontoDePago.setText("0");
     }
+    /**
+     * Cambia el estado de los paquetes en el traslado de tiendas
+     */
     private void cambiarEstadoPaquete(String estadoNuevo){
         String estadoPaquete = this.jTextFieldEstadoPedido.getText();
         if(estadoPaquete.equals("entregado")){

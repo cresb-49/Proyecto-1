@@ -304,13 +304,18 @@ public class RegistroCliente extends javax.swing.JFrame {
         // TODO add your handling code here:
         limpiar();
     }//GEN-LAST:event_jButtonLimpiarCasillasActionPerformed
-
+    /**
+     * Parametros del algunos componentes
+     */
     private void ProfileComponents(){
         //this.setBounds(0,0,754, 450);
         ImageIcon imagen = new ImageIcon(getClass().getClassLoader().getResource("blank-profile-picture.png"));
         jLabelImagen.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH)));
         
     }
+    /**
+     * Limpieza de campos de texto
+     */
     private void  limpiar(){
         this.jFormattedTextFieldNombre.setText(null);
         this.jFormattedTextFieldTelefono.setText(null);

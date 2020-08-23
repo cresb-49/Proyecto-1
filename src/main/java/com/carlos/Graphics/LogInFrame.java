@@ -161,6 +161,9 @@ public class LogInFrame extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jButtonLogActionPerformed
+    /**
+     * Asigna algunos parametros a ciertos componentes graficos
+     */
     private void ProfileComponents(){
         ImageIcon imagen = new ImageIcon(getClass().getClassLoader().getResource("index.png"));
         jLabelImagen.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
@@ -169,7 +172,6 @@ public class LogInFrame extends javax.swing.JFrame {
         tiendasRegistradas = tiendas.consultaDeTiendas(this.baseDeDatos);
         //Se agregan las tiendas que se encuntran en la base de datos
         for (int i = 0; i < tiendasRegistradas.size(); i++) {
-            //System.out.println(tiendasRegistradas.get(i));
             jComboBoxTiendas.addItem(tiendasRegistradas.get(i).toString());
         }
         
