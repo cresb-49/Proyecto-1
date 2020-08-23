@@ -12,6 +12,12 @@ public class RegistroDB {
     public RegistroDB(){
 
     }
+    /**
+     * Metodo en el cual se registran los clientes en la base de datos
+     * @param cliente
+     * @param conexion
+     * @return
+     */
     public String registroCliente(Client cliente,Connection conexion){
         //Respuesta de errores de sql
         String errores ="";
@@ -50,6 +56,12 @@ public class RegistroDB {
         return errores;
         
     }
+    /**
+     * Metodo en el cual se registran las tiendas en una base de datos
+     * @param tienda
+     * @param conexion
+     * @return
+     */
     public String registroTienda(Store tienda,Connection conexion){
          //Respuesta de errores de sql
         String errores ="";
@@ -89,6 +101,12 @@ public class RegistroDB {
         }
         return errores;
     }
+    /**
+     * Metodo en el cual se registran los datos de los empleados en la base de datos
+     * @param empleado
+     * @param conexion
+     * @return
+     */
     public String registroEmpleado(Employee empleado,Connection conexion){
         //Respuesta de errores de sql
         String errores ="";
@@ -126,6 +144,12 @@ public class RegistroDB {
         }
         return errores;
     }
+    /**
+     * Metodo en el cual se registran los productos en la base de datos
+     * @param producto
+     * @param conexion
+     * @return
+     */
     public String registroProducto(Product producto,Connection conexion){
         //Respuesta de errores de sql
         String errores ="";
@@ -161,6 +185,12 @@ public class RegistroDB {
         }
         return errores;
     }
+    /**
+     * Metodo en el cual se registran la existencia de un producto determinado
+     * @param producto
+     * @param conexion
+     * @return
+     */
     public String registroExistencia(Product producto,Connection conexion){
         //Respuesta de errores de sql
         String errores ="";
@@ -191,6 +221,12 @@ public class RegistroDB {
         }
         return errores;
     }
+    /**
+     * Se registra el tiempo entre las tiendas
+     * @param tiempoDeTransporte
+     * @param conexion
+     * @return
+     */
     public String registroTiempo(TimeStoreToStore tiempoDeTransporte,Connection conexion){
         //Respuesta de errores de sql
         String errores ="";
@@ -218,9 +254,12 @@ public class RegistroDB {
         
         return errores;
     }
-    /*public void closeConection() throws SQLException{
-        con.cerrar();
-    }*/
+    /**
+     * Metodo en el cual se registran los pedidos en base de datos
+     * @param pedido
+     * @param conexion
+     * @return
+     */
     public String registroPedido(Pedido pedido,Connection conexion){
         //Respuesta de errores de sql
         String errores ="";
@@ -269,6 +308,12 @@ public class RegistroDB {
         }
         return errores;
     }
+    /**
+     * Metodo en el cual se registran las ventas en la base de datos
+     * @param venta
+     * @param conexion
+     * @return
+     */
     public String registroVenta(Ventas venta,Connection conexion){
         //Respuesta de errores de sql
         String errores ="";
