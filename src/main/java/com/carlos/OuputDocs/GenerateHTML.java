@@ -474,35 +474,59 @@ public class GenerateHTML {
     ///////////////////////////////////////////////////////////////////////
     //ASIGANACION DE VARIABLES EN USO PARA LA GENERACION DEL REPORTE HTML//
     ///////////////////////////////////////////////////////////////////////
-
+    /**
+     * Retorna el codigo de la tienda en la cual se realiza el reporte
+     * @return
+     */
     public String getCodigoTienda() {
         return codigoTienda;
     }
-
+    /**
+     * Asigna el codigo de la tienda en la cual se realiza el reporte
+     * @param codigoTienda
+     */
     public void setCodigoTienda(String codigoTienda) {
         this.codigoTienda = codigoTienda;
     }
-
+    /**
+     * Retorna el nit del cliente en el cual se realizara el reporte
+     * @return
+     */
     public String getNITcliente() {
         return NITcliente;
     }
-
+    /**
+     * Asigna el nit del cliente en el cual se realizara un reporte
+     * @param NITcliente
+     */
     public void setNITcliente(String NITcliente) {
         this.NITcliente = NITcliente;
     }
-
+    /**
+     * Retorna la fecha limite superior en la cual se evalua un reporte
+     * @return
+     */
     public String getTiempoSuperior() {
         return tiempoSuperior;
     }
-
+    /**
+     * Asigna la fecha limite superior en la cual se evalua un reporte
+     * @param tiempoSuperior
+     */
     public void setTiempoSuperior(String tiempoSuperior) {
         this.tiempoSuperior = tiempoSuperior;
     }
-
+    /**
+     * Rertona la fecha inferior en la cual se realiza un reporte
+     * @return
+     */
     public String getTimepoInferior() {
         return timepoInferior;
     }
-
+    /**
+     * Asigna la fecha inferior en la cial se evalua un reporte
+     * @param timepoInferior
+     */
     public void setTimepoInferior(String timepoInferior) {
         this.timepoInferior = timepoInferior;
     }
