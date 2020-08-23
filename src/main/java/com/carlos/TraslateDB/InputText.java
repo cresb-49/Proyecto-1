@@ -4,17 +4,11 @@ import com.carlos.DBSuport.*;
 import java.io.*;
 import java.util.*;
 
-import com.carlos.Entities.Client;
-import com.carlos.Entities.Employee;
-import com.carlos.Entities.Pedido;
-import com.carlos.Entities.Product;
-import com.carlos.Entities.Store;
-import com.carlos.Entities.TimeStoreToStore;
+import com.carlos.Entities.*;
 import java.sql.Connection;
 
 public class InputText {
 
-    //private String src = "/home/benjamin/Documents/Proyectos IPC2 2020/archivosprueba/";
     private ArrayList<String> lineasDeTexto = new ArrayList<String>();
     private ArrayList<String> erroresDeDatos = new ArrayList<String>();
     private RegistroDB resistrarElemento = new RegistroDB();

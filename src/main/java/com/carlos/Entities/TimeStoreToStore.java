@@ -2,10 +2,10 @@
 package com.carlos.Entities;
 
 public class TimeStoreToStore {
-    String StoreCode1;
-    String StoreCode2;
-    int time;
-    int id;
+    private String StoreCode1;
+    private String StoreCode2;
+    private int time;
+    private int id;
     /**
      * Cosntructo Principal de la entidad tiempo
      * @param tienda1Codigo
