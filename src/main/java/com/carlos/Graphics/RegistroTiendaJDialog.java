@@ -585,7 +585,23 @@ public class RegistroTiendaJDialog extends javax.swing.JDialog {
         }
         else
         {
-            Store tiendaNueva = new Store(nombre, direcccion, codigo, String.valueOf(telefono1), String.valueOf(telefono2), email, horario);
+            String numeroDeTelefono1;
+            String numeroDeTelefono2;
+            
+            if(telefono1==0){
+                numeroDeTelefono1="";
+            }
+            else{
+                numeroDeTelefono1=String.valueOf(telefono1);
+            }
+            if(telefono2==0){
+                numeroDeTelefono2="";
+            }
+            else
+            {
+                numeroDeTelefono2=String.valueOf(telefono2);
+            }
+            Store tiendaNueva = new Store(nombre, direcccion, codigo, numeroDeTelefono1, numeroDeTelefono2, email, horario);
             ModificacionesDB modificarTienda = new ModificacionesDB();
             String respuesta =modificarTienda.modificarTienda(tiendaNueva,this.baseDeDatos);
             if(!(respuesta.equals(""))){

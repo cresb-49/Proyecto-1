@@ -92,6 +92,7 @@ public class RealizarPedidoJDialog extends javax.swing.JDialog {
         jButtonRealizarTransaccion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("FECHA DE PEDIDO"));
 
@@ -362,10 +363,11 @@ public class RealizarPedidoJDialog extends javax.swing.JDialog {
                                 .addComponent(jFormattedTextFieldPrecioDelPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(40, 40, 40)
                                 .addComponent(jLabel8)))
-                        .addGap(57, 57, 57)
+                        .addGap(30, 30, 30)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jComboBoxUnidadeComprar, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jFormattedTextFieldPagoMinimo)))
+                            .addComponent(jFormattedTextFieldPagoMinimo))
+                        .addGap(14, 14, 14))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
@@ -376,7 +378,7 @@ public class RealizarPedidoJDialog extends javax.swing.JDialog {
                                 .addComponent(jLabel10)
                                 .addGap(18, 18, 18)
                                 .addComponent(jFormattedTextFieldPagoEfectivo, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
                         .addComponent(jButtonRealizarTransaccion, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -424,10 +426,10 @@ public class RealizarPedidoJDialog extends javax.swing.JDialog {
                             .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(20, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 495, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(220, 220, 220))))
         );
@@ -445,7 +447,7 @@ public class RealizarPedidoJDialog extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
@@ -457,19 +459,19 @@ public class RealizarPedidoJDialog extends javax.swing.JDialog {
         String NIT = this.jFormattedTextFieldNIT.getText();
         String nombreCliente = this.jFormattedTextFieldExistenciaDelProducto.getText();
         String codigoTienda = this.jComboBoxTiendas.getSelectedItem().toString();
-        float precioProducto=0;
-        float pagoEfectivo=0;
-        float usoCredito=0;
-        float creditoDisponible=0;
-        float pagoMinimo=0;
+        double precioProducto=0;
+        double pagoEfectivo=0;
+        double usoCredito=0;
+        double creditoDisponible=0;
+        double pagoMinimo=0;
         int unidadesAcomprar=0;
         //Se realizan las conversiones necesarias para aceptar los datos de entrada
         try {
-            precioProducto = Float.parseFloat(jFormattedTextFieldPrecioDelPedido.getText());
-            pagoEfectivo = Float.parseFloat(jFormattedTextFieldPagoEfectivo.getText());
-            usoCredito = Float.parseFloat(jFormattedTextFieldCreditoAUsar.getText());
-            creditoDisponible = Float.parseFloat(jFormattedTextFieldCreditoDisponible.getText());
-            pagoMinimo = Float.parseFloat(jFormattedTextFieldPagoMinimo.getText());
+            precioProducto = Double.parseDouble(jFormattedTextFieldPrecioDelPedido.getText());
+            pagoEfectivo = Double.parseDouble(jFormattedTextFieldPagoEfectivo.getText());
+            usoCredito = Double.parseDouble(jFormattedTextFieldCreditoAUsar.getText());
+            creditoDisponible = Double.parseDouble(jFormattedTextFieldCreditoDisponible.getText());
+            pagoMinimo = Double.parseDouble(jFormattedTextFieldPagoMinimo.getText());
             unidadesAcomprar = Integer.parseInt(jComboBoxUnidadeComprar.getSelectedItem().toString());
             
         } catch (Exception e) {
@@ -549,10 +551,10 @@ public class RealizarPedidoJDialog extends javax.swing.JDialog {
             String cliente = jFormattedTextFieldNIT.getText();
             String producto = jFormattedTextFieldCodigoDelProducto.getText();
             int cantidad = Integer.valueOf(jComboBoxUnidadeComprar.getSelectedItem().toString());
-            float total = Float.valueOf(jFormattedTextFieldPrecioDelPedido.getText());
-            float efectivo = Float.valueOf(jFormattedTextFieldPagoEfectivo.getText());
-            float credito = Float.valueOf(jFormattedTextFieldCreditoAUsar.getText());
-            float anticipo = efectivo+credito;
+            double total = Double.valueOf(jFormattedTextFieldPrecioDelPedido.getText());
+            double efectivo = Double.valueOf(jFormattedTextFieldPagoEfectivo.getText());
+            double credito = Double.valueOf(jFormattedTextFieldCreditoAUsar.getText());
+            double anticipo = efectivo+credito;
             //Generacion del codigo de pedido del cliente
             codigoPedido=year+mes+dia+cliente;
             Pedido pedidoNuevo = new Pedido(codigoPedido, tiendaOrigen, tiendaLlegada, fecha, cliente, producto, cantidad, total, anticipo);
@@ -586,9 +588,9 @@ public class RealizarPedidoJDialog extends javax.swing.JDialog {
      */
     private void descontarCliente(){
         String nitCliente = jFormattedTextFieldNIT.getText();
-        float creditoDiponible = Float.valueOf(jFormattedTextFieldCreditoDisponible.getText());
-        float creditoUsado = Float.valueOf(jFormattedTextFieldCreditoAUsar.getText());
-        float nuevoCredito = creditoDiponible-creditoUsado;
+        double creditoDiponible = Double.valueOf(jFormattedTextFieldCreditoDisponible.getText());
+        double creditoUsado = Double.valueOf(jFormattedTextFieldCreditoAUsar.getText());
+        double nuevoCredito = creditoDiponible-creditoUsado;
         this.modificarDatos.modificarCreditoCliente(nitCliente, String.valueOf(nuevoCredito),this.baseDeDatos);
     }
     private void jButtonBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarClienteActionPerformed
@@ -632,10 +634,15 @@ public class RealizarPedidoJDialog extends javax.swing.JDialog {
                 if(!(jFormattedTextFieldExistenciaDelProducto.getText().equals("0")))
                 {
                     jComboBoxUnidadeComprar.removeAllItems();
-                    long disponivilidad = Long.parseLong(jFormattedTextFieldExistenciaDelProducto.getText());
-                    for (int i = 1; i <= disponivilidad; i++) {
+                    try {
+                        long disponivilidad = Long.parseLong(jFormattedTextFieldExistenciaDelProducto.getText());
+                        for (int i = 1; i <= disponivilidad; i++) {
                         jComboBoxUnidadeComprar.addItem(String.valueOf(i));
                     }
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(this, "No hay existencias del producto ingresado");
+                    }
+                    
                     //Mostrar los atributos del producto
                     ArrayList<String> datosProducto = new ArrayList<String>();
                     datosProducto=consultas.datosProducto(codigoProducto,this.baseDeDatos);

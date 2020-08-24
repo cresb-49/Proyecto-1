@@ -8,8 +8,8 @@ public class Pedido {
     private String cliente;
     private String producto;
     private int cantidad;
-    private float total;
-    private float anticipo;
+    private double total;
+    private double anticipo;
 
     /**
      * Cosntructor del objeto pedido
@@ -22,7 +22,7 @@ public class Pedido {
      * @param total
      * @param anticipo
      */
-    public Pedido(String codigo, String tienda1,String tienda2,String fecha,String cliente,String producto,int cantidad,float total, float anticipo){
+    public Pedido(String codigo, String tienda1,String tienda2,String fecha,String cliente,String producto,int cantidad,double total, double anticipo){
         this.codigo=codigo;
         this.tienda1=tienda1;
         this.tienda2=tienda2;
@@ -37,14 +37,14 @@ public class Pedido {
      * Asigna un anticipo al pedido
      * @param anticipo
      */
-    public void setAnticipo(float anticipo) {
+    public void setAnticipo(double anticipo) {
         this.anticipo = anticipo;
     }
     /**
      * Retorna el anticipo asignado al pedido
      * @return
      */
-    public float getAnticipo() {
+    public double getAnticipo() {
         return anticipo;
     }
     /**
@@ -133,13 +133,13 @@ public class Pedido {
      * Asigna el total del pedido
      * @param total
      */
-    public void setTotal(float total) {
+    public void setTotal(double total) {
         this.total = total;
     }
     /**
      * Retorna el total asignado al producto
      */
-    public float getTotal() {
+    public double getTotal() {
         return total;
     }
     /**

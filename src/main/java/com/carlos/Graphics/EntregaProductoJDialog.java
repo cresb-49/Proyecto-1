@@ -494,14 +494,14 @@ public class EntregaProductoJDialog extends javax.swing.JDialog {
             String codigoPedidoRetiro = jFormattedTextFieldCodigoPedidoRetiro.getText();
             ArrayList<String> contenido = new ArrayList<String>();
             contenido = consultaDB.estadoPedido(codigoPedidoRetiro,this.baseDeDatos);
-            float anticipoIndividual = Float.parseFloat(contenido.get(2));
+            double anticipoIndividual = Double.parseDouble(contenido.get(2));
 
             int cantidad =this.consultaDB.contarPedidos(codigoPedidoRetiro,this.baseDeDatos);
 
-            float total = this.consultaDB.sumaTotalPedido(codigoPedidoRetiro,this.baseDeDatos);
-            float anticipo = this.consultaDB.sumaAnticipoPedido(codigoPedidoRetiro,this.baseDeDatos);
+            double total = this.consultaDB.sumaTotalPedido(codigoPedidoRetiro,this.baseDeDatos);
+            double anticipo = this.consultaDB.sumaAnticipoPedido(codigoPedidoRetiro,this.baseDeDatos);
 
-            float anticipoParaTransaccion=0;
+            double anticipoParaTransaccion=0;
 
             String codigoTienda = contenido.get(8);
 
@@ -607,13 +607,13 @@ public class EntregaProductoJDialog extends javax.swing.JDialog {
      * @param bonificacion
      */
     private void bonificacionCliente(String nit,String bonificacion){
-        float bono =0;
+        double bono =0;
         try {
-            bono=Float.valueOf(bonificacion);
+            bono=Double.valueOf(bonificacion);
         } catch (Exception e) {
         }
-        float credito = Float.valueOf(this.consultaDB.datosCliente(nit,this.baseDeDatos).get(2));
-        float creditoNuevo = credito+bono;
+        double credito = Double.valueOf(this.consultaDB.datosCliente(nit,this.baseDeDatos).get(2));
+        double creditoNuevo = credito+bono;
         System.out.println(this.modificarDB.modificarCreditoCliente(nit, String.valueOf(creditoNuevo),this.baseDeDatos));
     }
     private void jButtonLimpiarBusqueda1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarBusqueda1ActionPerformed

@@ -509,12 +509,12 @@ public class VentaJDialog extends javax.swing.JDialog {
         String Dia = jComboBoxDias.getSelectedItem().toString();
         if(!year.equals("Año")&&!Mes.equals("Mes")&&!Dia.equals("Dia")){
             if(!(jFormattedTextFieldNombreCliente.getText().equals(""))){
-                float precioParcial=0;
+                double precioParcial=0;
                 int cantidad=1;
                 Object[] productos = new Object[4];
 
                 cantidad = Integer.valueOf(jComboBoxCantidad.getSelectedItem().toString());
-                precioParcial = precioParcial + ((Float.valueOf(jFormattedTextFieldPrecio.getText()))*cantidad);
+                precioParcial = precioParcial + ((Double.valueOf(jFormattedTextFieldPrecio.getText()))*cantidad);
 
                 productos[0]=jFormattedTextFieldNombreProducto.getText();
                 productos[1]=jFormattedTextFieldCodigoProducto.getText();
@@ -549,10 +549,10 @@ public class VentaJDialog extends javax.swing.JDialog {
      * Transaccion normal de un producto
      */
     private void transaccionNormal(){
-        float creditoCliente=0;
-        float pagoEfectivo =0;
-        float usoCredito=0;
-        float precio=0;
+        double creditoCliente=0;
+        double pagoEfectivo =0;
+        double usoCredito=0;
+        double precio=0;
         //Extraccion de informacion del formulario
         String codigoProducto = this.jFormattedTextFieldCodigoProducto.getText();
         String NombreProducto = this.jFormattedTextFieldNombreProducto.getText();
@@ -560,10 +560,10 @@ public class VentaJDialog extends javax.swing.JDialog {
         String NIT = this.jFormattedTextFieldNIT.getText();
         
         
-        creditoCliente = Float.parseFloat(this.jTextFieldCreditoCliente.getText());
-        pagoEfectivo = Float.parseFloat(this.jFormattedTextFieldPagoEfectivo.getText());
-        usoCredito = Float.parseFloat(this.jFormattedTextFieldUsoCredito.getText());
-        precio = Float.parseFloat(this.jFormattedTextFieldTotal.getText());
+        creditoCliente = Double.parseDouble(this.jTextFieldCreditoCliente.getText());
+        pagoEfectivo = Double.parseDouble(this.jFormattedTextFieldPagoEfectivo.getText());
+        usoCredito = Double.parseDouble(this.jFormattedTextFieldUsoCredito.getText());
+        precio = Double.parseDouble(this.jFormattedTextFieldTotal.getText());
         
         //verfica los datos del producto para saber si uno fue seleccionado
         if(!(codigoProducto.equals("")||NombreProducto.equals("")))
@@ -645,9 +645,9 @@ public class VentaJDialog extends javax.swing.JDialog {
      * Actualiza el credito del liente si fue utilizado
      */
     private void actualizacionDeCliente(){
-        float creditoUsado = Float.valueOf(this.jFormattedTextFieldUsoCredito.getText());
-        float creditoOriginal = Float.valueOf(this.consulta.datosCliente(this.jFormattedTextFieldNIT.getText(),this.baseDeDatos).get(2));
-        float nuevoCredito = creditoOriginal-creditoUsado;
+        double creditoUsado = Double.valueOf(this.jFormattedTextFieldUsoCredito.getText());
+        double creditoOriginal = Double.valueOf(this.consulta.datosCliente(this.jFormattedTextFieldNIT.getText(),this.baseDeDatos).get(2));
+        double nuevoCredito = creditoOriginal-creditoUsado;
         this.modificacion.modificarCreditoCliente(this.jFormattedTextFieldNIT.getText(), String.valueOf(nuevoCredito),this.baseDeDatos);
     }
     /**

@@ -5,7 +5,7 @@ public class Product{
     private String manufacturer;
     private String code;
     private int cantidad;
-    private float price;
+    private double price;
     private String description;
     private int garantia;
     private String tienda;
@@ -19,7 +19,7 @@ public class Product{
      * @param description   descripcion del producto
      * @param garantia  garantia en meses del producto
      */
-    public Product(String name,String manufacturer,String code, int cantidad, float price, String description,int garantia,String tienda){
+    public Product(String name,String manufacturer,String code, int cantidad, double price, String description,int garantia,String tienda){
         this.name=name;
         this.manufacturer=manufacturer;
         this.code=code;
@@ -114,13 +114,13 @@ public class Product{
     /**
      * Retorna el precio del producto
      */
-    public float getPrice() {
+    public double getPrice() {
         return price;
     }
     /**
      * Asigna el precio del producto
      */
-    public void setPrice(float price) {
+    public void setPrice(double price) {
         this.price = price;
     }
     /**

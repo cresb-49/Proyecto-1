@@ -29,6 +29,8 @@ public class PrincipalFrame extends javax.swing.JFrame {
     public PrincipalFrame(String titulo) {
         super(titulo);
         initComponents();
+        this.jButtonIniciarSesion.setEnabled(false);
+        this.jButtonRegistrarse.setEnabled(false);
         this.setVisible(true);
         this.setLocationRelativeTo(null);
         this.comprobacionDB();
@@ -134,8 +136,6 @@ public class PrincipalFrame extends javax.swing.JFrame {
      * Configuracion del componentes que pertenecen al frame de origen
      */
     private void ProfileComponents(){
-        this.jButtonIniciarSesion.setEnabled(false);
-        this.jButtonRegistrarse.setEnabled(false);
         ImageIcon imagen = new ImageIcon(getClass().getClassLoader().getResource("index.png"));
         jLabelImage.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(225, 225, Image.SCALE_SMOOTH)));
         if(this.estadoDB){
@@ -160,8 +160,9 @@ public class PrincipalFrame extends javax.swing.JFrame {
     private void comprobacionDB(){
         try{
            this.conexionPrincipal = new ConexionDB();
+           //Realiza una consulta a tienda para saber si hay contenido en la tabla
            String consulta="SELECT * FROM TIENDA";
-           
+           //preparacion de la consulta a la base de datos SQL
            try (PreparedStatement preSt = conexionPrincipal.getConexion().prepareStatement(consulta))
            {
                 try (ResultSet result = preSt.executeQuery()){

@@ -25,7 +25,7 @@ public class ModificacionesDB {
         String nit;
         String nombre;
         String telefono;
-        float credito;
+        double credito;
         String dpi;
         String email;
         String direccion;
@@ -165,7 +165,7 @@ public class ModificacionesDB {
         String name;
         String manufacturer;
         String code;
-        float price;
+        double price;
         String description;
         int garantia;
         //declaracion de la consulta
@@ -285,8 +285,8 @@ public class ModificacionesDB {
         String cliente;
         String producto;
         int cantidad;
-        float total;
-        float anticipo;
+        double total;
+        double anticipo;
         //declaracion de la consulta
         String consulta="UPDATE PEDIDO SET cantidad = ?,total = ?,anticipo = ?,fecha_orden = ?,CLIENTE_nit = ?,PRODUCTO_codigo = ?,TIENDA_codigo_salida = ?,TIENDA_codigo_llegada = ? WHERE codigo = ?";
         //Asignacion de los datos de la variables

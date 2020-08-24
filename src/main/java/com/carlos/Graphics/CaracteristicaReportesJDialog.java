@@ -291,7 +291,9 @@ public class CaracteristicaReportesJDialog extends javax.swing.JDialog {
 
     private void jButtonRealizarreporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRealizarreporteActionPerformed
         // TODO add your handling code here:
+        //Almacenamos la seleccion para la generacion del archivo
         String confReporte = this.tipoReporte();
+        //Detectamos si JComboBoxMesInferios esta activo para hace la intruccion del tiempo en la consulta
         if(jComboBoxMesInferior.isEnabled()){
             if(!verificacionDeFecha()){
                 int respuesta = JOptionPane.showConfirmDialog(this, "¿Configurara un rango de fecha para el reporte?");

@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
  * @author benjamin
  */
 public class RegistroClienteJDialog extends javax.swing.JDialog {
-    private float copiaDeCredito;
+    private double copiaDeCredito;
     //Conexion a base de datos
     private Connection baseDeDatos;
     
@@ -335,7 +335,7 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
         String NIT;
         long telefono=0;
         long DPI=0;
-        float creditoDecompra=0;
+        double creditoDecompra=0;
         String correoElectronico;
         String direccion;
         //
@@ -360,10 +360,10 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
         } catch (Exception e) {
         }
        
-        float tempCredito = 0;
+        double tempCredito = 0;
         
         try {
-            tempCredito = Float.parseFloat(this.jFormattedTextFieldCreditoCompra.getText());
+            tempCredito = Double.parseDouble(this.jFormattedTextFieldCreditoCompra.getText());
         } catch (Exception e) {
         }
         if(tempCredito>=0)
@@ -413,7 +413,7 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
         String NIT;
         long telefono=0;
         long DPI=0;
-        float creditoDecompra=0;
+        double creditoDecompra=0;
         String correoElectronico;
         String direccion;
         //
@@ -440,10 +440,10 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
         } catch (Exception e) {
         }
        
-        float tempCredito = 0;
+        double tempCredito = 0;
         
         try {
-            tempCredito = Float.parseFloat(this.jFormattedTextFieldCreditoCompra.getText());
+            tempCredito = Double.parseDouble(this.jFormattedTextFieldCreditoCompra.getText());
         } catch (Exception e) {
         }
         if(tempCredito>=0)

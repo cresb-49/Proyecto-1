@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import com.carlos.DBSuport.ConexionDB;
 import com.carlos.Graphics.PrincipalFrame;
+import java.text.DecimalFormat;
 
 /**
  * Hello world!
@@ -12,8 +13,6 @@ import com.carlos.Graphics.PrincipalFrame;
 public class Main {
     public static void main(String[] args) throws SQLException
     {
-        //InputText prueba1 = new InputText();
-        //prueba1.LecturaEIngreso();
         PrincipalFrame frame = new PrincipalFrame("Bienvenido");
     }
 }

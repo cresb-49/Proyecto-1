@@ -6,6 +6,7 @@ import java.util.*;
 
 import com.carlos.Entities.*;
 import java.sql.Connection;
+import java.text.DecimalFormat;
 
 public class InputText {
 
@@ -203,7 +204,8 @@ public class InputText {
                                             String nombre = apartados.get(1);
                                             String nit = apartados.get(2);
                                             String telefono = apartados.get(3);
-                                            Float credito = Float.parseFloat(apartados.get(4));
+                                            double credito = Double.parseDouble(apartados.get(4));
+                                            credito = this.AproximacionDosDecimales(credito);
                                             String dpi="";
                                             String email="";
                                             String direccion="";
@@ -246,12 +248,12 @@ public class InputText {
                                     //verifcamos si el texto es un numero en esta caso de tipo flotante
                                     if(verificarRepresentacionNumericaDecimal(apartados.get(5)))
                                     {
-                                        System.out.println(lineasDeTexto.get(i));
+                                        //System.out.println(lineasDeTexto.get(i));
                                         String name = apartados.get(1);
                                         String manufacturer = apartados.get(2);
                                         String code = apartados.get(3);
                                         int existencia = Integer.valueOf(apartados.get(4));
-                                        float price = Float.valueOf(apartados.get(5));
+                                        double price = this.AproximacionDosDecimales(Double.parseDouble(apartados.get(5)));
                                         String description="";
                                         int garantia=0;
                                         String tienda = apartados.get(6);
@@ -308,8 +310,10 @@ public class InputText {
                                                 String cliente = apartados.get(5);
                                                 String producto = apartados.get(6);
                                                 int cantidadTraslado = Integer.valueOf(apartados.get(7));
-                                                float total = Float.valueOf(apartados.get(8));
-                                                float anticipo = Float.valueOf(apartados.get(9));
+                                                double total = Double.valueOf(apartados.get(8));
+                                                total = this.AproximacionDosDecimales(total);
+                                                double anticipo = Double.valueOf(apartados.get(9));
+                                                anticipo=this.AproximacionDosDecimales(anticipo);
 
                                                 Pedido registroPedido = new Pedido(codigo, tienda1, tienda2, fecha, cliente, producto, cantidadTraslado, total, anticipo);
                                                 String respuesta = this.resistrarElemento.registroPedido(registroPedido,this.baseDeDatos);
@@ -521,9 +525,9 @@ public class InputText {
      */
     private boolean verificarRepresentacionNumericaDecimal(String numeroAEvaluar){
         boolean respuesta=false;
-        float numero=-1;
+        double numero=-1;
         try {
-            numero=Float.parseFloat(numeroAEvaluar);
+            numero=Double.parseDouble(numeroAEvaluar);
         } catch (Exception e) {
         }
         if(numero>=0)
@@ -558,6 +562,17 @@ public class InputText {
         else{
             return false;
         }
+    }
+    /**
+     * Realiza un aproximacion numerica de los decimales aceptados en el programa
+     * @param cantidad
+     * @return 
+     */
+    private double AproximacionDosDecimales(double cantidad){
+        double resultado=0;
+        DecimalFormat formatoDosDecimales = new DecimalFormat("#.00");
+        resultado = Double.parseDouble(formatoDosDecimales.format(cantidad));
+        return resultado;
     }
     /**
      * Regresa la cadena con los erroes correspondientes de la base de datos

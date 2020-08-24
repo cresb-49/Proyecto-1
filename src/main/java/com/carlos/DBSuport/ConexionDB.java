@@ -28,6 +28,7 @@ public class ConexionDB {
      * Genera la conexion de la base de datos al principio
      */
     public ConexionDB() throws ClassNotFoundException, SQLException  {
+        //Carga en memoria la clase del driver JDBC, para luego obtener la conexion con el DriveManager
         Class.forName(driver);
         conexion = DriverManager.getConnection(url, username, password);
     }

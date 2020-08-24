@@ -361,7 +361,7 @@ public class ConsultasDB {
 	    preSt.setString(1,codigoPedido);
 	    ResultSet result = preSt.executeQuery();
 	    while(result.next()){
-	      Pedidos.add(new Pedido(codigoPedido, result.getString(8), result.getString(9), result.getString(4), result.getString(6), result.getString(7), result.getInt(1),result.getFloat(2),result.getFloat(3)));
+	      Pedidos.add(new Pedido(codigoPedido, result.getString(8), result.getString(9), result.getString(4), result.getString(6), result.getString(7), result.getInt(1),result.getDouble(2),result.getDouble(3)));
 	    }
 	    result.close();
 	    preSt.close();
@@ -398,8 +398,8 @@ public class ConsultasDB {
      * @param codigo
      * @return 
      */
-    public float  sumaTotalPedido(String codigo,Connection conexion){
-        float total=0;
+    public Double  sumaTotalPedido(String codigo,Connection conexion){
+        double total=0;
         
         String consulta="SELECT SUM(total) FROM PEDIDO WHERE codigo = ?";
         
@@ -407,7 +407,7 @@ public class ConsultasDB {
 	    preSt.setString(1,codigo);
 	    ResultSet result = preSt.executeQuery();
 	    while(result.next()){
-                total = result.getFloat(1);
+                total = result.getDouble(1);
 	    }
 	    result.close();
 	    preSt.close();
@@ -421,8 +421,8 @@ public class ConsultasDB {
      * @param codigo
      * @return 
      */
-    public float  sumaAnticipoPedido(String codigo,Connection conexion){
-        float anticipo=0;
+    public double  sumaAnticipoPedido(String codigo,Connection conexion){
+        double anticipo=0;
         
         String consulta="SELECT SUM(anticipo) FROM PEDIDO WHERE codigo = ?";
         
@@ -430,7 +430,7 @@ public class ConsultasDB {
 	    preSt.setString(1,codigo);
 	    ResultSet result = preSt.executeQuery();
 	    while(result.next()){
-                anticipo = result.getFloat(1);
+                anticipo = result.getDouble(1);
 	    }
 	    result.close();
 	    preSt.close();

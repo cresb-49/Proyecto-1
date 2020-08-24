@@ -3,7 +3,7 @@ package com.carlos.Entities;
 public class Client extends Users{
     //El nombre se usuario para acceder al sistema es el correo electronico
 
-    private float CreditoCompra;
+    private double CreditoCompra;
 
     /**
      * Constructor registro de cliente en tienda
@@ -15,7 +15,7 @@ public class Client extends Users{
      * @param email
      * @param direction
      */
-    public Client(String name,String phoneNumber,String  nit, String dpi,float CreditoCompra,String email,String direction) {
+    public Client(String name,String phoneNumber,String  nit, String dpi,double CreditoCompra,String email,String direction) {
         super(name, phoneNumber, nit, dpi, email, direction);
         this.CreditoCompra = CreditoCompra;
     }
@@ -23,14 +23,14 @@ public class Client extends Users{
      * Rertorna la cantidad de credito que tiene el cliente
      * @return
      */
-    public float getCreditoCompra() {
+    public double getCreditoCompra() {
         return CreditoCompra;
     }
     /**
      * Asigna un cantidad de credito a un cliente
      * @param creditoCompra
      */
-    public void setCreditoCompra(float creditoCompra) {
+    public void setCreditoCompra(double creditoCompra) {
         CreditoCompra = creditoCompra;
     }
 }

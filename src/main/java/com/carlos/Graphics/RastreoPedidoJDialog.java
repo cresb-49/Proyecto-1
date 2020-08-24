@@ -194,9 +194,9 @@ public class RastreoPedidoJDialog extends javax.swing.JDialog {
         ArrayList<String> datoPedidos = new ArrayList<String>();
         productos = consultaDePedido.productoDeUnPedido(codigoPedido,this.baseDeDatos);
         datoPedidos=consultaDePedido.estadoPedido(codigoPedido, this.baseDeDatos);
-        float totalPedido = consultaDePedido.sumaTotalPedido(codigoPedido,this.baseDeDatos);
-        float anticipo = Float.valueOf(datoPedidos.get(2));
-        float sumaTotalAnticipo = consultaDePedido.sumaAnticipoPedido(codigoPedido, this.baseDeDatos);
+        Double totalPedido = consultaDePedido.sumaTotalPedido(codigoPedido,this.baseDeDatos);
+        Double anticipo = Double.valueOf(datoPedidos.get(2));
+        Double sumaTotalAnticipo = consultaDePedido.sumaAnticipoPedido(codigoPedido, this.baseDeDatos);
         int cantidad =consultaDePedido.contarPedidos(codigoPedido,this.baseDeDatos);
         try {
             if(anticipo==(sumaTotalAnticipo/cantidad)){

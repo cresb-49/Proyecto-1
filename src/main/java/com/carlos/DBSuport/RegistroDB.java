@@ -25,7 +25,7 @@ public class RegistroDB {
         String nit;
         String nombre;
         String telefono;
-        float credito;
+        double credito;
         String dpi;
         String email;
         String direccion;
@@ -157,7 +157,7 @@ public class RegistroDB {
         String name;
         String manufacturer;
         String code;
-        float price;
+        double price;
         String description;
         int garantia;
         //Ceracion de la consulta que se hara en la base de datos
@@ -169,7 +169,7 @@ public class RegistroDB {
         price=producto.getPrice();
         description = producto.getDescription();
         garantia = producto.getGarantia();
-        
+        System.out.println(price);
         
         try(PreparedStatement preSt = conexion.prepareStatement(query)) {
             preSt.setString(1,code);
@@ -272,8 +272,8 @@ public class RegistroDB {
         String cliente;
         String producto;
         int cantidad;
-        float total;
-        float anticipo;
+        double total;
+        double anticipo;
         //Ceracion de la consulta que se hara en la base de datos
         String query ="INSERT INTO PEDIDO (codigo,cantidad,total,anticipo,fecha_orden,estado_pedido,CLIENTE_nit,PRODUCTO_codigo,TIENDA_codigo_salida,TIENDA_codigo_llegada) VALUES (?,?,?,?,?,?,?,?,?,?)";
         //Asignacion de los datos de la variables
