@@ -30,9 +30,11 @@ public class RegistrarProductoJDialog extends javax.swing.JDialog {
      * Formulario mediante se hace el registro y modificacion de los productos y una lista de los productos que estan registrados en la base de datos
      * @param parent
      * @param modal
+     * @param Connection
      */
-    public RegistrarProductoJDialog(java.awt.Frame parent, boolean modal) {
+    public RegistrarProductoJDialog(java.awt.Frame parent, boolean modal,Connection conexionBaseDatos) {
         super(parent, modal);
+        this.baseDeDatos=conexionBaseDatos;
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("REGISTRO DE PRODUCTO");

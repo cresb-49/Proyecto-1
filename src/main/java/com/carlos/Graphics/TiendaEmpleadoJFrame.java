@@ -60,7 +60,7 @@ public class TiendaEmpleadoJFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jMenu1.setText("Registro");
+        jMenu1.setText("Registro / Modificación");
 
         jMenuItemRegistroTienda.setText("Tienda");
         jMenuItemRegistroTienda.addActionListener(new java.awt.event.ActionListener() {
@@ -153,6 +153,7 @@ public class TiendaEmpleadoJFrame extends javax.swing.JFrame {
         jMenuBar1.add(jMenuReportes);
 
         jMenu3.setText("Cargar Datos");
+        jMenu3.setEnabled(false);
 
         jMenuItemImportasBaseDeDatos.setText("Importar Base De Datos");
         jMenuItemImportasBaseDeDatos.addActionListener(new java.awt.event.ActionListener() {
@@ -207,7 +208,7 @@ public class TiendaEmpleadoJFrame extends javax.swing.JFrame {
 
     private void jMenuItemRegistroProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRegistroProductosActionPerformed
         // TODO add your handling code here:
-        RegistrarProductoJDialog productoNuevo = new RegistrarProductoJDialog(this, true);
+        RegistrarProductoJDialog productoNuevo = new RegistrarProductoJDialog(this, true,this.baseDeDatos);
         productoNuevo.setVisible(true);
     }//GEN-LAST:event_jMenuItemRegistroProductosActionPerformed
 

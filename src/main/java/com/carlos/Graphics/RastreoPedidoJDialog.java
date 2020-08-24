@@ -43,7 +43,7 @@ public class RastreoPedidoJDialog extends javax.swing.JDialog {
         jFormattedTextFieldCodigoPedido = new javax.swing.JFormattedTextField();
         jButtonBuscar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jTextFieldDias = new javax.swing.JTextField();
+        jTextFieldEstadoPedido = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jTextFieldTotal = new javax.swing.JTextField();
@@ -75,9 +75,9 @@ public class RastreoPedidoJDialog extends javax.swing.JDialog {
             }
         });
 
-        jLabel2.setText("Dias Restantes:");
+        jLabel2.setText("Estado pedido:");
 
-        jTextFieldDias.setEditable(false);
+        jTextFieldEstadoPedido.setEditable(false);
 
         jLabel3.setText("Producto dentro del pedido");
 
@@ -132,7 +132,7 @@ public class RastreoPedidoJDialog extends javax.swing.JDialog {
                                 .addGap(28, 28, 28))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jTextFieldDias, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextFieldEstadoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jTextFieldTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jTextFieldAnticipo, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jTextFieldPagoParaRecoger, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -153,7 +153,7 @@ public class RastreoPedidoJDialog extends javax.swing.JDialog {
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldDias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldEstadoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -193,19 +193,30 @@ public class RastreoPedidoJDialog extends javax.swing.JDialog {
         ArrayList<String> productos = new ArrayList<String>();
         ArrayList<String> datoPedidos = new ArrayList<String>();
         productos = consultaDePedido.productoDeUnPedido(codigoPedido,this.baseDeDatos);
-        datoPedidos= consultaDePedido.datosPedido(codigoPedido,this.baseDeDatos);
+        datoPedidos=consultaDePedido.estadoPedido(codigoPedido, this.baseDeDatos);
         float totalPedido = consultaDePedido.sumaTotalPedido(codigoPedido,this.baseDeDatos);
-        float anticipo = Float.valueOf(datoPedidos.get(0));
+        float anticipo = Float.valueOf(datoPedidos.get(2));
+        float sumaTotalAnticipo = consultaDePedido.sumaAnticipoPedido(codigoPedido, this.baseDeDatos);
+        int cantidad =consultaDePedido.contarPedidos(codigoPedido,this.baseDeDatos);
+        try {
+            if(anticipo==(sumaTotalAnticipo/cantidad)){
+                this.jTextFieldPagoParaRecoger.setText(String.valueOf(totalPedido-(sumaTotalAnticipo/cantidad)));
+                this.jTextFieldAnticipo.setText(String.valueOf((sumaTotalAnticipo/cantidad)));
+            }
+            else
+            {
+                this.jTextFieldPagoParaRecoger.setText(String.valueOf(totalPedido-(sumaTotalAnticipo)));
+                this.jTextFieldAnticipo.setText(String.valueOf((sumaTotalAnticipo)));
+            }
+        } catch (Exception e) {
+        }
         jComboBoxProductos.removeAllItems();
         for (int i = 0; i < productos.size(); i++) {
             jComboBoxProductos.addItem(productos.get(i));
         }
         //Oras caracteristicas de los paquetes
-        this.jTextFieldAnticipo.setText(datoPedidos.get(0));
-        this.jTextFieldOrigen.setText(datoPedidos.get(1));
-        this.jTextFieldLLegada.setText(datoPedidos.get(2));
-        float faltante = totalPedido-anticipo;
-        this.jTextFieldPagoParaRecoger.setText(String.valueOf(faltante));
+        this.jTextFieldOrigen.setText(datoPedidos.get(7));
+        this.jTextFieldLLegada.setText(datoPedidos.get(8));
         this.jTextFieldTotal.setText(String.valueOf(totalPedido));
         
         
@@ -229,7 +240,7 @@ public class RastreoPedidoJDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField jTextFieldAnticipo;
-    private javax.swing.JTextField jTextFieldDias;
+    private javax.swing.JTextField jTextFieldEstadoPedido;
     private javax.swing.JTextField jTextFieldLLegada;
     private javax.swing.JTextField jTextFieldOrigen;
     private javax.swing.JTextField jTextFieldPagoParaRecoger;

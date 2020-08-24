@@ -157,7 +157,7 @@ public class CaracteristicaReportesJDialog extends javax.swing.JDialog {
         });
 
         buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setText("2. Listado pedidos atrazados que llegaran a la tienda");
+        jRadioButton2.setText("2. Listado de los pedidos que entraron con atrasó a la tienda");
         jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton2ActionPerformed(evt);
