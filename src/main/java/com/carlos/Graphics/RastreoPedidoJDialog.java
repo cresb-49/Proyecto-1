@@ -215,6 +215,7 @@ public class RastreoPedidoJDialog extends javax.swing.JDialog {
             jComboBoxProductos.addItem(productos.get(i));
         }
         //Oras caracteristicas de los paquetes
+        this.jTextFieldEstadoPedido.setText(datoPedidos.get(4));
         this.jTextFieldOrigen.setText(datoPedidos.get(7));
         this.jTextFieldLLegada.setText(datoPedidos.get(8));
         this.jTextFieldTotal.setText(String.valueOf(totalPedido));

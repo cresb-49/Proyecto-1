@@ -394,32 +394,6 @@ public class ConsultasDB {
         return contar;
     }
     /**
-     * Esta clase funciona solemnete para el apartado de aceso al usuario
-     * Retorna datos de un pedido segun el codigo generado
-     * @param codigo
-     * @return 
-     */
-    public ArrayList<String> datosPedido(String codigo,Connection conexion){
-        ArrayList<String> datosProducto = new ArrayList<String>();
-        
-        String consulta="SELECT anticipo,TIENDA_codigo_salida,TIENDA_codigo_llegada FROM PEDIDO  WHERE codigo = ? LIMIT 1";
-        
-        try (PreparedStatement preSt = conexion.prepareStatement(consulta)) {
-	    preSt.setString(1,codigo);
-	    ResultSet result = preSt.executeQuery();
-	    while(result.next()){
-                datosProducto.add(result.getString(1));
-                datosProducto.add(result.getString(2));
-                datosProducto.add(result.getString(3));
-	    }
-	    result.close();
-	    preSt.close();
-	}catch(Exception e){
-	    System.out.println(e.getMessage());
-	}
-        return datosProducto;
-    }
-    /**
      * Retorna la suma total del pedido
      * @param codigo
      * @return 
