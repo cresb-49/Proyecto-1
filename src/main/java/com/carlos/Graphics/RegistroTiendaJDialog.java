@@ -504,7 +504,21 @@ public class RegistroTiendaJDialog extends javax.swing.JDialog {
         }
         else
         {
-            Store tiendaNueva = new Store(nombre, direcccion, codigo, String.valueOf(telefono1), String.valueOf(telefono2), email, horario);
+            //Verificamos los numeros telefonicos para no introucir el valor 0 en la base de datos
+            String tel1;
+            String tel2;
+            if(telefono1==0){
+                tel1="";
+            }else{
+                tel1=String.valueOf(telefono1);
+            }
+            if(telefono2==0){
+                tel2="";
+            }else{
+                tel2=String.valueOf(telefono2);
+            }
+            //Creaciond el onjeto tienda para el registro en base de datos
+            Store tiendaNueva = new Store(nombre, direcccion, codigo, tel1, tel2, email, horario);
             RegistroDB registroTienda = new RegistroDB();
             String respuesta =registroTienda.registroTienda(tiendaNueva,this.baseDeDatos);
             if(!(respuesta.equals(""))){
@@ -585,6 +599,7 @@ public class RegistroTiendaJDialog extends javax.swing.JDialog {
         }
         else
         {
+            //Se verifican los numeros telefonicos para no ingresar 0 en la base de datos
             String numeroDeTelefono1;
             String numeroDeTelefono2;
             
@@ -601,6 +616,7 @@ public class RegistroTiendaJDialog extends javax.swing.JDialog {
             {
                 numeroDeTelefono2=String.valueOf(telefono2);
             }
+            //Generacion del ojeto tienda con caracteristicas de uno existente y modificar el registro
             Store tiendaNueva = new Store(nombre, direcccion, codigo, numeroDeTelefono1, numeroDeTelefono2, email, horario);
             ModificacionesDB modificarTienda = new ModificacionesDB();
             String respuesta =modificarTienda.modificarTienda(tiendaNueva,this.baseDeDatos);
@@ -621,6 +637,7 @@ public class RegistroTiendaJDialog extends javax.swing.JDialog {
 
     private void jTableTiendasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableTiendasMouseClicked
         // TODO add your handling code here:
+        //Seleccion de la fila en el Jtable para iniciar una busqueda de informacion
         this.jFormattedTextFieldCodigo.setEditable(false);
         int filaSeleccionada = jTableTiendas.getSelectedRow();
         if(!(filaSeleccionada==-1)){

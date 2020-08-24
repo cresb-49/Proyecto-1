@@ -13,6 +13,7 @@ import com.carlos.Entities.Client;
 import com.carlos.Entities.Pedido;
 import com.carlos.Entities.Product;
 import java.sql.Connection;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -73,7 +74,7 @@ public class RealizarPedidoJDialog extends javax.swing.JDialog {
         jFormattedTextFieldNombreCliente1 = new javax.swing.JFormattedTextField();
         jLabel4 = new javax.swing.JLabel();
         jButtonBuscarCliente = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        jButtonLimpiarBuscarClietne = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jFormattedTextFieldCreditoDisponible = new javax.swing.JFormattedTextField();
         jPanel5 = new javax.swing.JPanel();
@@ -230,10 +231,10 @@ public class RealizarPedidoJDialog extends javax.swing.JDialog {
             }
         });
 
-        jButton4.setText("Limpiar Busqueda");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        jButtonLimpiarBuscarClietne.setText("Limpiar Busqueda");
+        jButtonLimpiarBuscarClietne.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                jButtonLimpiarBuscarClietneActionPerformed(evt);
             }
         });
 
@@ -272,7 +273,7 @@ public class RealizarPedidoJDialog extends javax.swing.JDialog {
                                 .addComponent(jButtonBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(76, 76, 76))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jButtonLimpiarBuscarClietne, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(44, 44, 44))))))
         );
         jPanel4Layout.setVerticalGroup(
@@ -287,7 +288,7 @@ public class RealizarPedidoJDialog extends javax.swing.JDialog {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jFormattedTextFieldNombreCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4))
+                    .addComponent(jButtonLimpiarBuscarClietne))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -457,7 +458,7 @@ public class RealizarPedidoJDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
         String codigoProducto = this.jFormattedTextFieldCodigoDelProducto.getText();
         String NIT = this.jFormattedTextFieldNIT.getText();
-        String nombreCliente = this.jFormattedTextFieldExistenciaDelProducto.getText();
+        String nombreCliente = this.jFormattedTextFieldNombreCliente1.getText();
         String codigoTienda = this.jComboBoxTiendas.getSelectedItem().toString();
         double precioProducto=0;
         double pagoEfectivo=0;
@@ -479,7 +480,8 @@ public class RealizarPedidoJDialog extends javax.swing.JDialog {
         //Se comprueban los datos de entrada en para verficar que se haya seleccionado un producto
         if(!(codigoProducto.equals("")||precioProducto==0)){
             //verifica la disponibilidad del producto
-            if(!(consultas.datosExistenciaProducto(codigoProducto, codigoTienda,this.baseDeDatos).endsWith("0"))){
+            int existencias = Integer.valueOf(consultas.datosExistenciaProducto(codigoProducto, codigoTienda,this.baseDeDatos));
+            if(existencias>0){
                 //Verifica que hayan los datos disponibles del cliente 
                 if(!(nombreCliente.equals("")||NIT.equals(""))){
                     //verifica que el credito a utilizar sea una cantiad real
@@ -565,11 +567,31 @@ public class RealizarPedidoJDialog extends javax.swing.JDialog {
             }
             else{
                 JOptionPane.showMessageDialog(this, "Se ha registrado correctamente el pedido");
+                JOptionPane.showMessageDialog(this, "El codigo asignado al pedido es: "+codigoPedido+" ");
                 descontarTienda();
                 descontarCliente();
+                limpiezaBusquedaProducto();
+                limpiezaBusquedaCliente();
+                valorDefectoFecha();
+                limpiezaPagoPedido();
             }
             
         }
+    }
+    /**
+     * Limpia los campos de texto refrente al pago de un pedido
+     */
+    private void limpiezaPagoPedido (){
+        this.jFormattedTextFieldCreditoAUsar.setText("0.00");
+        this.jFormattedTextFieldPagoEfectivo.setText("0.00");
+    }
+    /**
+     * Coloca los valores por defecto de la fecha en el calendario
+     */
+    private void valorDefectoFecha(){
+        this.jComboBoxYear.setSelectedIndex(0);
+        this.jComboBoxMes.setSelectedIndex(0);
+        this.jComboBoxDias.setSelectedIndex(0);
     }
     /**
      * Descuenta las existencia pedidadas de un producto en la tienda que lo expende
@@ -667,11 +689,13 @@ public class RealizarPedidoJDialog extends javax.swing.JDialog {
      */
     private void calculosDeCosto(){
         try{
-        double precioProducto = Double.valueOf(jFormattedTextFieldPrecioDelProducto.getText());
+        double precioProducto = this.AproximacionDosDecimales(Double.valueOf(jFormattedTextFieldPrecioDelProducto.getText()));
         long cantidadDeUnidades = Long.valueOf(jComboBoxUnidadeComprar.getSelectedItem().toString());
         
-        double costoPedido = Double.valueOf(precioProducto*cantidadDeUnidades);
-        double pagoMinimo = Double.valueOf(costoPedido*(0.25));
+        double costoPedido = this.AproximacionDosDecimales(Double.valueOf(precioProducto*cantidadDeUnidades));
+        
+        //double pagoMinimo = Double.valueOf(costoPedido*(0.25));
+        double pagoMinimo = this.AproximacionDosDecimales(Double.valueOf(costoPedido*(0.25)));
         
         jFormattedTextFieldPagoMinimo.setText(String.valueOf(pagoMinimo));
         jFormattedTextFieldPrecioDelPedido.setText(String.valueOf(costoPedido));
@@ -683,6 +707,12 @@ public class RealizarPedidoJDialog extends javax.swing.JDialog {
     }
     private void jButtonLimpiarBusquedaProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarBusquedaProductoActionPerformed
         // TODO add your handling code here:
+        limpiezaBusquedaProducto();
+    }//GEN-LAST:event_jButtonLimpiarBusquedaProductoActionPerformed
+    /**
+     * Limpia los campos de texto referente a la busqueda de producto
+     */
+    private void limpiezaBusquedaProducto(){
         this.jComboBoxTiendas.setEnabled(true);
         this.jFormattedTextFieldCodigoDelProducto.setEnabled(true);
         
@@ -692,20 +722,25 @@ public class RealizarPedidoJDialog extends javax.swing.JDialog {
         
         this.jFormattedTextFieldPrecioDelPedido.setText("0.00");
         this.jFormattedTextFieldPagoMinimo.setText("0.00");
-        
+        this.jFormattedTextFieldPrecioDelProducto.setText("0.00");
         jComboBoxUnidadeComprar.removeAllItems();
         jComboBoxUnidadeComprar.addItem(String.valueOf(0));
-    }//GEN-LAST:event_jButtonLimpiarBusquedaProductoActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    }
+    
+    private void jButtonLimpiarBuscarClietneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarBuscarClietneActionPerformed
         // TODO add your handling code here:
+        limpiezaBusquedaCliente();
+        
+    }//GEN-LAST:event_jButtonLimpiarBuscarClietneActionPerformed
+    /**
+     * Limpia los campos de texto referente a la busqueda de cliente
+     */
+    private void limpiezaBusquedaCliente(){
         this.jFormattedTextFieldNIT.setEditable(true);
         this.jFormattedTextFieldNIT.setText("");
         this.jFormattedTextFieldNombreCliente1.setText("");
         this.jFormattedTextFieldCreditoDisponible.setText("0");
-        
-    }//GEN-LAST:event_jButton4ActionPerformed
-
+    }
     private void jComboBoxUnidadeComprarItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxUnidadeComprarItemStateChanged
         // TODO add your handling code here:
         calculosDeCosto();
@@ -720,10 +755,21 @@ public class RealizarPedidoJDialog extends javax.swing.JDialog {
             jComboBoxTiendas.addItem(tiendas.get(i));
         }
     }
+    /**
+     * Realiza un aproximacion numerica de los decimales aceptados en el programa
+     * @param cantidad
+     * @return 
+     */
+    private double AproximacionDosDecimales(double cantidad){
+        double resultado=0;
+        DecimalFormat formatoDosDecimales = new DecimalFormat("#.00");
+        resultado = Double.parseDouble(formatoDosDecimales.format(cantidad));
+        return resultado;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButtonBuscarCliente;
     private javax.swing.JButton jButtonBuscarProducto;
+    private javax.swing.JButton jButtonLimpiarBuscarClietne;
     private javax.swing.JButton jButtonLimpiarBusquedaProducto;
     private javax.swing.JButton jButtonRealizarTransaccion;
     private javax.swing.JComboBox<String> jComboBoxDias;

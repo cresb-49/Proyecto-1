@@ -306,7 +306,7 @@ public class RegistroEmpleadoJDialog extends javax.swing.JDialog {
         codigoEmpleado = this.jFormattedTextFieldCodigo.getText();
         nombre = this.jFormattedTextFieldNombre.getText();
         NIT = this.jFormattedTextField1NIT.getText();
-        correoElectronico= this.jFormattedTextFieldDireccion.getText();
+        correoElectronico= this.jFormattedTextFieldEmail.getText();
         direccion = this.jFormattedTextFieldDireccion.getText();
         try {
             telefono = Long.parseLong(this.jFormattedTextFieldTelefono.getText());

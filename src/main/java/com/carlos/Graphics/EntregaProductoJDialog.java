@@ -8,6 +8,7 @@ package com.carlos.Graphics;
 import com.carlos.DBSuport.*;
 import com.carlos.Entities.*;
 import java.sql.Connection;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -498,8 +499,8 @@ public class EntregaProductoJDialog extends javax.swing.JDialog {
 
             int cantidad =this.consultaDB.contarPedidos(codigoPedidoRetiro,this.baseDeDatos);
 
-            double total = this.consultaDB.sumaTotalPedido(codigoPedidoRetiro,this.baseDeDatos);
-            double anticipo = this.consultaDB.sumaAnticipoPedido(codigoPedidoRetiro,this.baseDeDatos);
+            double total =this.AproximacionDosDecimales(this.consultaDB.sumaTotalPedido(codigoPedidoRetiro,this.baseDeDatos));
+            double anticipo = this.AproximacionDosDecimales(this.consultaDB.sumaAnticipoPedido(codigoPedidoRetiro,this.baseDeDatos));
 
             double anticipoParaTransaccion=0;
 
@@ -548,10 +549,10 @@ public class EntregaProductoJDialog extends javax.swing.JDialog {
                         jButtonFinalizarVenta.setEnabled(true);
                         jLabelDescripcionCodigo.setText("El pedido llego con retraso");
                     if(anticipoParaTransaccion==total){
-                        jTextFieldBonificacionCliente.setText(String.valueOf(total*0.05));
+                        jTextFieldBonificacionCliente.setText(String.valueOf(this.AproximacionDosDecimales(total*0.05)));
                     }
                     else{
-                            jTextFieldBonificacionCliente.setText(String.valueOf(total*0.02));
+                            jTextFieldBonificacionCliente.setText(String.valueOf(this.AproximacionDosDecimales(total*0.02)));
                     }
                     }
                         jTextFieldNit.setText(contenido.get(5));
@@ -663,6 +664,17 @@ public class EntregaProductoJDialog extends javax.swing.JDialog {
         }
         
         
+    }
+    /**
+     * Realiza un aproximacion numerica de los decimales aceptados en el programa
+     * @param cantidad
+     * @return 
+     */
+    private double AproximacionDosDecimales(double cantidad){
+        double resultado=0;
+        DecimalFormat formatoDosDecimales = new DecimalFormat("#.00");
+        resultado = Double.parseDouble(formatoDosDecimales.format(cantidad));
+        return resultado;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
