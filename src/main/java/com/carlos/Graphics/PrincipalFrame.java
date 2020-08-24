@@ -134,11 +134,16 @@ public class PrincipalFrame extends javax.swing.JFrame {
      * Configuracion del componentes que pertenecen al frame de origen
      */
     private void ProfileComponents(){
+        this.jButtonIniciarSesion.setEnabled(false);
+        this.jButtonRegistrarse.setEnabled(false);
         ImageIcon imagen = new ImageIcon(getClass().getClassLoader().getResource("index.png"));
         jLabelImage.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(225, 225, Image.SCALE_SMOOTH)));
         if(this.estadoDB){
-            JOptionPane.showMessageDialog(this, "No hay datos en el sistema debe cargarlos");
-            cargaDatos();
+            while (this.estadoDB) {                
+                JOptionPane.showMessageDialog(this, "No hay datos en el sistema debe cargarlos");
+                cargaDatos();
+                this.comprobacionDB();
+            }
         }
     }
 
@@ -162,16 +167,23 @@ public class PrincipalFrame extends javax.swing.JFrame {
                 try (ResultSet result = preSt.executeQuery()){
                     while (result.next()) {
                         this.estadoDB = false;
+                        //Habilita los botones para seguir avanzando en el sistema
+                        this.jButtonIniciarSesion.setEnabled(true);
+                        this.jButtonRegistrarse.setEnabled(true);
                     }
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(this, e.getMessage());
+                    
                 }
             }catch(Exception e){
                 JOptionPane.showMessageDialog(this, e.getMessage());
+                
             }
             
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
+            JOptionPane.showMessageDialog(this, "No existe la base de datos el programa se cerrara");
+            System.exit(0);
         }
     }
     private void cargaDatos(){
