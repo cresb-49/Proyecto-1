@@ -252,6 +252,7 @@ public class RegistroCliente extends javax.swing.JFrame {
         //Extracciones y converciones de datos
         nombre = this.jFormattedTextFieldNombre.getText();
         try {
+            //Se verifica que el numero telefonico tenga la cantidad apropiada
             if(this.jFormattedTextFieldTelefono.getText().length()==8)
             {
                 telefono = Long.parseLong(this.jFormattedTextFieldTelefono.getText());
@@ -260,9 +261,10 @@ public class RegistroCliente extends javax.swing.JFrame {
             {
                 JOptionPane.showMessageDialog(this, "Numero de telefono no valido debe tener 8 digitos");
             }
-            
+            //Se verifica la cantidad de caracteres que se tienen en la cadena perteneciente al DPI
             if(this.jFormattedTextFieldDPI.getText().length()!=0)
             {
+                //Se vuelve a verificar el DPI si tiene la cantida correcta de carcteres
                 if(this.jFormattedTextFieldDPI.getText().length()==10)
                 {
                     DPI = Long.parseLong(this.jFormattedTextFieldDPI.getText());
@@ -286,10 +288,12 @@ public class RegistroCliente extends javax.swing.JFrame {
         }
         else
         {
+            //Como el DPI esta en formato de numero verifica que este no sea cero y lo convierte a una cadena String si cumple
             String resultadoDPI="";
             if(DPI>0){
                 resultadoDPI=String.valueOf(DPI);
             }
+            //Hace la creacion del onjeto y realiza el registro del mismo
             Client clienteNuevo = new Client(nombre, String.valueOf(telefono), NIT,resultadoDPI, 0, email, direccion);
             RegistroDB registro = new RegistroDB();
             String respuesta = registro.registroCliente(clienteNuevo,baseDeDatos);

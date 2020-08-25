@@ -308,16 +308,19 @@ public class RegistroEmpleadoJDialog extends javax.swing.JDialog {
         NIT = this.jFormattedTextField1NIT.getText();
         correoElectronico= this.jFormattedTextFieldEmail.getText();
         direccion = this.jFormattedTextFieldDireccion.getText();
+        //Realiza la conversion de los datos para su verficacion
         try {
             telefono = Long.parseLong(this.jFormattedTextFieldTelefono.getText());
             DPI = Long.parseLong(this.jFormattedTextFieldDPI.getText());
         } catch (Exception e) {
         }
+        //Verificacion de los campos obligatorios 
         if(codigoEmpleado.equals("")||nombre.equals("")||telefono==0||DPI==0||correoElectronico.equals("")||direccion.equals("")){
             JOptionPane.showMessageDialog(this, "No ah completado los campos obligatorios del formulario");
         }
         else
         {
+            //Verifica que el DPI no sea cero y asigna una cadena vacia si lo es
             String resultadoDPI="";
             if(DPI>0){
                 resultadoDPI=String.valueOf(DPI);
@@ -325,6 +328,7 @@ public class RegistroEmpleadoJDialog extends javax.swing.JDialog {
             Employee nuevoEmpledo = new Employee(codigoEmpleado, nombre, String.valueOf(telefono), NIT, resultadoDPI, correoElectronico, direccion);
             RegistroDB registroEmpleado = new RegistroDB();
             String respuesta = registroEmpleado.registroEmpleado(nuevoEmpledo,this.baseDeDatos);
+            //Evalua la respuesta al momento del registro
             if(!(respuesta.equals(""))){
                 JOptionPane.showMessageDialog(this, respuesta);
             }
@@ -371,11 +375,13 @@ public class RegistroEmpleadoJDialog extends javax.swing.JDialog {
         NIT = this.jFormattedTextField1NIT.getText();
         correoElectronico= this.jFormattedTextFieldEmail.getText();
         direccion = this.jFormattedTextFieldDireccion.getText();
+        //Consvercion de los datos introsucidos en los campos de texto
         try {
             telefono = Long.parseLong(this.jFormattedTextFieldTelefono.getText());
             DPI = Long.parseLong(this.jFormattedTextFieldDPI.getText());
         } catch (Exception e) {
         }
+        //Verifiaca que haya texto en los campos obligatorios del programa
         if(codigoEmpleado.equals("")||nombre.equals("")||telefono==0||DPI==0||correoElectronico.equals("")||direccion.equals("")){
             JOptionPane.showMessageDialog(this, "No ah completado los campos obligatorios del formulario");
         }
@@ -388,6 +394,7 @@ public class RegistroEmpleadoJDialog extends javax.swing.JDialog {
             Employee empleadoModificado = new Employee(codigoEmpleado, nombre, String.valueOf(telefono), NIT, resultadoDPI, correoElectronico, direccion);
             ModificacionesDB modificarEmpleado = new ModificacionesDB();
             String respuesta = modificarEmpleado.modificarEmpleado(empleadoModificado,this.baseDeDatos);
+            //Verifica la respuesta de la modificacionm en la base de datos
             if(!(respuesta.equals(""))){
                 JOptionPane.showMessageDialog(this, respuesta);
             }
@@ -448,6 +455,7 @@ public class RegistroEmpleadoJDialog extends javax.swing.JDialog {
         String sentencia = "SELECT * FROM EMPLEADO WHERE nombre LIKE ? ORDER BY ? ASC;";
         String busqueda="";
         busqueda = this.jTextFieldCampoDeBusqueda.getText();
+        //Segun la sleecion de busqueda es el tipo de consulta de la base de datos
         if(modoListado.equals("Todos")){
             sentencia = "SELECT * FROM EMPLEADO ORDER BY codigo ASC";
         }
@@ -459,22 +467,24 @@ public class RegistroEmpleadoJDialog extends javax.swing.JDialog {
         }
         
         try(PreparedStatement preSt = this.baseDeDatos.prepareStatement(sentencia)){
+            //Si hay un campo de busqueda especial habilita la introduccion de la palabra clave
             if(!(modoListado.equals("Todos"))){
                 preSt.setString(1, "%" + busqueda + "%");
             }
-            ResultSet result = preSt.executeQuery();
-            Object[] empleado = new Object[3];
-            modeloDeTabla = (DefaultTableModel)jTableEmpleados.getModel();
-            modeloDeTabla.setNumRows(0);
-            while (result.next()){
-                empleado[0]=result.getString(1);
-                empleado[1]=result.getString(2);
-                empleado[2]=result.getString(3);
-                modeloDeTabla.addRow(empleado);
+            try (ResultSet result = preSt.executeQuery()){
+                Object[] empleado = new Object[3];
+                modeloDeTabla = (DefaultTableModel)jTableEmpleados.getModel();
+                modeloDeTabla.setNumRows(0);
+                while (result.next()){
+                    empleado[0]=result.getString(1);
+                    empleado[1]=result.getString(2);
+                    empleado[2]=result.getString(3);
+                    modeloDeTabla.addRow(empleado);
+                }
+                jTableEmpleados.setModel(modeloDeTabla);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e.getMessage());
             }
-            jTableEmpleados.setModel(modeloDeTabla);
-            result.close();
-            preSt.close();
         }catch(Exception e)
         {
             JOptionPane.showMessageDialog(this, e.getMessage());

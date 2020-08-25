@@ -1,6 +1,5 @@
 package com.carlos.OuputDocs;
 
-import com.carlos.DBSuport.ConexionDB;
 import com.carlos.DBSuport.ConsultasDB;
 import java.io.*;
 import java.sql.Connection;
@@ -8,7 +7,6 @@ import java.util.ArrayList;
 
 public class GenerateHTML {
     private File archivo;
-    
     private String codigoTienda;
     private String NITcliente;
     private String tiempoSuperior;
@@ -48,6 +46,7 @@ public class GenerateHTML {
                 html=this.htmlPedidosPorCliente(html);
             }
             if(tipoReporte.equals("10_Productos_Mas_Vendidos")){
+                //Si no hay una fecha de referencia para la creacion del reporte entonces se hace a nivel global
                 if(this.tiempoSuperior.equals("Año-Mes-Dia")&&this.timepoInferior.equals("Año-Mes-Dia")){
                     html = this.htmlDiezProductosMasVendidos(html);
                 }
@@ -56,6 +55,7 @@ public class GenerateHTML {
                 }
             }
             if(tipoReporte.equals("Listado_Produtos_Mas_Vendidos")){
+                //Si no hay una fecha de referencia para la creacion del reporte entonces se hace a nivel global en tienda
                 if(this.tiempoSuperior.equals("Año-Mes-Dia")&&this.timepoInferior.equals("Año-Mes-Dia")){
                     html = this.htmlProductosMasVendidosTienda(html);
                 }
@@ -290,9 +290,10 @@ public class GenerateHTML {
         html.println("<table border=\"1\">");
             html.println("<thead>");
                 html.println("<tr>");
-                    html.println("<th>Codigo del producto</th>");
                     html.println("<th>Nombre del producto</th>");
+                    html.println("<th>Codigo del producto</th>");
                     html.println("<th>Fabricante del producto</th>");
+                    html.println("<th>Cantidad Vendida</th>");
                 html.println("</tr>");
             html.println("</thead>");
             html.println("<tbody>");
@@ -303,6 +304,7 @@ public class GenerateHTML {
                         html.println("<td>"+productosMasVendidos.get(i)[0]+"</td>");
                         html.println("<td>"+productosMasVendidos.get(i)[1]+"</td>");
                         html.println("<td>"+productosMasVendidos.get(i)[2]+"</td>");
+                        html.println("<td>"+productosMasVendidos.get(i)[3]+"</td>");
                     html.println("<tbody>");
                 }
                 ///////////////////////////////////////////////
@@ -329,9 +331,10 @@ public class GenerateHTML {
         html.println("<table border=\"1\">");
             html.println("<thead>");
                 html.println("<tr>");
-                    html.println("<th>Codigo del producto</th>");
                     html.println("<th>Nombre del producto</th>");
+                    html.println("<th>Codigo del producto</th>");
                     html.println("<th>Fabricante del producto</th>");
+                    html.println("<th>Cantidad Vendida</th>");
                 html.println("</tr>");
             html.println("</thead>");
             html.println("<tbody>");
@@ -342,6 +345,7 @@ public class GenerateHTML {
                         html.println("<td>"+productosMasVendidos.get(i)[0]+"</td>");
                         html.println("<td>"+productosMasVendidos.get(i)[1]+"</td>");
                         html.println("<td>"+productosMasVendidos.get(i)[2]+"</td>");
+                        html.println("<td>"+productosMasVendidos.get(i)[3]+"</td>");
                     html.println("<tbody>");
                 }
                 ///////////////////////////////////////////////
@@ -368,9 +372,10 @@ public class GenerateHTML {
         html.println("<table border=\"1\">");
             html.println("<thead>");
                 html.println("<tr>");
-                    html.println("<th>Codigo del producto</th>");
                     html.println("<th>Nombre del producto</th>");
+                    html.println("<th>Codigo del producto</th>");
                     html.println("<th>Fabricante del producto</th>");
+                    html.println("<th>Cantidad Vendida</th>");
                 html.println("</tr>");
             html.println("</thead>");
             html.println("<tbody>");
@@ -381,6 +386,7 @@ public class GenerateHTML {
                         html.println("<td>"+productosMasVendidos.get(i)[0]+"</td>");
                         html.println("<td>"+productosMasVendidos.get(i)[1]+"</td>");
                         html.println("<td>"+productosMasVendidos.get(i)[2]+"</td>");
+                        html.println("<td>"+productosMasVendidos.get(i)[3]+"</td>");
                     html.println("<tbody>");
                 }
                 ///////////////////////////////////////////////
@@ -402,14 +408,15 @@ public class GenerateHTML {
         ArrayList<String[]> productosMasVendidos = new ArrayList<String[]>();
         productosMasVendidos = this.consultaDB.ProductosMasVendidosTiendaIntervalo(this.codigoTienda, this.timepoInferior, this.tiempoSuperior, this.baseDeDatos);
         //////////////////////////////////////////////////////////////////////////////////////
-        html.println("<h1>REPORTE DE LOS PRODUCTOS MAS VENDIDOS EN LA TIENDA "+this.codigoTienda+"\nENTRE EL "+this.timepoInferior+" Y "+this.tiempoSuperior+"</h1>");
+        html.println("<h1>REPORTE DE LOS PRODUCTOS MAS VENDIDOS EN LA TIENDA "+this.codigoTienda+"\nENTRE EL "+this.timepoInferior+" Y "+this.tiempoSuperior+" POR LA EMPRESA</h1>");
         html.println("<h2>Descripcion de los productos</h2>");
         html.println("<table border=\"1\">");
             html.println("<thead>");
                 html.println("<tr>");
-                    html.println("<th>Codigo del producto</th>");
                     html.println("<th>Nombre del producto</th>");
+                    html.println("<th>Codigo del producto</th>");
                     html.println("<th>Fabricante del producto</th>");
+                    html.println("<th>Cantidad Vendida</th>");
                 html.println("</tr>");
             html.println("</thead>");
             html.println("<tbody>");
@@ -420,6 +427,7 @@ public class GenerateHTML {
                         html.println("<td>"+productosMasVendidos.get(i)[0]+"</td>");
                         html.println("<td>"+productosMasVendidos.get(i)[1]+"</td>");
                         html.println("<td>"+productosMasVendidos.get(i)[2]+"</td>");
+                        html.println("<td>"+productosMasVendidos.get(i)[3]+"</td>");
                     html.println("<tbody>");
                 }
                 ///////////////////////////////////////////////

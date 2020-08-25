@@ -485,10 +485,12 @@ public class RegistroTiendaJDialog extends javax.swing.JDialog {
         direcccion =  this.jFormattedTextFieldDireccion.getText();
         codigo = this.jFormattedTextFieldCodigo.getText();
         try {
+            //verifica que el numero telefono tenga la cantidad de digitos correcto
             if(this.jFormattedTextFieldPhone1.getText().length()==8)
             {
                 telefono1 = Integer.parseInt(this.jFormattedTextFieldPhone1.getText());
             }
+            //verifica que el numero telefono tenga la cantidad de digitos correcto
             if(this.jFormattedTextFieldPhone1.getText().length()==8)
             {
                 telefono2 = Integer.parseInt(this.jFormattedTextFieldPhone2.getText());
@@ -498,7 +500,7 @@ public class RegistroTiendaJDialog extends javax.swing.JDialog {
         }
         email = this.jFormattedTextFieldEmail.getText();
         horario = this.jTextAreaHorario.getText();
-        
+        //Verifica que los campos obligatorios esten con datos
         if(nombre.equals("")||direcccion.equals("")||codigo.equals("")||telefono1==0){
             JOptionPane.showMessageDialog(this, "Campos obligatorios no estan completos");
         }
@@ -733,21 +735,22 @@ public class RegistroTiendaJDialog extends javax.swing.JDialog {
             else{
                 preSt.setString(1, tipoOrden);
             }
-            ResultSet result = preSt.executeQuery();
-            //////////////////////////////////////
-            //Variables para mostrar datos de consulta en tabla
-            Object[] tienda = new Object[2];
-            modeloDeTabla = (DefaultTableModel)jTableTiendas.getModel();
-            modeloDeTabla.setNumRows(0);
-            ////////////////////////////////////
-            while (result.next()) {                
-                tienda[0]=result.getString(1);
-                tienda[1]=result.getString(2);
-                modeloDeTabla.addRow(tienda);
+            try(ResultSet result = preSt.executeQuery()) {
+                //////////////////////////////////////
+                //Variables para mostrar datos de consulta en tabla
+                Object[] tienda = new Object[2];
+                modeloDeTabla = (DefaultTableModel)jTableTiendas.getModel();
+                modeloDeTabla.setNumRows(0);
+                ////////////////////////////////////
+                while (result.next()) {                
+                    tienda[0]=result.getString(1);
+                    tienda[1]=result.getString(2);
+                    modeloDeTabla.addRow(tienda);
+                }
+                jTableTiendas.setModel(modeloDeTabla);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e.getMessage());
             }
-            jTableTiendas.setModel(modeloDeTabla);
-            result.close();
-            preSt.close();
         }catch(Exception e){
             JOptionPane.showMessageDialog(this, e.getMessage());
         }

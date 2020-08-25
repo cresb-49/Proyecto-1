@@ -59,12 +59,13 @@ public class ConsultasDB {
         ArrayList<String> tiendasDisponibles = new ArrayList<String>();
         String consulta="SELECT nombre FROM TIENDA";
         try (PreparedStatement preSt = conexion.prepareStatement(consulta)) {
-            ResultSet result = preSt.executeQuery();
-            while(result.next()){
-                tiendasDisponibles.add(result.getString("nombre"));
+            try(ResultSet result = preSt.executeQuery()) {
+                while(result.next()){
+                    tiendasDisponibles.add(result.getString("nombre"));
+                }   
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
-            result.close();
-            preSt.close();
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
@@ -78,12 +79,13 @@ public class ConsultasDB {
         ArrayList<String> tiendasDisponibles = new ArrayList<String>();
         String consulta="SELECT codigo FROM TIENDA";
         try (PreparedStatement preSt = conexion.prepareStatement(consulta)) {
-            ResultSet result = preSt.executeQuery();
-            while(result.next()){
+            try(ResultSet result = preSt.executeQuery()){
+                while(result.next()){
                 tiendasDisponibles.add(result.getString("codigo"));
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
-            result.close();
-            preSt.close();
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
@@ -99,17 +101,18 @@ public class ConsultasDB {
         String consulta="SELECT nombre,telefono,credito,dpi,email,direccion FROM CLIENTE WHERE nit = ?";
         try (PreparedStatement preSt = conexion.prepareStatement(consulta)) {
             preSt.setString(1, nit);
-            ResultSet result = preSt.executeQuery();
-            while(result.next()){
+            try(ResultSet result = preSt.executeQuery()) {
+                while(result.next()){
                 cliente.add(result.getString(1));
                 cliente.add(result.getString(2));
                 cliente.add(result.getString(3));
                 cliente.add(result.getString(4));
                 cliente.add(result.getString(5));
                 cliente.add(result.getString(6));
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
-            result.close();
-            preSt.close();
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
@@ -125,8 +128,8 @@ public class ConsultasDB {
         String consulta="SELECT nombre,telefono,dpi,nit,email,direccion FROM EMPLEADO WHERE codigo = ?";
         try (PreparedStatement preSt = conexion.prepareStatement(consulta)) {
 	    preSt.setString(1,codigo);
-	    ResultSet result = preSt.executeQuery();
-	    while(result.next()){
+            try(ResultSet result = preSt.executeQuery()) {
+                while(result.next()){
                 empleado.add(result.getString(1));
                 empleado.add(result.getString(2));
                 empleado.add(result.getString(3));
@@ -134,8 +137,9 @@ public class ConsultasDB {
                 empleado.add(result.getString(5));
                 empleado.add(result.getString(6));
 	    }
-	    result.close();
-	    preSt.close();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
 	}catch(Exception e){
 	    System.out.println(e.getMessage());
 	}
@@ -151,17 +155,18 @@ public class ConsultasDB {
         String consulta="SELECT nombre,direccion,telefono_1,telefono_2,email,horario FROM TIENDA WHERE codigo = ?";
         try (PreparedStatement preSt = conexion.prepareStatement(consulta)) {
 	    preSt.setString(1,codigo);
-	    ResultSet result = preSt.executeQuery();
-	    while(result.next()){
+            try(ResultSet result = preSt.executeQuery()) {
+                while(result.next()){
                 tienda.add(result.getString(1));
                 tienda.add(result.getString(2));
                 tienda.add(result.getString(3));
                 tienda.add(result.getString(4));
                 tienda.add(result.getString(5));
                 tienda.add(result.getString(6));
-	    }
-	    result.close();
-	    preSt.close();
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
 	}catch(Exception e){
 	    System.out.println(e.getMessage());
 	}
@@ -178,12 +183,13 @@ public class ConsultasDB {
         String consulta="SELECT codigo FROM TIENDA WHERE nombre = ?";
         try (PreparedStatement preSt = conexion.prepareStatement(consulta)) {
 	    preSt.setString(1,nombre);
-	    ResultSet result = preSt.executeQuery();
-	    while(result.next()){
-	      cliente = result.getString(1);
-	    }
-	    result.close();
-	    preSt.close();
+            try(ResultSet result = preSt.executeQuery()) {
+                while(result.next()){
+                  cliente = result.getString(1);
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
 	}catch(Exception e){
 	    System.out.println(e.getMessage());
 	}
@@ -253,16 +259,17 @@ public class ConsultasDB {
         
         try (PreparedStatement preSt = conexion.prepareStatement(consulta)) {
 	    preSt.setString(1,codigo);
-	    ResultSet result = preSt.executeQuery();
-	    while(result.next()){
+            try(ResultSet result = preSt.executeQuery()) {
+                while(result.next()){
                 datosProducto.add(result.getString(1));
                 datosProducto.add(result.getString(2));
                 datosProducto.add(result.getString(3));
                 datosProducto.add(result.getString(4));
                 datosProducto.add(result.getString(5));
-	    }
-	    result.close();
-	    preSt.close();
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
 	}catch(Exception e){
 	    System.out.println(e.getMessage());
 	}
@@ -276,18 +283,17 @@ public class ConsultasDB {
      */
     public String datosExistenciaProducto(String codigo,String codigoTienda,Connection conexion){
         String datosProducto = "";
-        
         String consulta="SELECT cantidad FROM EXISTENCIA WHERE PRODUCTO_codigo = ? AND TIENDA_codigo = ?";
-        
         try (PreparedStatement preSt = conexion.prepareStatement(consulta)) {
 	    preSt.setString(1,codigo);
             preSt.setString(2,codigoTienda);
-	    ResultSet result = preSt.executeQuery();
-	    while(result.next()){
-                datosProducto = result.getString(1);
-	    }
-	    result.close();
-	    preSt.close();
+            try(ResultSet result = preSt.executeQuery()) {
+                while(result.next()){
+                    datosProducto = result.getString(1);
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
 	}catch(Exception e){
 	    System.out.println(e.getMessage());
 	}
@@ -305,12 +311,13 @@ public class ConsultasDB {
         
         try (PreparedStatement preSt = conexion.prepareStatement(consulta)) {
 	    preSt.setString(1,codigo);
-	    ResultSet result = preSt.executeQuery();
-	    while(result.next()){
-	      datosProducto.add(result.getString(1));
-	    }
-	    result.close();
-	    preSt.close();
+            try(ResultSet result = preSt.executeQuery()) {
+                while(result.next()){
+                  datosProducto.add(result.getString(1));
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
 	}catch(Exception e){
 	    System.out.println(e.getMessage());
 	}
@@ -328,20 +335,21 @@ public class ConsultasDB {
         
         try (PreparedStatement preSt = conexion.prepareStatement(consulta)) {
 	    preSt.setString(1,codigoPedido);
-	    ResultSet result = preSt.executeQuery();
-	    while(result.next()){
-                datosProducto.add(result.getString(1));
-                datosProducto.add(result.getString(2));
-                datosProducto.add(result.getString(3));
-                datosProducto.add(result.getString(4));
-                datosProducto.add(result.getString(5));
-                datosProducto.add(result.getString(6));
-                datosProducto.add(result.getString(7));
-                datosProducto.add(result.getString(8));
-                datosProducto.add(result.getString(9));
-	    }
-	    result.close();
-	    preSt.close();
+            try(ResultSet result = preSt.executeQuery()) {    
+                while(result.next()){
+                    datosProducto.add(result.getString(1));
+                    datosProducto.add(result.getString(2));
+                    datosProducto.add(result.getString(3));
+                    datosProducto.add(result.getString(4));
+                    datosProducto.add(result.getString(5));
+                    datosProducto.add(result.getString(6));
+                    datosProducto.add(result.getString(7));
+                    datosProducto.add(result.getString(8));
+                    datosProducto.add(result.getString(9));
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
 	}catch(Exception e){
 	    System.out.println(e.getMessage());
 	}
@@ -354,17 +362,16 @@ public class ConsultasDB {
      */
     public ArrayList<Pedido> retornoDePedidos(String codigoPedido,Connection conexion){
         ArrayList<Pedido> Pedidos = new ArrayList<Pedido>();
-        
         String consulta="SELECT cantidad,total,anticipo,fecha_orden,estado_pedido,CLIENTE_nit,PRODUCTO_codigo,TIENDA_codigo_salida,TIENDA_codigo_llegada FROM PEDIDO WHERE codigo = ?";
-        
         try (PreparedStatement preSt = conexion.prepareStatement(consulta)) {
 	    preSt.setString(1,codigoPedido);
-	    ResultSet result = preSt.executeQuery();
-	    while(result.next()){
-	      Pedidos.add(new Pedido(codigoPedido, result.getString(8), result.getString(9), result.getString(4), result.getString(6), result.getString(7), result.getInt(1),result.getDouble(2),result.getDouble(3)));
-	    }
-	    result.close();
-	    preSt.close();
+            try(ResultSet result = preSt.executeQuery()) {
+                while(result.next()){
+                    Pedidos.add(new Pedido(codigoPedido, result.getString(8), result.getString(9), result.getString(4), result.getString(6), result.getString(7), result.getInt(1),result.getDouble(2),result.getDouble(3)));
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
 	}catch(Exception e){
 	    System.out.println(e.getMessage());
 	}
@@ -382,12 +389,13 @@ public class ConsultasDB {
         
         try (PreparedStatement preSt = conexion.prepareStatement(consulta)) {
 	    preSt.setString(1,codigoPedido);
-	    ResultSet result = preSt.executeQuery();
-	    while(result.next()){
-	      contar = result.getInt(1);
-	    }
-	    result.close();
-	    preSt.close();
+            try(ResultSet result = preSt.executeQuery()) {
+                while(result.next()){
+                    contar = result.getInt(1);
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
 	}catch(Exception e){
 	    System.out.println(e.getMessage());
 	}
@@ -405,12 +413,13 @@ public class ConsultasDB {
         
         try (PreparedStatement preSt = conexion.prepareStatement(consulta)) {
 	    preSt.setString(1,codigo);
-	    ResultSet result = preSt.executeQuery();
-	    while(result.next()){
-                total = result.getDouble(1);
-	    }
-	    result.close();
-	    preSt.close();
+            try(ResultSet result = preSt.executeQuery()) {
+                while(result.next()){
+                    total = result.getDouble(1);
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
 	}catch(Exception e){
 	    System.out.println(e.getMessage());
 	}
@@ -428,12 +437,13 @@ public class ConsultasDB {
         
         try (PreparedStatement preSt = conexion.prepareStatement(consulta)) {
 	    preSt.setString(1,codigo);
-	    ResultSet result = preSt.executeQuery();
-	    while(result.next()){
-                anticipo = result.getDouble(1);
-	    }
-	    result.close();
-	    preSt.close();
+            try(ResultSet result = preSt.executeQuery()) {
+                while(result.next()){
+                    anticipo = result.getDouble(1);
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
 	}catch(Exception e){
 	    System.out.println(e.getMessage());
 	}
@@ -451,12 +461,13 @@ public class ConsultasDB {
         
         try (PreparedStatement preSt = conexion.prepareStatement(consulta)) {
 	    preSt.setString(1,nombre);
-	    ResultSet result = preSt.executeQuery();
-	    while(result.next()){
-                codigo = result.getString(1);
-	    }
-	    result.close();
-	    preSt.close();
+            try (ResultSet result = preSt.executeQuery()){
+                while(result.next()){
+                    codigo = result.getString(1);
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
 	}catch(Exception e){
 	    System.out.println(e.getMessage());
 	}
@@ -478,12 +489,13 @@ public class ConsultasDB {
         try (PreparedStatement preSt = conexion.prepareStatement(consulta)) {
 	    preSt.setString(1,codigoTienda);
             preSt.setString(2,estadoDePedido);
-	    ResultSet result = preSt.executeQuery();
-	    while(result.next()){
-                datosProducto.add(new String[]{result.getString(1),result.getString(2),result.getString(3),result.getString(4)});
-	    }
-	    result.close();
-	    preSt.close();
+            try(ResultSet result = preSt.executeQuery()) {
+                while(result.next()){
+                    datosProducto.add(new String[]{result.getString(1),result.getString(2),result.getString(3),result.getString(4)});
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
 	}catch(Exception e){
 	    System.out.println(e.getMessage());
 	}
@@ -502,12 +514,13 @@ public class ConsultasDB {
         
         try (PreparedStatement preSt = conexion.prepareStatement(consulta)) {
 	    preSt.setString(1,codigoTienda);
-	    ResultSet result = preSt.executeQuery();
-	    while(result.next()){
-                datosProducto.add(new String[]{result.getString(1),result.getString(2),result.getString(3),result.getString(4)});
-	    }
-	    result.close();
-	    preSt.close();
+            try(ResultSet result = preSt.executeQuery()) {
+                while(result.next()){
+                    datosProducto.add(new String[]{result.getString(1),result.getString(2),result.getString(3),result.getString(4)});
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
 	}catch(Exception e){
 	    System.out.println(e.getMessage());
 	}
@@ -548,12 +561,13 @@ public class ConsultasDB {
         
         try (PreparedStatement preSt = conexion.prepareStatement(consulta)) {
 	    preSt.setString(1,nitCliente);
-	    ResultSet result = preSt.executeQuery();
-	    while(result.next()){
-                pedidosCliente.add(new String[]{result.getString(1),result.getString(2),result.getString(3),result.getString(4),result.getString(5)});
-	    }
-	    result.close();
-	    preSt.close();
+            try(ResultSet result = preSt.executeQuery()){
+                while(result.next()){
+                    pedidosCliente.add(new String[]{result.getString(1),result.getString(2),result.getString(3),result.getString(4),result.getString(5)});
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
 	}catch(Exception e){
 	    System.out.println(e.getMessage());
 	}
@@ -566,16 +580,15 @@ public class ConsultasDB {
      */
     public ArrayList<String[]> diezProductosMasVendidos(Connection conexion){
         ArrayList<String[]> productosMasVendidos = new ArrayList<String[]>();
-        
-        String consulta="SELECT PRODUCTO.codigo,PRODUCTO.nombre,PRODUCTO.fabricante FROM PRODUCTO WHERE codigo IN (SELECT PRODUCTO_codigo FROM VENTAS GROUP BY PRODUCTO_codigo ORDER BY count(PRODUCTO_codigo) DESC) LIMIT 10";
-        
+        String consulta = "SELECT P.nombre,V.PRODUCTO_codigo,P.fabricante,sum(V.cantidad_producto)  FROM ventas V INNER JOIN producto P ON V.PRODUCTO_codigo=P.codigo GROUP BY(V.PRODUCTO_codigo) ORDER BY sum(V.cantidad_producto) DESC LIMIT 10";
+        //String consulta="SELECT PRODUCTO.codigo,PRODUCTO.nombre,PRODUCTO.fabricante FROM PRODUCTO WHERE codigo IN (SELECT PRODUCTO_codigo FROM VENTAS GROUP BY PRODUCTO_codigo ORDER BY count(PRODUCTO_codigo) DESC) LIMIT 10";
         try (PreparedStatement preSt = conexion.prepareStatement(consulta)) {
             try(ResultSet result = preSt.executeQuery()){
                 while(result.next()){
-                productosMasVendidos.add(new String[]{result.getString(1),result.getString(2),result.getString(3)});
+                productosMasVendidos.add(new String[]{result.getString(1),result.getString(2),result.getString(3),result.getString(4)});
 	    }
             }catch(Exception e){
-                
+                System.out.println(e.getMessage());
             }
 	}catch(Exception e){
 	    System.out.println(e.getMessage());
@@ -590,14 +603,14 @@ public class ConsultasDB {
     public ArrayList<String[]> diezProductosMasVendidosIntervalo(String fechaInferior,String fechaSuperior,Connection conexion){
         ArrayList<String[]> productosMasVendidos = new ArrayList<String[]>();
         
-        String consulta="SELECT PRODUCTO.codigo,PRODUCTO.nombre,PRODUCTO.fabricante FROM PRODUCTO WHERE codigo IN (SELECT PRODUCTO_codigo FROM VENTAS WHERE fecha_venta BETWEEN ? AND ? GROUP BY PRODUCTO_codigo ORDER BY count(PRODUCTO_codigo) DESC) LIMIT 10";
-        
+        //String consulta="SELECT PRODUCTO.codigo,PRODUCTO.nombre,PRODUCTO.fabricante FROM PRODUCTO WHERE codigo IN (SELECT PRODUCTO_codigo FROM VENTAS WHERE fecha_venta BETWEEN ? AND ? GROUP BY PRODUCTO_codigo ORDER BY count(PRODUCTO_codigo) DESC) LIMIT 10";
+        String consulta = "SELECT P.nombre,V.PRODUCTO_codigo,P.fabricante,sum(V.cantidad_producto)  FROM ventas V INNER JOIN producto P ON V.PRODUCTO_codigo=P.codigo AND V.fecha_venta BETWEEN ? AND ? GROUP BY(V.PRODUCTO_codigo) ORDER BY sum(V.cantidad_producto)  DESC LIMIT 10";
         try (PreparedStatement preSt = conexion.prepareStatement(consulta)) {
             preSt.setString(1,fechaInferior);
             preSt.setString(2,fechaSuperior);
             try(ResultSet result = preSt.executeQuery()){
                 while(result.next()){
-                productosMasVendidos.add(new String[]{result.getString(1),result.getString(2),result.getString(3)});
+                productosMasVendidos.add(new String[]{result.getString(1),result.getString(2),result.getString(3),result.getString(4)});
 	    }
             }catch(Exception e){
                 
@@ -616,13 +629,14 @@ public class ConsultasDB {
     public ArrayList<String[]> ProductosMasVendidosTienda(String codigoTienda,Connection conexion){
         ArrayList<String[]> productosMasVendidos = new ArrayList<String[]>();
         
-        String consulta="SELECT PRODUCTO.codigo,PRODUCTO.nombre,PRODUCTO.fabricante FROM PRODUCTO WHERE codigo IN (SELECT PRODUCTO_codigo FROM VENTAS WHERE VENTAS.TIENDA_codigo = ? GROUP BY PRODUCTO_codigo ORDER BY count(PRODUCTO_codigo) DESC)";
+        //String consulta="SELECT PRODUCTO.codigo,PRODUCTO.nombre,PRODUCTO.fabricante FROM PRODUCTO WHERE codigo IN (SELECT PRODUCTO_codigo FROM VENTAS WHERE VENTAS.TIENDA_codigo = ? GROUP BY PRODUCTO_codigo ORDER BY count(PRODUCTO_codigo) DESC)";
+        String consulta ="SELECT P.nombre,V.PRODUCTO_codigo,P.fabricante,sum(V.cantidad_producto)  FROM ventas V INNER JOIN producto P ON V.PRODUCTO_codigo=P.codigo AND V.TIENDA_codigo= ? GROUP BY(V.PRODUCTO_codigo) ORDER BY sum(V.cantidad_producto) DESC";
         
         try (PreparedStatement preSt = conexion.prepareStatement(consulta)) {
             preSt.setString(1,codigoTienda);
             try(ResultSet result = preSt.executeQuery()){
                 while(result.next()){
-                productosMasVendidos.add(new String[]{result.getString(1),result.getString(2),result.getString(3)});
+                productosMasVendidos.add(new String[]{result.getString(1),result.getString(2),result.getString(3),result.getString(4)});
 	    }
             }catch(Exception e){
                 
@@ -643,18 +657,18 @@ public class ConsultasDB {
      public ArrayList<String[]> ProductosMasVendidosTiendaIntervalo(String codigoTienda,String fechaInferior,String fechaSuperior,Connection conexion){
         ArrayList<String[]> productosMasVendidos = new ArrayList<String[]>();
         
-        String consulta="SELECT PRODUCTO.codigo,PRODUCTO.nombre,PRODUCTO.fabricante FROM PRODUCTO WHERE codigo IN (SELECT PRODUCTO_codigo FROM VENTAS WHERE VENTAS.TIENDA_codigo = ? AND fecha_venta BETWEEN ? AND ? GROUP BY PRODUCTO_codigo ORDER BY count(PRODUCTO_codigo) DESC)";
-        
+        //String consulta="SELECT PRODUCTO.codigo,PRODUCTO.nombre,PRODUCTO.fabricante FROM PRODUCTO WHERE codigo IN (SELECT PRODUCTO_codigo FROM VENTAS WHERE VENTAS.TIENDA_codigo = ? AND fecha_venta BETWEEN ? AND ? GROUP BY PRODUCTO_codigo ORDER BY count(PRODUCTO_codigo) DESC)";
+        String consulta = "SELECT P.nombre,V.PRODUCTO_codigo,P.fabricante,sum(V.cantidad_producto)  FROM ventas V INNER JOIN producto P ON V.PRODUCTO_codigo=P.codigo AND V.TIENDA_codigo= ? AND V.fecha_venta between ? and ? GROUP BY(V.PRODUCTO_codigo) ORDER BY sum(V.cantidad_producto) DESC";
         try (PreparedStatement preSt = conexion.prepareStatement(consulta)) {
             preSt.setString(1,codigoTienda);
             preSt.setString(2,fechaInferior);
             preSt.setString(3,fechaSuperior);
             try(ResultSet result = preSt.executeQuery()){
                 while(result.next()){
-                productosMasVendidos.add(new String[]{result.getString(1),result.getString(2),result.getString(3)});
+                productosMasVendidos.add(new String[]{result.getString(1),result.getString(2),result.getString(3),result.getString(4)});
 	    }
             }catch(Exception e){
-                
+                System.out.println(e.getMessage());
             }
 	}catch(Exception e){
 	    System.out.println(e.getMessage());
@@ -682,7 +696,7 @@ public class ConsultasDB {
                 productoNoVendidos.add(new String[]{result.getString(1),result.getString(2),result.getString(3)});
 	    }
             }catch(Exception e){
-                
+                System.out.println(e.getMessage());
             }
 	}catch(Exception e){
 	    System.out.println(e.getMessage());

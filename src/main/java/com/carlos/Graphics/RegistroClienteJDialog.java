@@ -306,6 +306,9 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
         this.limpiezaCampos();
     }//GEN-LAST:event_jButtonLimpiarActionPerformed
+    /**
+     * Limpieza de los campos de texto de los atributos de un cliente
+     */
     private void limpiezaCampos(){
         this.jFormattedTextFieldNombre.setText(null);
         this.jFormattedTextFieldTelefono.setText(null);
@@ -320,6 +323,7 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
     }
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
         // TODO add your handling code here:
+        //Verifica que si hara un busqueda personalizada esta tenga los valores para realizarlo
         if(jTextFieldCampoDeBusqueda.getText().equals("")&&!(jComboBoxTipoBusqueda.getSelectedItem().toString().equals("Todos")))
         {
             JOptionPane.showMessageDialog(this, "Introduzca una palabra clave para la busqueda");
@@ -346,6 +350,7 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
         correoElectronico = this.jFormattedTextFieldEmail.getText();
         direccion = this.jFormattedTextFieldDirecion.getText();
         try {
+            //Verifica que los numeros telefonicos tengan 8 digitos
             if(this.jFormattedTextFieldTelefono.getText().length()==8)
             {
                 telefono = Long.parseLong(this.jFormattedTextFieldTelefono.getText());
@@ -361,11 +366,12 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
         }
        
         double tempCredito = 0;
-        
+        //Guarda un copia del credito para realizar compracion mas adelante
         try {
             tempCredito = Double.parseDouble(this.jFormattedTextFieldCreditoCompra.getText());
         } catch (Exception e) {
         }
+        //Compara si el credtio es el correcto
         if(tempCredito>=0)
         {
             creditoDecompra=tempCredito;
@@ -378,18 +384,22 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
         //Verfiicacion de los datos de credito del cliente
         if(bandera)
         {
+            //Verifica los campos obligatorios para la moficiacion de un cliente
             if(nombre.equals("")||telefono==0){
                 JOptionPane.showMessageDialog(this, "No se han completado los campos obligatorios del formulario");
             }
             else
             {
+                //Verifica que el DPI sea correcto y tenga la cantidad correcta de digitos
                 String resultadoDPI="";
                 if(DPI>0){
                     resultadoDPI=String.valueOf(DPI);
                 }
+                //Genera el objeto para su modificaion
                 Client clienteModificado = new Client(nombre, String.valueOf(telefono), NIT, resultadoDPI, creditoDecompra, correoElectronico, direccion);
                 ModificacionesDB modificarCliente = new ModificacionesDB();
                 String respuesta = modificarCliente.modificarCliente(clienteModificado,this.baseDeDatos);
+                //Genera una respuesta de lo ocurrido al momento de la modificacion del empleado
                 if(!(respuesta.equals(""))){
                     JOptionPane.showMessageDialog(this, respuesta);
                 }
@@ -416,18 +426,20 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
         double creditoDecompra=0;
         String correoElectronico;
         String direccion;
-        //
+        //bandera para poder porseguir con el registro del cliente nuevo
         boolean bandera =true;
-        
+        //Se extraen todos los atributos ingresados por la interfaz de usuario
         nombre = this.jFormattedTextFieldNombre.getText();
         NIT = this.jFormattedTextFieldNIT.getText();
         correoElectronico = this.jFormattedTextFieldEmail.getText();
         direccion = this.jFormattedTextFieldDirecion.getText();
         try {
+            //Verifica la cantidad de digitos del numero telefonico
             if(this.jFormattedTextFieldTelefono.getText().length()==8)
             {
                 telefono = Long.parseLong(this.jFormattedTextFieldTelefono.getText());
             }
+            //Verifica la cantida de digitos del numero de DPI
             if(this.jFormattedTextFieldDPI.getText().length()!=0)
             {
                 if(this.jFormattedTextFieldDPI.getText().length()==9)
@@ -441,7 +453,7 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
         }
        
         double tempCredito = 0;
-        
+        //Verifiica el credito del cliente para saber si es correcto
         try {
             tempCredito = Double.parseDouble(this.jFormattedTextFieldCreditoCompra.getText());
         } catch (Exception e) {
@@ -463,6 +475,7 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
             }
             else
             {
+                //verfica si el DPI posee eun numero y si no asigna un cadena vacia de datos
                 String resultadoDPI="";
                 if(DPI>0){
                     resultadoDPI=String.valueOf(DPI);
@@ -498,7 +511,9 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
         this.jFormattedTextFieldNIT.setEditable(false);
         this.jFormattedTextFieldCreditoCompra.setEditable(true);
         int filaSeleccionada = jTableClientes.getSelectedRow();
+        //Verificamos si tenemos un resultado al momento de seleccionar una fila del Jtable
         if(!(filaSeleccionada==-1)){
+            //Se extrae la informacion del JTable para realizar una consulta
             String nitCliente = String.valueOf(jTableClientes.getValueAt(filaSeleccionada, 0));
             ConsultasDB consutaCliente = new ConsultasDB();
             ArrayList<String> datosCliente = consutaCliente.datosCliente(nitCliente,this.baseDeDatos);
@@ -520,6 +535,7 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
         String sentencia = "SELECT * FROM CLIENTE WHERE nombre LIKE ? ORDER BY nit ASC;";
         String busqueda="";
         busqueda = this.jTextFieldCampoDeBusqueda.getText();
+        //Segun el tipo de busqueda se selecciona un tipo de consulta u otra, depende del resultado del JcomboBoxBusqueda
         if(modoListado.equals("Todos")){
             sentencia = "SELECT * FROM CLIENTE ORDER BY nit ASC";
         }
@@ -531,22 +547,27 @@ public class RegistroClienteJDialog extends javax.swing.JDialog {
         }
         
         try (PreparedStatement preSt = this.baseDeDatos.prepareStatement(sentencia)){
+            //Si hay una busqueda avanzada ingresa los datos para la consulta
             if(!(modoListado.equals("Todos"))){
                 preSt.setString(1, "%" + busqueda + "%");
             }
-            ResultSet result = preSt.executeQuery();
-            Object[] cliente = new Object[3];
-            modeloDeTabla = (DefaultTableModel)jTableClientes.getModel();
-            modeloDeTabla.setNumRows(0);
-            while (result.next()){
-                cliente[0]=result.getString(1);
-                cliente[1]=result.getString(2);
-                cliente[2]=result.getString(3);
-                modeloDeTabla.addRow(cliente);
+            try(ResultSet result = preSt.executeQuery()){
+                //Crea un arreglo para el guardado de informacion en el JTable
+                Object[] cliente = new Object[3];
+                modeloDeTabla = (DefaultTableModel)jTableClientes.getModel();
+                modeloDeTabla.setNumRows(0);
+                while (result.next()){
+                    //Se ingresan los resultados y se asignan al modelo de del JTable
+                    cliente[0]=result.getString(1);
+                    cliente[1]=result.getString(2);
+                    cliente[2]=result.getString(3);
+                    modeloDeTabla.addRow(cliente);
+                }
+                //Ingresa todos los resultados al Jtable encargado
+                jTableClientes.setModel(modeloDeTabla);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e.getMessage());
             }
-            jTableClientes.setModel(modeloDeTabla);
-            result.close();
-            preSt.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }

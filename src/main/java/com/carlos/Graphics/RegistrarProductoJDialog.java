@@ -500,8 +500,9 @@ public class RegistrarProductoJDialog extends javax.swing.JDialog {
         this.jFormattedTextFieldCodigo.setEditable(false);
         this.jComboBoxTiendas.setEnabled(false);
         int filaSeleccionada = jTableProductos.getSelectedRow();
-        
+        //Verifica si se selecciono un campo del Jtable
         if(!(filaSeleccionada==-1)){
+            //Se extrae la informacion del JTable
             String codigoProducto = String.valueOf(jTableProductos.getValueAt(filaSeleccionada, 0));
             String codigoTienda = String.valueOf(jTableProductos.getValueAt(filaSeleccionada, 2));
             ConsultasDB consutaProducto = new ConsultasDB();
@@ -510,7 +511,7 @@ public class RegistrarProductoJDialog extends javax.swing.JDialog {
             datosProducto=consutaProducto.datosProducto(codigoProducto,this.baseDeDatos);
             
             String cantidad = consutaProducto.datosExistenciaProducto(codigoProducto, codigoTienda,this.baseDeDatos);
-            
+            //Se asigna la informacion a los campos de texto
             jFormattedTextFieldCodigo.setText(codigoProducto);
             jFormattedTextFieldNombre.setText(datosProducto.get(0));
             jFormattedTextFieldFabricante.setText(datosProducto.get(1));
@@ -543,6 +544,7 @@ public class RegistrarProductoJDialog extends javax.swing.JDialog {
         String sentencia = "SELECT codigo,nombre,TIENDA_codigo FROM PRODUCTO,EXISTENCIA WHERE codigo = PRODUCTO_codigo AND TIENDA_codigo LIKE ? ORDER BY codigo ASC;";
         String busqueda="";
         busqueda = this.jTextFieldCampoDeBusquedaProductos.getText();
+        //Segun el tipo de seleccion de ordenamiento se hace la consulta a la base de datos
         if(modoListado.equals("Todos")){
             sentencia = "SELECT codigo,nombre,TIENDA_codigo FROM PRODUCTO,EXISTENCIA WHERE codigo = PRODUCTO_codigo ORDER BY codigo ASC;";
         }
@@ -561,19 +563,24 @@ public class RegistrarProductoJDialog extends javax.swing.JDialog {
             if(!(modoListado.equals("Todos"))){
                 preSt.setString(1, "%" + busqueda + "%");
             }
-            ResultSet result = preSt.executeQuery();
-            Object[] productos = new Object[3];
-            modeloDeTabla = (DefaultTableModel)jTableProductos.getModel();
-            modeloDeTabla.setNumRows(0);
-            while (result.next()){
-                productos[0]=result.getString(1);
-                productos[1]=result.getString(2);
-                productos[2]=result.getString(3);
-                modeloDeTabla.addRow(productos);
-            }
+            try(ResultSet result = preSt.executeQuery()) {
+                //Se crea un arreglo para guardar los resultados de la consuta a la base de datos
+                Object[] productos = new Object[3];
+                //Se extrae el modelo que se asigno a la tabla y se reinicia la cantidad de filas del JTable
+                modeloDeTabla = (DefaultTableModel)jTableProductos.getModel();
+                modeloDeTabla.setNumRows(0);
+                while (result.next()){
+                    //Se guardan los resultados en la cadena 
+                    productos[0]=result.getString(1);
+                    productos[1]=result.getString(2);
+                    productos[2]=result.getString(3);
+                    //Los resultados se agrgan a la tabla
+                    modeloDeTabla.addRow(productos);
+                }
             jTableProductos.setModel(modeloDeTabla);
-            result.close();
-            preSt.close();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e.getMessage());
+            }
         }catch(Exception e){
             JOptionPane.showMessageDialog(this, e.getMessage());
         }

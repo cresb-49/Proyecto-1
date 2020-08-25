@@ -456,6 +456,7 @@ public class VentaJDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
         String codigoProducto = this.jFormattedTextFieldCodigoProducto.getText();
         String existencia =this.consulta.datosExistenciaProducto(codigoProducto, tiendaSleccionada,this.baseDeDatos);
+        //Verifica que la existencia de un prodcuto este asignada
         if(existencia.equals("0")||existencia.equals("")){
             
             JOptionPane.showMessageDialog(this, "No hay existencia del producto en tienda haga un pedido del mismo en el apartado");
@@ -468,6 +469,7 @@ public class VentaJDialog extends javax.swing.JDialog {
             }
             else
             {
+                //Intreduce los datos de la existencia de un producto a un ComboBos para poder seleccionar la cantida de producto
                 try {
                     ArrayList<String> datosProducto = new ArrayList<String>();
                     datosProducto = this.consulta.datosProducto(codigoProducto,this.baseDeDatos);
@@ -491,6 +493,7 @@ public class VentaJDialog extends javax.swing.JDialog {
 
     private void jButtonBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarClienteActionPerformed
         // TODO add your handling code here:
+        //asigna los datos de usurio en la pantalla
         String nitCliente = this.jFormattedTextFieldNIT.getText();
         ArrayList<String> datosCliente = new ArrayList<String>();
         datosCliente = this.consulta.datosCliente(nitCliente,this.baseDeDatos);
@@ -507,21 +510,23 @@ public class VentaJDialog extends javax.swing.JDialog {
         String year = jComboBoxYear.getSelectedItem().toString();
         String Mes = jComboBoxMes.getSelectedItem().toString();
         String Dia = jComboBoxDias.getSelectedItem().toString();
+        //Verifica que haya asignado una fecha para la transaccion
         if(!year.equals("Año")&&!Mes.equals("Mes")&&!Dia.equals("Dia")){
+            //Verifiac que haya un cliente adigando para hacer la transaccion
             if(!(jFormattedTextFieldNombreCliente.getText().equals(""))){
                 double precioParcial=0;
                 int cantidad=1;
                 Object[] productos = new Object[4];
-
+                //Calcula lo referente a pago sobre un producto y a las cantidades asignadas del mismo
                 cantidad = Integer.valueOf(jComboBoxCantidad.getSelectedItem().toString());
                 precioParcial = precioParcial + ((Double.valueOf(jFormattedTextFieldPrecio.getText()))*cantidad);
-
+                //Adjunta la informacion de un producto para gregarlo a la tabla de ventas
                 productos[0]=jFormattedTextFieldNombreProducto.getText();
                 productos[1]=jFormattedTextFieldCodigoProducto.getText();
                 productos[2]=jComboBoxCantidad.getSelectedItem().toString();
                 productos[3]=String.valueOf(precioParcial);
                 String fecha = year+"-"+Mes+"-"+Dia;
-                
+                //Genera un venata de producto para el registro en la base de datos
                 ventasAcumuladas.add(new Ventas(jFormattedTextFieldCodigoProducto.getText(), tiendaSleccionada,jFormattedTextFieldNIT.getText(),cantidad, fecha));
 
                 modeloDeTabla.addRow(productos);
