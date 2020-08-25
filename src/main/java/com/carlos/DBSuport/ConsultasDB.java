@@ -580,7 +580,7 @@ public class ConsultasDB {
      */
     public ArrayList<String[]> diezProductosMasVendidos(Connection conexion){
         ArrayList<String[]> productosMasVendidos = new ArrayList<String[]>();
-        String consulta = "SELECT P.nombre,V.PRODUCTO_codigo,P.fabricante,sum(V.cantidad_producto)  FROM ventas V INNER JOIN producto P ON V.PRODUCTO_codigo=P.codigo GROUP BY(V.PRODUCTO_codigo) ORDER BY sum(V.cantidad_producto) DESC LIMIT 10";
+        String consulta = "SELECT P.nombre,V.PRODUCTO_codigo,P.fabricante,sum(V.cantidad_producto) FROM VENTAS V INNER JOIN PRODUCTO P ON V.PRODUCTO_codigo=P.codigo GROUP BY(V.PRODUCTO_codigo) ORDER BY sum(V.cantidad_producto) DESC LIMIT 10";
         //String consulta="SELECT PRODUCTO.codigo,PRODUCTO.nombre,PRODUCTO.fabricante FROM PRODUCTO WHERE codigo IN (SELECT PRODUCTO_codigo FROM VENTAS GROUP BY PRODUCTO_codigo ORDER BY count(PRODUCTO_codigo) DESC) LIMIT 10";
         try (PreparedStatement preSt = conexion.prepareStatement(consulta)) {
             try(ResultSet result = preSt.executeQuery()){
@@ -604,7 +604,7 @@ public class ConsultasDB {
         ArrayList<String[]> productosMasVendidos = new ArrayList<String[]>();
         
         //String consulta="SELECT PRODUCTO.codigo,PRODUCTO.nombre,PRODUCTO.fabricante FROM PRODUCTO WHERE codigo IN (SELECT PRODUCTO_codigo FROM VENTAS WHERE fecha_venta BETWEEN ? AND ? GROUP BY PRODUCTO_codigo ORDER BY count(PRODUCTO_codigo) DESC) LIMIT 10";
-        String consulta = "SELECT P.nombre,V.PRODUCTO_codigo,P.fabricante,sum(V.cantidad_producto)  FROM ventas V INNER JOIN producto P ON V.PRODUCTO_codigo=P.codigo AND V.fecha_venta BETWEEN ? AND ? GROUP BY(V.PRODUCTO_codigo) ORDER BY sum(V.cantidad_producto)  DESC LIMIT 10";
+        String consulta = "SELECT P.nombre,V.PRODUCTO_codigo,P.fabricante,sum(V.cantidad_producto) FROM VENTAS V INNER JOIN PRODUCTO P ON V.PRODUCTO_codigo=P.codigo AND V.fecha_venta BETWEEN ? AND ? GROUP BY(V.PRODUCTO_codigo) ORDER BY sum(V.cantidad_producto)  DESC LIMIT 10";
         try (PreparedStatement preSt = conexion.prepareStatement(consulta)) {
             preSt.setString(1,fechaInferior);
             preSt.setString(2,fechaSuperior);
@@ -630,7 +630,7 @@ public class ConsultasDB {
         ArrayList<String[]> productosMasVendidos = new ArrayList<String[]>();
         
         //String consulta="SELECT PRODUCTO.codigo,PRODUCTO.nombre,PRODUCTO.fabricante FROM PRODUCTO WHERE codigo IN (SELECT PRODUCTO_codigo FROM VENTAS WHERE VENTAS.TIENDA_codigo = ? GROUP BY PRODUCTO_codigo ORDER BY count(PRODUCTO_codigo) DESC)";
-        String consulta ="SELECT P.nombre,V.PRODUCTO_codigo,P.fabricante,sum(V.cantidad_producto)  FROM ventas V INNER JOIN producto P ON V.PRODUCTO_codigo=P.codigo AND V.TIENDA_codigo= ? GROUP BY(V.PRODUCTO_codigo) ORDER BY sum(V.cantidad_producto) DESC";
+        String consulta ="SELECT P.nombre,V.PRODUCTO_codigo,P.fabricante,sum(V.cantidad_producto)  FROM VENTAS V INNER JOIN PRODUCTO P ON V.PRODUCTO_codigo=P.codigo AND V.TIENDA_codigo= ? GROUP BY(V.PRODUCTO_codigo) ORDER BY sum(V.cantidad_producto) DESC";
         
         try (PreparedStatement preSt = conexion.prepareStatement(consulta)) {
             preSt.setString(1,codigoTienda);
@@ -658,7 +658,7 @@ public class ConsultasDB {
         ArrayList<String[]> productosMasVendidos = new ArrayList<String[]>();
         
         //String consulta="SELECT PRODUCTO.codigo,PRODUCTO.nombre,PRODUCTO.fabricante FROM PRODUCTO WHERE codigo IN (SELECT PRODUCTO_codigo FROM VENTAS WHERE VENTAS.TIENDA_codigo = ? AND fecha_venta BETWEEN ? AND ? GROUP BY PRODUCTO_codigo ORDER BY count(PRODUCTO_codigo) DESC)";
-        String consulta = "SELECT P.nombre,V.PRODUCTO_codigo,P.fabricante,sum(V.cantidad_producto)  FROM ventas V INNER JOIN producto P ON V.PRODUCTO_codigo=P.codigo AND V.TIENDA_codigo= ? AND V.fecha_venta between ? and ? GROUP BY(V.PRODUCTO_codigo) ORDER BY sum(V.cantidad_producto) DESC";
+        String consulta = "SELECT P.nombre,V.PRODUCTO_codigo,P.fabricante,sum(V.cantidad_producto)  FROM VENTAS V INNER JOIN PRODUCTO P ON V.PRODUCTO_codigo=P.codigo AND V.TIENDA_codigo= ? AND V.fecha_venta between ? and ? GROUP BY(V.PRODUCTO_codigo) ORDER BY sum(V.cantidad_producto) DESC";
         try (PreparedStatement preSt = conexion.prepareStatement(consulta)) {
             preSt.setString(1,codigoTienda);
             preSt.setString(2,fechaInferior);
