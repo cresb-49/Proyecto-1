@@ -444,12 +444,7 @@ public class VentaJDialog extends javax.swing.JDialog {
         if(tranNorm)
         {
             transaccionNormal();
-        }
-        else
-        {
-            transaccionEspecial();
-        }
-        
+        } 
     }//GEN-LAST:event_jButtonTransaccionActionPerformed
     
     private void jButtonBuscarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarProductoActionPerformed
@@ -614,9 +609,6 @@ public class VentaJDialog extends javax.swing.JDialog {
         {
             JOptionPane.showMessageDialog(this, "No ha seleccionado ningun producto\nNo se puede realizar la transaccion");
         }
-    }
-    private void transaccionEspecial(){
-        
     }
     private  void cargarEspecialDeDatos(){
         jLabel1.setText("Codigo del Pedido:");
