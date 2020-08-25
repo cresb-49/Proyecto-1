@@ -380,6 +380,7 @@ public class RegistroEmpleadoJDialog extends javax.swing.JDialog {
             telefono = Long.parseLong(this.jFormattedTextFieldTelefono.getText());
             DPI = Long.parseLong(this.jFormattedTextFieldDPI.getText());
         } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
         //Verifiaca que haya texto en los campos obligatorios del programa
         if(codigoEmpleado.equals("")||nombre.equals("")||telefono==0||DPI==0||correoElectronico.equals("")||direccion.equals("")){
