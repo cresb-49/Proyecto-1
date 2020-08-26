@@ -92,6 +92,8 @@ public class GenerateHTML {
                     html.println("<th>Nombre del Cliente</th>");
                     html.println("<th>Nit del Cliente</th>");
                     html.println("<th>Tienda de Origen</th>");
+                    html.println("<th>Codigo del Producto</th>");
+                    html.println("<th>Cantidad</th>");
                 html.println("</tr>");
             html.println("</thead>");
             html.println("<tbody>");
@@ -103,6 +105,8 @@ public class GenerateHTML {
                         html.println("<td>"+pedidosDelReporte.get(i)[1]+"</td>");
                         html.println("<td>"+pedidosDelReporte.get(i)[2]+"</td>");
                         html.println("<td>"+pedidosDelReporte.get(i)[3]+"</td>");
+                        html.println("<td>"+pedidosDelReporte.get(i)[4]+"</td>");
+                        html.println("<td>"+pedidosDelReporte.get(i)[5]+"</td>");
                     html.println("<tbody>");
                 }
                 ///////////////////////////////////////////////
@@ -133,6 +137,8 @@ public class GenerateHTML {
                     html.println("<th>Nombre del Cliente</th>");
                     html.println("<th>Nit del Cliente</th>");
                     html.println("<th>Tienda de Origen</th>");
+                    html.println("<th>Codigo del Producto</th>");
+                    html.println("<th>Cantidad</th>");
                 html.println("</tr>");
             html.println("</thead>");
             html.println("<tbody>");
@@ -144,6 +150,8 @@ public class GenerateHTML {
                         html.println("<td>"+pedidosDelReporte.get(i)[1]+"</td>");
                         html.println("<td>"+pedidosDelReporte.get(i)[2]+"</td>");
                         html.println("<td>"+pedidosDelReporte.get(i)[3]+"</td>");
+                        html.println("<td>"+pedidosDelReporte.get(i)[4]+"</td>");
+                        html.println("<td>"+pedidosDelReporte.get(i)[5]+"</td>");
                     html.println("<tbody>");
                 }
                 ///////////////////////////////////////////////
@@ -168,7 +176,9 @@ public class GenerateHTML {
                     html.println("<th>Codigo Pedido</th>");
                     html.println("<th>Nombre del Cliente</th>");
                     html.println("<th>Nit del Cliente</th>");
-                    html.println("<th>Tienda de Origen</th>");
+                    html.println("<th>Tienda de Llegada</th>");
+                    html.println("<th>Codigo del Producto</th>");
+                    html.println("<th>Cantidad</th>");
                 html.println("</tr>");
             html.println("</thead>");
             html.println("<tbody>");
@@ -180,6 +190,8 @@ public class GenerateHTML {
                         html.println("<td>"+pedidosDelReporte.get(i)[1]+"</td>");
                         html.println("<td>"+pedidosDelReporte.get(i)[2]+"</td>");
                         html.println("<td>"+pedidosDelReporte.get(i)[3]+"</td>");
+                        html.println("<td>"+pedidosDelReporte.get(i)[4]+"</td>");
+                        html.println("<td>"+pedidosDelReporte.get(i)[5]+"</td>");
                     html.println("<tbody>");
                 }
                 ///////////////////////////////////////////////

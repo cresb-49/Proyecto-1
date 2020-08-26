@@ -40,7 +40,7 @@ public class CatalogoJDialog extends javax.swing.JDialog {
         
         //Sentencia por defecto
         //"SELECT PRODUCTO.nombre, PRODUCTO.fabricante, PRODUCTO.codigo, EXISTENCIA.cantidad, PRODUCTO.precio, TIENDA.nombre FROM PRODUCTO, TIENDA, EXISTENCIA where PRODUCTO_codigo = PRODUCTO.codigo AND TIENDA_codigo = TIENDA.codigo and PRODUCTO.nombre LIKE '%10%' ORDER BY PRODUCTO.nombre ASC;";
-        String sentencia = "SELECT PRODUCTO.nombre, PRODUCTO.fabricante, PRODUCTO.codigo, EXISTENCIA.cantidad, PRODUCTO.precio, TIENDA.nombre FROM PRODUCTO, TIENDA, EXISTENCIA where PRODUCTO_codigo = PRODUCTO.codigo AND TIENDA_codigo = TIENDA.codigo";
+        String sentencia = "SELECT PRODUCTO.nombre, PRODUCTO.fabricante, PRODUCTO.codigo, EXISTENCIA.cantidad, PRODUCTO.precio, TIENDA.nombre FROM PRODUCTO INNER JOIN TIENDA INNER JOIN EXISTENCIA ON PRODUCTO_codigo = PRODUCTO.codigo AND TIENDA_codigo = TIENDA.codigo";
         String modoDeBusqueda = jComboBoxParametroDeBusqueda.getSelectedItem().toString();
         String busqueda = jFormattedTextFieldBusqeuda.getText();
         //tabla.columna like '%10%'

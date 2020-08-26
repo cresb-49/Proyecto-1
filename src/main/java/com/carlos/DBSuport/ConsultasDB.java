@@ -484,14 +484,14 @@ public class ConsultasDB {
     public ArrayList<String[]> pedidosReporte(String codigoTienda,String estadoDePedido,Connection conexion){
         ArrayList<String[]> datosProducto = new ArrayList<String[]>();
         
-        String consulta="SELECT PEDIDO.codigo,CLIENTE.nombre,PEDIDO.CLIENTE_nit,PEDIDO.TIENDA_codigo_salida FROM PEDIDO,CLIENTE WHERE PEDIDO.TIENDA_codigo_llegada = ? AND PEDIDO.CLIENTE_nit = CLIENTE.nit AND PEDIDO.estado_pedido= ?";
+        String consulta="SELECT PEDIDO.codigo,CLIENTE.nombre,PEDIDO.CLIENTE_nit,PEDIDO.TIENDA_codigo_salida,PEDIDO.PRODUCTO_codigo,PEDIDO.cantidad FROM PEDIDO INNER JOIN CLIENTE ON PEDIDO.TIENDA_codigo_llegada = ? AND PEDIDO.CLIENTE_nit = CLIENTE.nit AND PEDIDO.estado_pedido= ?";
         
         try (PreparedStatement preSt = conexion.prepareStatement(consulta)) {
 	    preSt.setString(1,codigoTienda);
             preSt.setString(2,estadoDePedido);
             try(ResultSet result = preSt.executeQuery()) {
                 while(result.next()){
-                    datosProducto.add(new String[]{result.getString(1),result.getString(2),result.getString(3),result.getString(4)});
+                    datosProducto.add(new String[]{result.getString(1),result.getString(2),result.getString(3),result.getString(4),result.getString(5),result.getString(6)});
                 }
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -510,13 +510,13 @@ public class ConsultasDB {
     public ArrayList<String[]> pedidosSalidaReporte(String codigoTienda,Connection conexion){
         ArrayList<String[]> datosProducto = new ArrayList<String[]>();
         
-        String consulta="SELECT PEDIDO.codigo,CLIENTE.nombre,PEDIDO.CLIENTE_nit,PEDIDO.TIENDA_codigo_llegada FROM PEDIDO,CLIENTE WHERE PEDIDO.TIENDA_codigo_salida = ? AND PEDIDO.CLIENTE_nit = CLIENTE.nit AND PEDIDO.estado_pedido='ET'";
+        String consulta="SELECT PEDIDO.codigo,CLIENTE.nombre,PEDIDO.CLIENTE_nit,PEDIDO.TIENDA_codigo_llegada,PEDIDO.PRODUCTO_codigo,PEDIDO.cantidad FROM PEDIDO INNER JOIN CLIENTE ON PEDIDO.TIENDA_codigo_salida = ? AND PEDIDO.CLIENTE_nit = CLIENTE.nit AND PEDIDO.estado_pedido='ET'";
         
         try (PreparedStatement preSt = conexion.prepareStatement(consulta)) {
 	    preSt.setString(1,codigoTienda);
             try(ResultSet result = preSt.executeQuery()) {
                 while(result.next()){
-                    datosProducto.add(new String[]{result.getString(1),result.getString(2),result.getString(3),result.getString(4)});
+                    datosProducto.add(new String[]{result.getString(1),result.getString(2),result.getString(3),result.getString(4),result.getString(5),result.getString(6)});
                 }
             } catch (Exception e) {
                 System.out.println(e.getMessage());
